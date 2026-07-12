@@ -6,12 +6,14 @@ import assetRoutes from '../modules/assets/routes/assetRoutes.js';
 import authRoutes from '../modules/auth/routes/authRoutes.js';
 import resourceRoutes from '../routes/resource.routes.js';
 import bookingRoutes from '../routes/booking.routes.js';
+import dashboardRoutes from '../modules/dashboard/routes/dashboardRoutes.js';
 
 const router = express.Router();
 
 router.use("/api/resources", resourceRoutes);
 router.use("/api/bookings", bookingRoutes);
 router.use('/api/auth', authRoutes);
+router.use('/api/dashboard', dashboardRoutes);
 
 // Health check endpoint
 router.get("/health", async (req, res) => {

@@ -88,13 +88,10 @@ export const allocationService = {
 };
 
 export const dashboardService = {
-  getKpiCards: async () => kpiCards,
-  getAssetsByCategory: async () => assetsByCategory,
-  getAssetsByStatus: async () => assetsByStatus,
-  getMaintenanceOverview: async () => maintenanceOverview,
-  getDepartmentAssets: async () => departmentAssets,
-  getRecentActivities: async () => recentActivities,
-  getRecentNotifications: async () => recentNotifications,
+  getStats: async () => {
+    const res = await apiClient.get('/dashboard');
+    return res.data;
+  }
 };
 
 export const reportService = {
