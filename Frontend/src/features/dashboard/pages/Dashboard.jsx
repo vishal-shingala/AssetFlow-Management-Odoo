@@ -45,7 +45,7 @@ export default function Dashboard() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-text">Dashboard</h1>
-          <Breadcrumb items={[{ label: 'Dashboard' }]} />
+          {/* <Breadcrumb items={[{ label: 'Dashboard' }]} /> */}
         </div>
         <p className="text-sm text-muted">
           {new Date().toLocaleDateString('en-US', {

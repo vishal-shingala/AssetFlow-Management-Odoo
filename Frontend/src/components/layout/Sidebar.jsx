@@ -14,21 +14,39 @@ export default function Sidebar() {
       }`}
     >
      {/* Logo */}
-<div className="h-16 flex items-center justify-start flex-none">
-  <div className="flex items-center gap-1.5 w-full">
-    <div className="ml-4 w-3 h-10 flex-shrink-0 rounded-xl bg-primary flex items-center justify-center shadow-glow-primary">
-      <Box className="w-5 h-5 text-white" />
+    {/* <div className="h-16 flex items-center justify-start flex-none">
+      <div className="flex items-center gap-1.5 w-full">
+        <div className="ml-3 w-7 h-10 flex-shrink-0 rounded-xl bg-primary flex items-center justify-center shadow-glow-primary">
+          <Box className="w-5 h-5 text-white" />
+        </div>
+        {!sidebarCollapsed && (
+          <span className="text-xl font-bold tracking-tight text-white leading-none">
+            {APP_NAME}
+          </span>
+        )}
+      </div>
+    </div> */}
+
+    <div className="h-16 flex items-center">
+  <div
+    className={`flex items-center ${
+      sidebarCollapsed ? "justify-center w-full" : "justify-start gap-2"
+    }`}
+  >
+    <div className="ml-2 w-7 h-10 rounded-xl bg-primary flex items-center justify-center shadow-glow-primary flex-shrink-0">
+      <Box className="w-6 h-6 text-white" />
     </div>
+
     {!sidebarCollapsed && (
-      <span className="text-xl font-bold tracking-tight text-white leading-none">
+      <span className="text-xl font-bold tracking-tight text-white">
         {APP_NAME}
       </span>
     )}
   </div>
 </div>
-
+    
       {/* Navigation */}
-      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden">
+      <nav className="flex-1 py-4 px-3 space-y-1 border-t border-white/5 overflow-y-auto overflow-x-hidden">
         {NAV_ITEMS.map((item) => (
           <NavLink
             key={item.id}
@@ -48,7 +66,7 @@ export default function Sidebar() {
             {({ isActive }) => (
               <>
                 <item.icon
-                  className={`w-5 h-5 min-w-[20px] min-h-[20px] flex-shrink-0 ${
+                  className={`w-2 h-5 min-w-[20px] min-h-[20px] flex-shrink-0 ${
                     isActive ? 'text-white' : 'text-sidebar-text group-hover:text-white'
                   }`}
                 />

@@ -10,8 +10,6 @@ import toast from 'react-hot-toast';
 
 const tabs = [
   { id: 'profile', label: 'Profile', icon: User },
-  { id: 'theme', label: 'Theme', icon: Palette },
-  { id: 'notifications', label: 'Notifications', icon: Bell },
   { id: 'preferences', label: 'Preferences', icon: SettingsIcon },
 ];
 
@@ -22,7 +20,7 @@ export default function Settings() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-text">Settings</h1>
-        <Breadcrumb items={[{ label: 'Settings' }]} />
+        {/* <Breadcrumb items={[{ label: 'Settings' }]} /> */}
       </div>
 
       <div className="flex flex-col lg:flex-row gap-5">

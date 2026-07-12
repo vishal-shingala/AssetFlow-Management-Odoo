@@ -167,7 +167,7 @@ export default function Assets() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Assets</h1>
-          <Breadcrumb items={[{ label: 'Assets' }]} />
+          {/* <Breadcrumb items={[{ label: 'Assets' }]} /> */}
         </div>
         <div className="flex gap-3">
           <Button icon={Plus} onClick={() => setShowModal(true)}>

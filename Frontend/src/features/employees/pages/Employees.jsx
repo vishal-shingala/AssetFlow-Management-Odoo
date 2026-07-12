@@ -99,7 +99,7 @@ export default function Employees() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Employees</h1>
-          <Breadcrumb items={[{ label: 'Employees' }]} />
+          {/* <Breadcrumb items={[{ label: 'Employees' }]} /> */}
         </div>
         <Button icon={Plus} onClick={() => setShowModal(true)}>
           Add Employee
