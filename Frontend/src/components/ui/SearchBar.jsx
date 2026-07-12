@@ -3,7 +3,7 @@
 export default function SearchBar({ value, onChange, placeholder = 'Search...' }) {
   return (
     <div className="relative">
-      <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted"></i>
+      <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 text-lg text-muted"></i>
       <input
         type="text"
         value={value}

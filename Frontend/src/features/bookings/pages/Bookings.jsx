@@ -56,7 +56,7 @@ export default function Bookings() {
             <div className="p-2 bg-tag-bg rounded-lg text-tag-text flex items-center justify-center">
               {(() => {
                 const Icon = resourceIcons[row.type] || Box;
-                return <Icon className="w-5 h-5" />;
+                return <Icon className="w-6 h-6" />;
               })()}
             </div>
             <div>

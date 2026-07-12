@@ -42,7 +42,7 @@ export default function Reports() {
         const Icon = formatIcons[val] || File;
         return (
           <div className="flex items-center gap-1.5">
-            <Icon className="w-5 h-5 text-muted" />
+            <Icon className="w-6 h-6 text-muted" />
             <span>{val}</span>
           </div>
         );
@@ -56,7 +56,7 @@ export default function Reports() {
           onClick={(e) => { e.stopPropagation(); toast.success('Download started'); }}
           className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
         >
-          <Download className="w-5 h-5" />
+          <Download className="w-7 h-7" />
         </button>
       ),
     },

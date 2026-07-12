@@ -36,7 +36,7 @@ export default function Settings() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors duration-150
+                    className={`w-full flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-colors duration-150
                       ${activeTab === tab.id
                         ? 'bg-primary text-white font-semibold'
                         : 'text-muted hover:text-text hover:bg-background'

@@ -70,21 +70,24 @@ export default function Employees() {
         <div className="flex items-center gap-1">
           <button
             onClick={(e) => { e.stopPropagation(); setSelectedEmployee(row); setShowProfile(true); }}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors"
+            title="View details"
           >
-            <Eye className="w-5 h-5" />
+            <Eye className="w-6 h-6 flex-shrink-0" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Edit employee'); }}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-warning transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-warning transition-colors"
+            title="Edit employee"
           >
-            <Edit2 className="w-5 h-5" />
+            <Edit2 className="w-6 h-6 flex-shrink-0" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Employee removed'); }}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-danger transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-danger transition-colors"
+            title="Delete employee"
           >
-            <Trash2 className="w-5 h-5" />
+            <Trash2 className="w-6 h-6 flex-shrink-0" />
           </button>
         </div>
       ),

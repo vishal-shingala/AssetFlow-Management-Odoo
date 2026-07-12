@@ -19,6 +19,7 @@ export default function Button({
   variant = 'primary',
   size = 'md',
   icon: Icon,
+  iconClassName = '',
   disabled = false,
   fullWidth = false,
   onClick,
@@ -40,7 +41,7 @@ export default function Button({
         ${className}
       `}
     >
-      {Icon && <Icon className="w-5 h-5 flex-none" />}
+      {Icon && <Icon className={`w-6 h-6 flex-none ${iconClassName}`} />}
       {children}
     </button>
   );

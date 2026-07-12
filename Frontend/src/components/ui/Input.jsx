@@ -14,7 +14,7 @@ const Input = forwardRef(function Input(
       <div className="relative">
         {Icon && (
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Icon className="w-5 h-5 text-muted" />
+            <Icon className="w-6 h-6 text-muted" />
           </div>
         )}
         <input

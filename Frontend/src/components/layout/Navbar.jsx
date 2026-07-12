@@ -23,7 +23,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="h-16 bg-background-surface border-b border-gray-100 flex items-center justify-end px-6 sticky top-0 z-30">
+    <header className="h-16 bg-background-surface border-b border-gray-100 flex items-center justify-end px-4 sticky top-0 z-30">
       <div className="flex items-center gap-2 flex-shrink-0">
         <button
           onClick={toggleDarkMode}
