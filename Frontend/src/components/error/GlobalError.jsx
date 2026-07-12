@@ -1,5 +1,5 @@
 import { Link, useRouteError } from 'react-router-dom';
-import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
+
 
 export function GlobalError() {
   const error = useRouteError();
@@ -8,7 +8,7 @@ export function GlobalError() {
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
       <div className="text-center max-w-md">
         <div className="w-16 h-16 bg-danger/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <HiOutlineExclamationTriangle className="w-8 h-8 text-danger" />
+          <i className="pi pi-exclamation-triangle w-8 h-8 text-danger"></i>
         </div>
         <h1 className="text-2xl font-bold text-text mb-2">Something went wrong</h1>
         <p className="text-muted mb-6">

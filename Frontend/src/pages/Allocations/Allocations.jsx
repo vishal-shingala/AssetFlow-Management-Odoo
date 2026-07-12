@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  HiOutlineArrowsRightLeft, HiOutlineArrowUturnLeft,
-  HiOutlinePlus, HiOutlineArrowPath,
-} from 'react-icons/hi2';
+
 import { allocations, recentAllocations } from '../../data/allocations';
 import { STATUS_COLORS } from '../../constants';
 import Breadcrumb from '../../components/ui/Breadcrumb';
@@ -74,14 +71,14 @@ export default function Allocations() {
                 className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-success transition-colors"
                 title="Return"
               >
-                <HiOutlineArrowUturnLeft className="w-4 h-4" />
+                <i className="pi pi-undo w-4 h-4"></i>
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); toast.success('Transfer initiated'); }}
                 className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
                 title="Transfer"
               >
-                <HiOutlineArrowPath className="w-4 h-4" />
+                <i className="pi pi-sync w-4 h-4"></i>
               </button>
             </>
           )}

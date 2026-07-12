@@ -1,10 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import {
-  HiOutlineBell,
-  HiOutlineMagnifyingGlass,
-  HiOutlineSun,
-  HiOutlineMoon,
-} from 'react-icons/hi2';
+
 import { useApp } from '../../context/AppContext';
 import { CURRENT_USER } from '../../constants';
 import { notifications as notificationData } from '../../data/notifications';
@@ -32,7 +27,7 @@ export default function Navbar() {
       {/* Search */}
       <div className="flex items-center gap-3 flex-1 max-w-md">
         <div className="relative w-full">
-          <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+          <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
           <input
             type="text"
             value={searchQuery}
@@ -54,9 +49,9 @@ export default function Navbar() {
           title={darkMode ? 'Light Mode' : 'Dark Mode'}
         >
           {darkMode ? (
-            <HiOutlineSun className="w-5 h-5" />
+            <i className="pi pi-sun w-5 h-5"></i>
           ) : (
-            <HiOutlineMoon className="w-5 h-5" />
+            <i className="pi pi-moon w-5 h-5"></i>
           )}
         </button>
 
@@ -66,7 +61,7 @@ export default function Navbar() {
             onClick={() => setShowNotifications(!showNotifications)}
             className="relative p-2 rounded-lg hover:bg-gray-100 text-muted hover:text-text transition-colors"
           >
-            <HiOutlineBell className="w-5 h-5" />
+            <i className="pi pi-bell w-5 h-5"></i>
             {unreadCount > 0 && (
               <span className="absolute top-1 right-1 w-4 h-4 bg-danger text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                 {unreadCount}
@@ -86,7 +81,7 @@ export default function Navbar() {
                 ))}
               </div>
               <div className="px-4 py-3 border-t border-gray-100 text-center">
-                <button className="text-xs font-medium text-primary hover:text-indigo-700 transition-colors">
+                <button className="text-xs font-medium text-primary hover:text-primary-dark transition-colors">
                   View All Notifications
                 </button>
               </div>

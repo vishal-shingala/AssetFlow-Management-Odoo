@@ -6,6 +6,7 @@ import { NotFound } from '../components/error/NotFound.jsx';
 
 // Lazy load pages
 const Login = lazy(() => import('../pages/Login.jsx'));
+const Signup = lazy(() => import('../pages/Signup.jsx'));
 const Dashboard = lazy(() => import('../pages/Dashboard/Dashboard.jsx'));
 const Departments = lazy(() => import('../pages/Departments/Departments.jsx'));
 const Employees = lazy(() => import('../pages/Employees/Employees.jsx'));
@@ -20,6 +21,11 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+    errorElement: <GlobalError />,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
     errorElement: <GlobalError />,
   },
   {

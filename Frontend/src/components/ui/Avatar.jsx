@@ -15,10 +15,10 @@ export default function Avatar({ name, src, size = 'md', className = '' }) {
         .slice(0, 2)
     : '?';
 
-  // Generate a consistent color from the name
+  // Generate a consistent color from the name using only our robust theme palette
   const colors = [
     'bg-primary', 'bg-secondary', 'bg-success', 'bg-warning',
-    'bg-indigo-500', 'bg-pink-500', 'bg-teal-500', 'bg-orange-500',
+    'bg-danger', 'bg-info', 'bg-primary-light', 'bg-secondary-light',
   ];
   const colorIndex = name ? name.charCodeAt(0) % colors.length : 0;
 

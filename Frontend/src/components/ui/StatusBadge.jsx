@@ -1,11 +1,11 @@
 const colorMap = {
   primary: 'bg-primary/10 text-primary',
   secondary: 'bg-secondary/10 text-secondary',
-  success: 'bg-emerald-50 text-success',
-  warning: 'bg-amber-50 text-amber-700',
-  danger: 'bg-red-50 text-danger',
+  success: 'bg-success/10 text-success',
+  warning: 'bg-warning/10 text-warning',
+  danger: 'bg-danger/10 text-danger',
   muted: 'bg-gray-100 text-muted',
-  info: 'bg-blue-50 text-blue-600',
+  info: 'bg-info/10 text-info',
 };
 
 export default function StatusBadge({ status, colorKey, size = 'sm' }) {

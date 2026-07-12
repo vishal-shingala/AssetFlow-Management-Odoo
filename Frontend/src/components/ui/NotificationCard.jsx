@@ -1,37 +1,37 @@
-import { HiOutlineBell, HiOutlineExclamationTriangle, HiOutlineCheckCircle, HiOutlineInformationCircle } from 'react-icons/hi2';
+
 
 const iconMap = {
-  info: HiOutlineInformationCircle,
-  success: HiOutlineCheckCircle,
-  warning: HiOutlineExclamationTriangle,
-  danger: HiOutlineBell,
+  info: 'pi-info-circle',
+  success: 'pi-check-circle',
+  warning: 'pi-exclamation-triangle',
+  danger: 'pi-bell',
 };
 
 const bgMap = {
-  info: 'bg-blue-50 border-blue-100',
-  success: 'bg-emerald-50 border-emerald-100',
-  warning: 'bg-amber-50 border-amber-100',
-  danger: 'bg-red-50 border-red-100',
+  info: 'bg-info/10 border-info/20',
+  success: 'bg-success/10 border-success/20',
+  warning: 'bg-warning/10 border-warning/20',
+  danger: 'bg-danger/10 border-danger/20',
 };
 
 const iconColorMap = {
-  info: 'text-blue-500',
+  info: 'text-info',
   success: 'text-success',
   warning: 'text-warning',
   danger: 'text-danger',
 };
 
 export default function NotificationCard({ title, message, time, type = 'info', read = false }) {
-  const Icon = iconMap[type];
+  const iconClass = iconMap[type];
 
   return (
     <div
       className={`flex gap-3 p-3 rounded-xl border transition-colors ${
-        read ? 'bg-white border-gray-100' : bgMap[type]
+        read ? 'bg-surface border-gray-100' : bgMap[type]
       }`}
     >
       <div className={`mt-0.5 ${iconColorMap[type]}`}>
-        <Icon className="w-5 h-5" />
+        <i className={`pi ${iconClass} w-5 h-5`}></i>
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
