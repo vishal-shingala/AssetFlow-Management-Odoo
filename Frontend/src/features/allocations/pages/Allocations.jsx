@@ -71,14 +71,14 @@ export default function Allocations() {
                 className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-success transition-colors"
                 title="Return"
               >
-                <Undo2 className="w-4 h-4" />
+                <Undo2 className="w-5 h-5" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); toast.success('Transfer initiated'); }}
                 className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
                 title="Transfer"
               >
-                <RefreshCw className="w-4 h-4" />
+                <RefreshCw className="w-5 h-5" />
               </button>
             </>
           )}
@@ -133,7 +133,7 @@ export default function Allocations() {
                 className="relative pl-10 fadeinleft animation-duration-500"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div className="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-white border-2 border-primary" />
+                <div className="absolute left-2.5 top-1.5 w-4 h-4 rounded-full bg-white border-2 border-primary" />
                 <div className="bg-gray-50 rounded-xl p-4">
                   <div className="flex items-center gap-2 mb-1">
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${actionColors[item.action] || 'bg-gray-100 text-muted'}`}>

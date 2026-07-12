@@ -5,7 +5,7 @@ export default function Breadcrumb({ items }) {
   return (
     <nav className="flex items-center gap-1.5 text-sm">
       <Link to="/" className="text-muted hover:text-primary transition-colors">
-        <i className="pi pi-home w-4 h-4"></i>
+        <i className="pi pi-home w-5 h-5"></i>
       </Link>
       {items.map((item, idx) => (
         <div key={idx} className="flex items-center gap-1.5">

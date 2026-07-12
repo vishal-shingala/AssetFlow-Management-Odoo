@@ -68,9 +68,9 @@ export default function Dashboard() {
                 </p>
                 <div className="flex items-center gap-1 mt-2 flex-wrap">
                   {kpi.changeType === 'positive' ? (
-                    <ArrowUpRight className="w-3 h-3 text-success flex-none" />
+                    <ArrowUpRight className="w-4 h-4 text-success flex-none" />
                   ) : (
-                    <ArrowDownRight className="w-3 h-3 text-danger flex-none" />
+                    <ArrowDownRight className="w-4 h-4 text-danger flex-none" />
                   )}
                   <span className={`text-[11px] font-semibold ${kpi.changeType === 'positive' ? 'text-success' : 'text-danger'}`}>
                     {kpi.change}
@@ -79,7 +79,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className={`p-2 rounded-lg flex-none ${colorMap[kpi.color]}`}>
-                <kpi.icon className="w-4 h-4" />
+                <kpi.icon className="w-5 h-5" />
               </div>
             </div>
           </Card>

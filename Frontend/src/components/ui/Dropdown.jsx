@@ -35,7 +35,7 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
           <span className={displayValue ? 'text-text' : 'text-muted'}>
             {displayValue || placeholder}
           </span>
-          <ChevronDown className={`w-4 h-4 text-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-5 h-5 text-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
         {isOpen && (
           <div className="absolute z-20 w-full mt-1 bg-white rounded-2xl shadow-dropdown py-1.5 max-h-60 overflow-y-auto">

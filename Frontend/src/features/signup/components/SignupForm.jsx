@@ -38,7 +38,7 @@ export default function SignupForm() {
       <div>
         <label className="block text-sm font-medium text-text mb-1.5">Full Name</label>
         <div className="relative">
-          <i className="pi pi-user absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
+          <i className="pi pi-user absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted"></i>
           <input
             type="text"
             placeholder="John Doe"
@@ -56,7 +56,7 @@ export default function SignupForm() {
       <div>
         <label className="block text-sm font-medium text-text mb-1.5">Email Address</label>
         <div className="relative">
-          <i className="pi pi-envelope absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
+          <i className="pi pi-envelope absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted"></i>
           <input
             type="email"
             placeholder="you@company.com"
@@ -74,7 +74,7 @@ export default function SignupForm() {
       <div>
         <label className="block text-sm font-medium text-text mb-1.5">Password</label>
         <div className="relative">
-          <i className="pi pi-lock absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
+          <i className="pi pi-lock absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted"></i>
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Create a password"
@@ -90,9 +90,9 @@ export default function SignupForm() {
             className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-text transition-colors"
           >
             {showPassword ? (
-              <i className="pi pi-eye-slash w-4 h-4"></i>
+              <i className="pi pi-eye-slash w-5 h-5"></i>
             ) : (
-              <i className="pi pi-eye w-4 h-4"></i>
+              <i className="pi pi-eye w-5 h-5"></i>
             )}
           </button>
         </div>
@@ -103,7 +103,7 @@ export default function SignupForm() {
       <div>
         <label className="block text-sm font-medium text-text mb-1.5">Confirm Password</label>
         <div className="relative">
-          <i className="pi pi-lock absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
+          <i className="pi pi-lock absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted"></i>
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Confirm your password"
@@ -127,7 +127,7 @@ export default function SignupForm() {
       >
         {isSubmitting ? (
           <div className="flex items-center justify-center gap-2">
-            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             Creating Account...
           </div>
         ) : (

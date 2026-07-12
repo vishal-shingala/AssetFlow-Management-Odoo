@@ -71,13 +71,13 @@ export default function Maintenance() {
       key: 'assetTag',
       label: 'Asset Tag',
       render: (val) => (
-        <span className="font-mono text-xs bg-gray-100 px-2 py-1 rounded-md font-medium text-primary">{val}</span>
+        <span className="font-mono text-xs bg-tag-bg px-2 py-1 rounded-md font-medium text-tag-text">{val}</span>
       ),
     },
     {
       key: 'asset',
       label: 'Asset',
-      render: (val) => <span className="font-medium text-text">{val}</span>,
+      render: (val) => <span className="font-medium text-name-text">{val}</span>,
     },
     {
       key: 'issue',
@@ -142,7 +142,7 @@ export default function Maintenance() {
                     <p className="text-3xl font-bold text-text mt-1">{maintenanceStats[card.key]}</p>
                   </div>
                   <div className={`p-3 rounded-xl ${card.bg}`}>
-                    <Icon className={`w-6 h-6 ${card.color}`} />
+                    <Icon className={`w-7 h-7 ${card.color}`} />
                   </div>
                 </div>
               </Card>
@@ -157,7 +157,7 @@ export default function Maintenance() {
           <div className="flex-1">
             <SearchBar value={search} onChange={setSearch} placeholder="Search maintenance requests..." />
           </div>
-          <div className="w-40">
+          <div className="flex-1 md:flex-none md:w-1/4">
             <Dropdown
               options={['', 'Pending', 'Approved', 'In Progress', 'Resolved']}
               value={statusFilter}
@@ -165,7 +165,7 @@ export default function Maintenance() {
               placeholder="Status"
             />
           </div>
-          <div className="w-36">
+          <div className="flex-1 md:flex-none md:w-1/4">
             <Dropdown
               options={['', 'Critical', 'High', 'Medium', 'Low']}
               value={priorityFilter}
@@ -235,7 +235,7 @@ export default function Maintenance() {
                 { status: 'Resolved', date: selectedItem.resolvedDate || null, done: selectedItem.status === 'Resolved' },
               ].map((step, i) => (
                 <div key={i} className="relative pb-4 last:pb-0">
-                  <div className={`absolute -left-4 top-1 w-3 h-3 rounded-full border-2 ${
+                  <div className={`absolute -left-4 top-1 w-4 h-4 rounded-full border-2 ${
                     step.done ? 'bg-success border-success' : 'bg-white border-gray-300'
                   }`} />
                   <div className="ml-2">

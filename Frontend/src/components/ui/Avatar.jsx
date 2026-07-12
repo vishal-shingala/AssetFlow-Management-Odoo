@@ -1,54 +1,40 @@
-export default function Avatar({
-  name = '',
-  src,
-  size = 'md',
-  className = '',
-}) {
-  const sizeClasses = {
-    sm: 'w-8 h-8 text-xs',
-    md: 'w-10 h-10 text-sm',
-    lg: 'w-12 h-12 text-base',
-    xl: 'w-16 h-16 text-lg',
+import React from 'react';
+
+const Avatar = ({ src, alt = 'User Avatar', name = '', size = 'md', className = '' }) => {
+  const getAvatarDimensions = () => {
+    switch (size) {
+      case 'sm': return 'w-7 h-7 text-[10px]';
+      case 'lg': return 'w-11 h-11 text-sm';
+      case 'xl': return 'w-14 h-14 text-base';
+      case 'md':
+      default: return 'w-9 h-9 text-xs';
+    }
   };
 
-  const initials = name
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join('')
-    .toUpperCase() || '?';
+  const extractInitials = () => {
+    if (!name) return '??';
+    const splitName = name.trim().split(' ');
+    if (splitName.length > 1) {
+      return (splitName[0][0] + splitName[1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  };
 
-  const colors = [
-    'bg-primary',
-    'bg-secondary',
-    'bg-success',
-    'bg-warning',
-    'bg-danger',
-    'bg-info',
-    'bg-primary-light',
-    'bg-secondary-light',
-  ];
-
-  const colorIndex =
-    [...name].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % colors.length;
+  const baseContainerStyles = `relative inline-flex aspect-square shrink-0 items-center justify-center overflow-hidden rounded-full shadow-sm ${getAvatarDimensions()} ${className}`;
 
   if (src) {
     return (
-      <img
-        src={src}
-        alt={name}
-        className={`${sizeClasses[size]} rounded-full object-cover ${className}`}
-      />
+      <div className={baseContainerStyles}>
+        <img src={src} alt={alt || name} className="h-full w-full object-cover" />
+      </div>
     );
   }
 
   return (
-    <div
-      className={`${sizeClasses[size]} ${colors[colorIndex]} rounded-full flex items-center justify-center font-semibold text-white ${className}`}
-    >
-      {initials}
+    <div className={`${baseContainerStyles} bg-profile-bg text-profile-text`}>
+      <span className="font-semibold tracking-wide">{extractInitials()}</span>
     </div>
   );
-}
+};
+
+export default Avatar;

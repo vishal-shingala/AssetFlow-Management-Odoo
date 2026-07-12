@@ -41,7 +41,7 @@ export default function Employees() {
         <div className="flex items-center gap-3">
           <Avatar name={val} size="sm" />
           <div>
-            <p className="font-medium text-text text-sm">{val}</p>
+            <p className="font-medium text-name-text text-sm">{val}</p>
             <p className="text-xs text-muted">{row.email}</p>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function Employees() {
       key: 'assetsAssigned',
       label: 'Assets',
       render: (val) => (
-        <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+        <span className="inline-flex items-center justify-center p-1.5 aspect-square rounded-full bg-tag-bg text-tag-text text-xs font-semibold">
           {val}
         </span>
       ),
@@ -72,19 +72,19 @@ export default function Employees() {
             onClick={(e) => { e.stopPropagation(); setSelectedEmployee(row); setShowProfile(true); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-5 h-5" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Edit employee'); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-warning transition-colors"
           >
-            <Edit2 className="w-4 h-4" />
+            <Edit2 className="w-5 h-5" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Employee removed'); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-danger transition-colors"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-5 h-5" />
           </button>
         </div>
       ),
@@ -108,10 +108,10 @@ export default function Employees() {
           <div className="flex-1">
             <SearchBar value={search} onChange={setSearch} placeholder="Search employees..." />
           </div>
-          <div className="w-44">
+          <div className="flex-1 md:flex-none md:w-1/4">
             <Dropdown options={['', ...uniqueDepts]} value={deptFilter} onChange={setDeptFilter} placeholder="Department" />
           </div>
-          <div className="w-36">
+          <div className="flex-1 md:flex-none md:w-1/4">
             <Dropdown options={['', 'Active', 'On Leave', 'Inactive']} value={statusFilter} onChange={setStatusFilter} placeholder="Status" />
           </div>
         </div>
@@ -143,7 +143,7 @@ export default function Employees() {
             <div className="flex items-center gap-4">
               <Avatar name={selectedEmployee.name} size="xl" />
               <div>
-                <h3 className="text-lg font-semibold text-text">{selectedEmployee.name}</h3>
+                <h3 className="text-lg font-semibold text-name-text">{selectedEmployee.name}</h3>
                 <p className="text-sm text-muted">{selectedEmployee.role}</p>
                 <StatusBadge status={selectedEmployee.status} colorKey={STATUS_COLORS[selectedEmployee.status]} />
               </div>

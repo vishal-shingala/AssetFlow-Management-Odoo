@@ -7,37 +7,43 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: "#6366f1", // Indigo 500 — purple from image
-          light: "#818cf8",   // Indigo 400
-          dark: "#4f46e5",    // Indigo 600
+        primary: "#9333ea",
+        "primary-light": "#a855f7",
+        "primary-dark": "#7e22ce",
+        secondary: "#64748b",
+        "secondary-light": "#94a3b8",
+        "secondary-dark": "#475569",
+        success: "#10b981",
+        "success-dark": "#059669",
+        warning: "#f59e0b",
+        "warning-dark": "#d97706",
+        danger: "#ef4444",
+        "danger-dark": "#dc2626",
+        info: "#3b82f6",
+        "info-dark": "#2563eb",
+        background: {
+          DEFAULT: "#f0f2f5",
+          surface: "#ffffff",
         },
-        secondary: {
-          DEFAULT: "#64748b",
-          light: "#94a3b8",
-          dark: "#475569",
+        sidebar: {
+          bg: "#1e2139",
+          text: "#94a3b8",
+          hover: "#2e324d",
+          active: "#9333ea",
         },
-        success: {
-          DEFAULT: "#10b981",
-          dark: "#059669",
+        tag: {
+          bg: "#e0e7ff",
+          text: "#4f46e5",
         },
-        warning: {
-          DEFAULT: "#f59e0b",
-          dark: "#d97706",
+        profile: {
+          bg: "#9333ea",
+          text: "#ffffff",
         },
-        danger: {
-          DEFAULT: "#ef4444",
-          dark: "#dc2626",
+        name: {
+          text: "#1e293b",
         },
-        info: {
-          DEFAULT: "#3b82f6",
-          dark: "#2563eb",
-        },
-        background: "#f0f2f5",  // Warm light gray — matches image bg
-        surface: "#ffffff",
-        sidebar: "#1e2139",     // Dark navy — matches image sidebar
         text: {
-          DEFAULT: "#1e293b",   // Slate 800
+          DEFAULT: "#1e293b",
           light: "#64748b",
           dark: "#0f172a",
         },
@@ -51,7 +57,7 @@ export default {
         'card-hover': '0 4px 24px 0 rgba(0, 0, 0, 0.11)',
         'soft': '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
         'dropdown': '0 8px 30px 0 rgba(0, 0, 0, 0.13)',
-        'glow-primary': '0 4px 14px 0 rgba(99, 102, 241, 0.3)',
+        'glow-primary': '0 4px 14px 0 rgba(147, 51, 234, 0.3)',
         'glow-success': '0 4px 14px 0 rgba(16, 185, 129, 0.3)',
         'glow-danger': '0 4px 14px 0 rgba(239, 68, 68, 0.3)',
       }

@@ -75,13 +75,13 @@ export default function Assets() {
       render: (_, row) => (
         <div className="flex items-center gap-1">
           <button className="p-1 text-muted hover:text-primary transition-colors" title="View details" onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}>
-            <Eye className="w-4 h-4" />
+            <Eye className="w-5 h-5" />
           </button>
           <button className="p-1 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}>
-            <Edit2 className="w-4 h-4" />
+            <Edit2 className="w-5 h-5" />
           </button>
           <button className="p-1 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}>
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-5 h-5" />
           </button>
         </div>
       ),

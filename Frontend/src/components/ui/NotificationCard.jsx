@@ -31,7 +31,7 @@ export default function NotificationCard({ title, message, time, type = 'info', 
       }`}
     >
       <div className={`mt-0.5 ${iconColorMap[type]}`}>
-        <i className={`pi ${iconClass} w-5 h-5`}></i>
+        <i className={`pi ${iconClass} w-6 h-6`}></i>
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
