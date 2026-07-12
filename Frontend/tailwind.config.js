@@ -18,8 +18,10 @@ export default {
         text: "#111827",
         muted: "#6B7280",
       },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+      },
     },
   },
   plugins: [],
 }
-

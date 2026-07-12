@@ -1,9 +1,9 @@
-import { memo } from 'react'
-
-export const LoadingSpinner = memo(() => {
+export function LoadingSpinner() {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      Loading...
+    <div className="flex items-center justify-center h-full min-h-[200px]">
+      <div className="relative">
+        <div className="w-10 h-10 border-4 border-gray-200 rounded-full animate-spin border-t-primary" />
+      </div>
     </div>
-  )
-})
+  );
+}

@@ -1,14 +1,26 @@
-import { useRouteError } from 'react-router-dom'
+import { Link, useRouteError } from 'react-router-dom';
+import { HiOutlineExclamationTriangle } from 'react-icons/hi2';
 
-import { memo } from 'react'
-
-export const GlobalError = memo(() => {
-  const error = useRouteError()
+export function GlobalError() {
+  const error = useRouteError();
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
-      <h1>Oops! Something went wrong.</h1>
-      <p>{error.statusText || error.message}</p>
+    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <div className="text-center max-w-md">
+        <div className="w-16 h-16 bg-danger/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <HiOutlineExclamationTriangle className="w-8 h-8 text-danger" />
+        </div>
+        <h1 className="text-2xl font-bold text-text mb-2">Something went wrong</h1>
+        <p className="text-muted mb-6">
+          {error?.statusText || error?.message || 'An unexpected error occurred'}
+        </p>
+        <Link
+          to="/"
+          className="inline-flex items-center justify-center px-6 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+        >
+          Go to Dashboard
+        </Link>
+      </div>
     </div>
-  )
-})
+  );
+}
