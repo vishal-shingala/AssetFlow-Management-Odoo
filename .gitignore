@@ -1,2 +1,5 @@
 .postman
 postman/
+
+# Database backups
+backups/
