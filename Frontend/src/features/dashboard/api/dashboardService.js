@@ -1,15 +1,8 @@
-﻿import {
-  kpiCards, assetsByCategory, assetsByStatus,
-  maintenanceOverview, departmentAssets,
-  recentActivities, recentNotifications,
-} from '../data/dashboard';
+import apiClient from '../../../lib/api';
 
 export const dashboardService = {
-  getKpiCards: async () => kpiCards,
-  getAssetsByCategory: async () => assetsByCategory,
-  getAssetsByStatus: async () => assetsByStatus,
-  getMaintenanceOverview: async () => maintenanceOverview,
-  getDepartmentAssets: async () => departmentAssets,
-  getRecentActivities: async () => recentActivities,
-  getRecentNotifications: async () => recentNotifications,
+  getStats: async () => {
+    const res = await apiClient.get('/dashboard');
+    return res.data;
+  }
 };
