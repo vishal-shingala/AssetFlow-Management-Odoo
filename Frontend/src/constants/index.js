@@ -3,7 +3,7 @@ import { LayoutDashboard, Building2, Users, Box, ArrowRightLeft, Calendar, Wrenc
 // Navigation items for the sidebar
 export const NAV_ITEMS = [
   { id: 'dashboard', label: 'Dashboard', path: '/', icon: LayoutDashboard },
-  { id: 'departments', label: 'Departments', path: '/departments', icon: Building2 },
+  { id: 'organizationsetup', label: 'OrganizationSetup', path: '/organizationsetup', icon: Building2 },
   { id: 'employees', label: 'Employees', path: '/employees', icon: Users },
   { id: 'assets', label: 'Assets', path: '/assets', icon: Box },
   { id: 'allocations', label: 'Asset Allocation', path: '/allocations', icon: ArrowRightLeft },

@@ -8,7 +8,7 @@ import { NotFound } from '../components/error/NotFound.jsx';
 const Login = lazy(() => import('../features/login/pages/Login.jsx'));
 const Signup = lazy(() => import('../features/signup/pages/Signup.jsx'));
 const Dashboard = lazy(() => import('../features/dashboard/pages/Dashboard.jsx'));
-const Departments = lazy(() => import('../features/departments/pages/Departments.jsx'));
+const OrganizationSetup = lazy(() => import('../features/OrganizationSetup/pages/OrganizationSetup.jsx'));
 const Employees = lazy(() => import('../features/employees/pages/Employees.jsx'));
 const Assets = lazy(() => import('../features/assets/pages/Assets.jsx'));
 const Allocations = lazy(() => import('../features/allocations/pages/Allocations.jsx'));
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
     errorElement: <GlobalError />,
     children: [
       { index: true, element: <Dashboard /> },
-      { path: 'departments', element: <Departments /> },
+      { path: 'organizationsetup', element: <OrganizationSetup /> },
       { path: 'employees', element: <Employees /> },
       { path: 'assets', element: <Assets /> },
       { path: 'allocations', element: <Allocations /> },
