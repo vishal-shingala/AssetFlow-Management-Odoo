@@ -26,7 +26,8 @@ SET row_security = off;
 
 INSERT INTO public.users VALUES (1, 'sarah.johnson@example.com', 'hashed_pw', 'Sarah Johnson', 1, 'EMPLOYEE', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
 INSERT INTO public.users VALUES (2, 'alex.rivera@example.com', 'hashed_pw', 'Alex Rivera', 2, 'EMPLOYEE', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
-INSERT INTO public.users VALUES (3, 'john@gmail.com', 'hashed_pw', 'John Doe', NULL, 'ADMIN', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
+INSERT INTO public.users VALUES (3, 'admin@assetflow.com', '$2b$10$tkg6CzdM8Gcxow2AZL7Tbel4fPcRvuLmmF4vr6zRyyu8Axk2QJB0S', 'System Admin', NULL, 'ADMIN', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
+INSERT INTO public.users VALUES (4, 'john@gmail.com', '$2b$10$tkg6CzdM8Gcxow2AZL7Tbel4fPcRvuLmmF4vr6zRyyu8Axk2QJB0S', 'John Doe', NULL, 'ADMIN', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
 
 
 --
@@ -208,7 +209,7 @@ SELECT pg_catalog.setval('public.transfer_requests_id_seq', 2, true);
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 3, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 4, true);
 
 
 --
