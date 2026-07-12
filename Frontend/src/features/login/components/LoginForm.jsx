@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { loginSchema } from '../schemas/loginSchema';
+import { login } from '../api/loginApi';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
@@ -22,10 +23,21 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log('Login data:', data);
-    toast.success('Login successful! Welcome back.');
-    navigate('/');
+    try {
+      const response = await login({
+        email: data.email,
+        password: data.password,
+      });
+      const { token, user } = response.data;
+      sessionStorage.setItem('auth_token', token);
+      sessionStorage.setItem('user', JSON.stringify(user));
+      toast.success('Login successful! Welcome back.');
+      navigate('/');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Login failed. Please check your credentials.';
+      toast.error(errorMessage);
+      console.error('Login error:', error);
+    }
   };
 
   return (
@@ -46,26 +58,20 @@ export default function LoginForm() {
           placeholder="Enter your password"
           icon={Lock}
           error={errors.password?.message}
+          className="pr-14"
           {...register('password')}
         />
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className={`absolute right-3.5 ${errors.password ? 'top-8' : 'top-9'} text-muted hover:text-text transition-colors`}
+          className={`absolute right-3.5 text-muted hover:text-primary transition-colors flex items-center justify-center`}
+          style={{ top: '36px', height: '24px' }}
         >
-          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          {showPassword ? <EyeOff className="w-7 h-7" /> : <Eye className="w-7 h-7" />}
         </button>
       </div>
 
       <div className="flex items-center justify-between">
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input
-            type="checkbox"
-            {...register('remember')}
-            className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary/20"
-          />
-          <span className="text-sm text-muted">Remember me</span>
-        </label>
         <button type="button" className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors">
           Forgot password?
         </button>

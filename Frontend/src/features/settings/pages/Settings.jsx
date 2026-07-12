@@ -15,6 +15,8 @@ const tabs = [
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('profile');
+  const userStr = sessionStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : CURRENT_USER;
 
   return (
     <div className="space-y-6">
@@ -52,7 +54,7 @@ export default function Settings() {
         {/* Content */}
         <div className="flex-1">
           <div key={activeTab}>
-            {activeTab === 'profile' && <ProfileSettings />}
+            {activeTab === 'profile' && <ProfileSettings user={user} />}
             {activeTab === 'theme' && <ThemeSettings />}
             {activeTab === 'notifications' && <NotificationSettings />}
             {activeTab === 'preferences' && <PreferenceSettings />}
@@ -63,15 +65,15 @@ export default function Settings() {
   );
 }
 
-function ProfileSettings() {
+function ProfileSettings({ user }) {
   return (
     <Card hover={false}>
       <h3 className="text-base font-semibold text-text mb-6">Profile Settings</h3>
       <div className="flex items-center gap-5 mb-6 pb-6 border-b border-gray-100">
-        <Avatar name={CURRENT_USER.name} size="xl" />
+        <Avatar name={user.name} size="xl" />
         <div>
-          <h4 className="font-semibold text-name-text">{CURRENT_USER.name}</h4>
-          <p className="text-sm text-muted">{CURRENT_USER.role}</p>
+          <h4 className="font-semibold text-name-text">{user.name}</h4>
+          <p className="text-sm text-muted">{user.role}</p>
           <button className="text-sm text-primary font-medium mt-2 hover:text-primary-dark transition-colors">
             Change avatar
           </button>
@@ -79,10 +81,10 @@ function ProfileSettings() {
       </div>
       <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); toast.success('Profile updated'); }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Input label="Full Name" defaultValue={CURRENT_USER.name} />
-          <Input label="Email" type="email" defaultValue={CURRENT_USER.email} />
+          <Input label="Full Name" defaultValue={user.name} />
+          <Input label="Email" type="email" defaultValue={user.email} />
           <Input label="Phone" placeholder="+1 (555) 000-0000" />
-          <Input label="Role" defaultValue={CURRENT_USER.role} disabled />
+          <Input label="Role" defaultValue={user.role} disabled />
         </div>
         <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
           <Shield className="w-6 h-6 text-muted flex-none" />

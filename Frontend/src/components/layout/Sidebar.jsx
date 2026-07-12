@@ -7,6 +7,12 @@ export default function Sidebar() {
   const { sidebarCollapsed, toggleSidebar } = useApp();
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('auth_token');
+    sessionStorage.removeItem('user');
+    navigate('/login');
+  };
+
   return (
     <aside
       className={`bg-sidebar-bg fixed left-0 top-0 h-screen flex flex-col z-40 transition-all duration-300 ease-in-out ${
@@ -84,7 +90,7 @@ export default function Sidebar() {
       {/* Bottom */}
       <div className="px-3 pb-4 flex-none space-y-1 border-t border-white/5 pt-3">
         <button
-          onClick={() => navigate('/login')}
+          onClick={handleLogout}
           className={`w-full flex items-center px-3 py-2.5 rounded-xl text-sidebar-text hover:bg-sidebar-hover hover:text-white transition-colors duration-150 ${
             sidebarCollapsed ? 'justify-center' : 'gap-2'
           }`}

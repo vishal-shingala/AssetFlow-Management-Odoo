@@ -47,11 +47,7 @@ export default function Dashboard() {
           <h1 className="text-2xl font-bold text-text">Dashboard</h1>
           {/* <Breadcrumb items={[{ label: 'Dashboard' }]} /> */}
         </div>
-        <p className="text-sm text-muted">
-          {new Date().toLocaleDateString('en-US', {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-          })}
-        </p>
+
       </div>
 
       {/* KPI Cards — rectangular style, responsive 2→3→5 cols */}
@@ -78,8 +74,8 @@ export default function Dashboard() {
                   <span className="text-[11px] text-muted">vs last month</span>
                 </div>
               </div>
-              <div className={`p-2 rounded-lg flex-none ${colorMap[kpi.color]}`}>
-                <kpi.icon className="w-6 h-6" />
+              <div className={`p-2.5 rounded-xl flex-none flex items-center justify-center ${colorMap[kpi.color]}`}>
+                <kpi.icon className="w-7 h-7" />
               </div>
             </div>
           </Card>

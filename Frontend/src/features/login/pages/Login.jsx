@@ -15,7 +15,7 @@ export default function Login() {
         </div>
 
         <div className="relative z-10 flex items-center gap-3">
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-glow-primary">
+          <div className="min-w-10 min-h-10 max-w-15 max-h-15 bg-primary rounded-xl flex items-center justify-center shadow-glow-primary">
             <Box className="w-7 h-7 text-white" />
           </div>
           <span className="text-xl font-bold text-white">{APP_NAME}</span>
@@ -35,8 +35,8 @@ export default function Login() {
               'Multi-department allocation control',
             ].map((feature, i) => (
               <div key={i} className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-none">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary-light" />
+                <div className=" min-w-10 max-w-10 min-h-10 max-h-10 rounded-full bg-primary/20 flex items-center justify-center flex-none">
+                  <CheckCircle2 className="w-5 h-5 text-primary-light" />
                 </div>
                 <span className="text-sm text-slate-300">{feature}</span>
               </div>

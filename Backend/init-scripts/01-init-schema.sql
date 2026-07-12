@@ -16,9 +16,6 @@ CREATE TABLE IF NOT EXISTS departments (
     FOREIGN KEY (parent_department_id) REFERENCES departments(department_id)
 );
 
--- Add foreign key constraint from users to departments now that departments table exists
-ALTER TABLE users ADD CONSTRAINT fk_users_department FOREIGN KEY (department_id) REFERENCES departments(department_id);
-
 
 -- Asset Categories
 CREATE TABLE IF NOT EXISTS asset_categories (
@@ -46,8 +43,11 @@ CREATE TABLE IF NOT EXISTS users (
 -- Add department_head_id foreign key after users table is created
 ALTER TABLE departments ADD CONSTRAINT fk_department_head FOREIGN KEY (department_head_id) REFERENCES users(user_id);
 
+-- Add foreign key constraint from users to departments now that departments table exists
+ALTER TABLE users ADD CONSTRAINT fk_users_department FOREIGN KEY (department_id) REFERENCES departments(department_id);
+
 -- ============================================
--- 3. Assets Table
+-- 3. Assets Tableṇ
 -- ============================================
 CREATE TABLE IF NOT EXISTS assets (
     id SERIAL PRIMARY KEY,
