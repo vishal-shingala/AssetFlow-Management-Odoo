@@ -213,23 +213,8 @@ export default function OrganizationSetup() {
       fetchDepartments();
     } catch (error) {
       console.error('Error deleting department:', error);
-      const errorMessage = error.response?.data?.message || error.message || error.toString();
-      
-      // Show user-friendly error messages
-      if (errorMessage.includes('employees assigned')) {
-        throw new Error('Cannot delete department: It has employees assigned. Please reassign employees to another department first.');
-      }
-      if (errorMessage.includes('child departments')) {
-        throw new Error('Cannot delete department: It has child departments. Please reassign or delete child departments first.');
-      }
-      if (errorMessage.includes('asset_allocations')) {
-        throw new Error('Cannot delete department: It has asset allocations. Please reassign or delete asset allocations first.');
-      }
-      if (errorMessage.includes('foreign key constraint') || 
-          errorMessage.includes('violates foreign key constraint')) {
-        throw new Error('Cannot delete department: It is referenced by other records. Please remove dependencies first.');
-      }
-      throw new Error('Failed to delete department: ' + errorMessage);
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || error.message || error.toString();
+      throw new Error(errorMessage);
     }
   };
 

@@ -73,7 +73,8 @@ export default function EditDepartmentModal({ isOpen, onClose, onSubmit, departm
       toast.success('Department updated successfully');
     } catch (error) {
       console.error('Update error:', error);
-      toast.error('Failed to update department');
+      const errorMessage = error.response?.data?.error || error.message || 'Failed to update department';
+      toast.error(errorMessage);
     }
   };
 
