@@ -33,7 +33,7 @@ export default function SignupForm() {
         password: data.password,
       });
       toast.success('Account created successfully!');
-      navigate('/login');
+      navigate('/login', { replace: true });
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to create account. Please try again.';
       toast.error(errorMessage);
