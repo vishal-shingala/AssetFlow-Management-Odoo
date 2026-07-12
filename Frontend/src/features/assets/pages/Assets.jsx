@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Eye, Edit2, Trash2, Plus } from 'lucide-react';
 import assetService from '../api/assetService';
+import { getCategories } from '../../OrganizationSetup/api/categoryApi';
 import { assetCategories, assetStatuses } from '../data/assets';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -19,6 +20,7 @@ import { usePermission } from '../../../hooks/usePermission';
 export default function Assets() {
   const { can } = usePermission();
   const [assets, setAssets] = useState([]);
+  const [categories, setCategories] = useState(assetCategories);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
@@ -146,6 +148,18 @@ export default function Assets() {
 
   useEffect(() => {
     fetchAssets();
+    getCategories()
+      .then((res) => {
+        const catList = Array.isArray(res?.data)
+          ? res.data.map((c) => c.name)
+          : Array.isArray(res)
+          ? res.map((c) => c.name)
+          : [];
+        if (catList.length > 0) {
+          setCategories(catList);
+        }
+      })
+      .catch((err) => console.error('Failed to load categories:', err));
   }, [fetchAssets]);
 
   const handleDelete = async (e, id) => {
@@ -303,16 +317,16 @@ export default function Assets() {
       render: (_, row) => (
         <div className="flex items-center gap-1.5">
           <button className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="View details" onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}>
-            <Eye className="w-5 h-5 flex-shrink-0" />
+            <Eye className="w-6 h-6 flex-shrink-0" />
           </button>
           {can(['ASSET_MANAGER', 'ADMIN']) && (
             <button className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => handleOpenEditModal(e, row)}>
-              <Edit2 className="w-5 h-5 flex-shrink-0" />
+              <Edit2 className="w-6 h-6 flex-shrink-0" />
             </button>
           )}
           {can(['ASSET_MANAGER', 'ADMIN']) && (
             <button className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => handleDelete(e, row.id)}>
-              <Trash2 className="w-5 h-5 flex-shrink-0" />
+              <Trash2 className="w-6 h-6 flex-shrink-0" />
             </button>
           )}
         </div>
@@ -342,7 +356,7 @@ export default function Assets() {
             <SearchBar value={search} onChange={setSearch} placeholder="Search by name, tag, serial..." />
           </div>
           <div className="w-44">
-            <Dropdown options={['', ...assetCategories]} value={categoryFilter} onChange={setCategoryFilter} placeholder="Category" />
+            <Dropdown options={['', ...categories]} value={categoryFilter} onChange={setCategoryFilter} placeholder="Category" />
           </div>
           <div className="w-44">
             <Dropdown options={['', ...assetStatuses]} value={statusFilter} onChange={setStatusFilter} placeholder="Status" />
@@ -381,7 +395,7 @@ export default function Assets() {
             />
             <Dropdown
               label="Category"
-              options={assetCategories}
+              options={categories}
               value={formData.category || 'Laptop'}
               onChange={(val) => setFormData({ ...formData, category: val })}
               placeholder="Select Category"
@@ -457,7 +471,7 @@ export default function Assets() {
             />
             <Dropdown
               label="Category"
-              options={assetCategories}
+              options={categories}
               value={formData.category || 'Laptop'}
               onChange={(val) => setFormData({ ...formData, category: val })}
               placeholder="Select Category"
