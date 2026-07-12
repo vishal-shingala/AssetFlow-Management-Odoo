@@ -172,7 +172,7 @@ export default function Allocations() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Asset Allocation</h1>
-          <Breadcrumb items={[{ label: 'Asset Allocation' }]} />
+          {/* <Breadcrumb items={[{ label: 'Asset Allocation' }]} /> */}
         </div>
         <div className="flex gap-3">
           <Button variant="outline" icon={ArrowRightLeft} iconClassName="w-7 h-7" onClick={() => toast.success('Transfer mode')}>
@@ -203,36 +203,52 @@ export default function Allocations() {
 
       {/* Recent Allocations Timeline */}
       <Card hover={false}>
-        <h3 className="text-sm font-semibold text-text mb-4">Recent Allocations</h3>
-        <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200" />
-          <div className="space-y-4">
-            {recentTimelineItems.map((item, i) => (
-              <div
-                key={item.id}
-                className="relative pl-10 fadeinleft animation-duration-500"
-                style={{ animationDelay: `${i * 100}ms` }}
-              >
-                <div className="absolute left-2.5 top-1.5 w-4 h-4 rounded-full bg-white border-2 border-primary" />
-                <div className="bg-gray-50 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${actionColors[item.action] || 'bg-gray-100 text-muted'}`}>
-                      {item.action}
-                    </span>
-                    {item.time ? (
-                      <span className="text-xs text-muted">{item.date} at {item.time}</span>
-                    ) : (
-                      <span className="text-xs text-muted">{item.date}</span>
-                    )}
-                  </div>
-                  <p className="text-sm font-medium text-text">{item.asset}</p>
-                  <p className="text-xs text-muted">{item.employee}</p>
-                </div>
+        <h3 className="text-sm font-semibold text-text mb-4">
+          Recent Allocations
+        </h3>
+
+        <div className="space-y-5">
+          {recentTimelineItems.map((item, i) => (
+            <div key={item.id} className="relative flex gap-4">
+              {/* Timeline */}
+              <div className="relative flex flex-col items-center flex-shrink-0">
+                <div className="w-4 h-4 rounded-full bg-white border-2 border-primary z-10" />
+
+                {i !== recentTimelineItems.length - 1 && (
+                  <div className="w-px flex-1 bg-gray-300 mt-1 min-h-16" />
+                )}
               </div>
-            ))}
-          </div>
+
+              {/* Card */}
+              <div className="flex-1 bg-gray-50 border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition">
+                <div className="flex items-center gap-2 mb-2">
+                  <span
+                    className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                      actionColors[item.action] || "bg-gray-100 text-muted"
+                    }`}
+                  >
+                    {item.action}
+                  </span>
+
+                  <span className="text-xs text-muted">
+                    {item.time
+                      ? `${item.date} at ${item.time}`
+                      : item.date}
+                  </span>
+                </div>
+
+                <p className="text-sm font-semibold text-text">
+                  {item.asset}
+                </p>
+
+                <p className="text-xs text-muted mt-1">
+                  {item.employee}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
-      </Card>
+    </Card>
 
       {/* Allocate Modal */}
       <Modal isOpen={showAllocateModal} onClose={() => setShowAllocateModal(false)} title="Allocate Asset">

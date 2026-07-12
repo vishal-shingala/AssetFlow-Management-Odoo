@@ -74,7 +74,7 @@ export default function Reports() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Reports & Analytics</h1>
-          <Breadcrumb items={[{ label: 'Reports' }]} />
+          {/* <Breadcrumb items={[{ label: 'Reports' }]} /> */}
         </div>
         <div className="flex gap-3">
           <Button variant="outline" icon={Download} onClick={() => toast.success('Export initiated')}>

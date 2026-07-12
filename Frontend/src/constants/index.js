@@ -1,16 +1,17 @@
 import { LayoutDashboard, Building2, Users, Box, ArrowRightLeft, Calendar, Wrench, BarChart3, Settings } from 'lucide-react';
 
-// Navigation items for the sidebar
+// Navigation items for the sidebar with allowed roles
+// Roles: ADMIN, ASSET_MANAGER, DEPARTMENT_HEAD, EMPLOYEE
 export const NAV_ITEMS = [
-  { id: 'dashboard', label: 'Dashboard', path: '/', icon: LayoutDashboard },
-  { id: 'organizationsetup', label: 'OrganizationSetup', path: '/organizationsetup', icon: Building2 },
-  { id: 'employees', label: 'Employees', path: '/employees', icon: Users },
-  { id: 'assets', label: 'Assets', path: '/assets', icon: Box },
-  { id: 'allocations', label: 'Asset Allocation', path: '/allocations', icon: ArrowRightLeft },
-  { id: 'bookings', label: 'Resource Booking', path: '/bookings', icon: Calendar },
-  { id: 'maintenance', label: 'Maintenance', path: '/maintenance', icon: Wrench },
-  { id: 'reports', label: 'Reports', path: '/reports', icon: BarChart3 },
-  { id: 'settings', label: 'Settings', path: '/settings', icon: Settings },
+  { id: 'dashboard', label: 'Dashboard', path: '/', icon: LayoutDashboard, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD', 'EMPLOYEE'] },
+  { id: 'organizationsetup', label: 'Organization Setup', path: '/organizationsetup', icon: Building2, roles: ['ADMIN'] },
+  { id: 'employees', label: 'Employees', path: '/employees', icon: Users, roles: ['ADMIN'] },
+  { id: 'assets', label: 'Assets', path: '/assets', icon: Box, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD'] },
+  { id: 'allocations', label: 'Asset Allocation', path: '/allocations', icon: ArrowRightLeft, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD'] },
+  { id: 'bookings', label: 'Resource Booking', path: '/bookings', icon: Calendar, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD', 'EMPLOYEE'] },
+  { id: 'maintenance', label: 'Maintenance', path: '/maintenance', icon: Wrench, roles: ['ADMIN', 'ASSET_MANAGER', 'EMPLOYEE'] },
+  { id: 'reports', label: 'Reports', path: '/reports', icon: BarChart3, roles: ['ADMIN'] },
+  { id: 'settings', label: 'Settings', path: '/settings', icon: Settings, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD', 'EMPLOYEE'] },
 ];
 
 // Status color mappings

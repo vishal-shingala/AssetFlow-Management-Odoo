@@ -89,7 +89,7 @@ export default function OrganizationSetup() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Organization Setup</h1>
-          <Breadcrumb items={[{ label: 'Organization Setup' }]} />
+          {/* <Breadcrumb items={[{ label: 'Organization Setup' }]} /> */}
         </div>
         <Button icon={Plus} onClick={() => setShowModal(true)}>
           Add

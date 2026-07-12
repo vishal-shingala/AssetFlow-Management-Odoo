@@ -503,7 +503,7 @@ export default function Bookings() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Resource Booking</h1>
-          <Breadcrumb items={[{ label: 'Resource Booking' }]} />
+          {/* <Breadcrumb items={[{ label: 'Resource Booking' }]} /> */}
         </div>
         <Button icon={HiOutlinePlus} onClick={handleOpenNewModal}>
           New Booking

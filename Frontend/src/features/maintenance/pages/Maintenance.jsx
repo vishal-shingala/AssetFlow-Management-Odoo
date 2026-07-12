@@ -118,7 +118,7 @@ export default function Maintenance() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text">Maintenance</h1>
-          <Breadcrumb items={[{ label: 'Maintenance' }]} />
+          {/* <Breadcrumb items={[{ label: 'Maintenance' }]} /> */}
         </div>
         <Button icon={Plus} onClick={() => setShowModal(true)}>
           New Request

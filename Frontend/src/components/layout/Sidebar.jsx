@@ -7,6 +7,22 @@ export default function Sidebar() {
   const { sidebarCollapsed, toggleSidebar } = useApp();
   const navigate = useNavigate();
 
+  // Get logged-in user and their role
+  const userStr = sessionStorage.getItem('user');
+  const currentUser = userStr ? JSON.parse(userStr) : null;
+  const userRole = currentUser?.role || 'EMPLOYEE';
+
+  // Filter nav items based on user role
+  const visibleNavItems = NAV_ITEMS.filter(
+    (item) => !item.roles || item.roles.includes(userRole)
+  );
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('auth_token');
+    sessionStorage.removeItem('user');
+    navigate('/login');
+  };
+
   return (
     <aside
       className={`bg-sidebar-bg fixed left-0 top-0 h-screen flex flex-col z-40 transition-all duration-300 ease-in-out ${
@@ -14,22 +30,40 @@ export default function Sidebar() {
       }`}
     >
      {/* Logo */}
-<div className="h-16 flex items-center justify-start flex-none">
-  <div className="flex items-center gap-1.5 w-full">
-    <div className="ml-4 w-5 h-10 rounded-xl bg-primary flex items-center justify-center shadow-glow-primary">
-      <Box className="w-5 h-5 text-white" />
+    {/* <div className="h-16 flex items-center justify-start flex-none">
+      <div className="flex items-center gap-1.5 w-full">
+        <div className="ml-3 w-7 h-10 flex-shrink-0 rounded-xl bg-primary flex items-center justify-center shadow-glow-primary">
+          <Box className="w-5 h-5 text-white" />
+        </div>
+        {!sidebarCollapsed && (
+          <span className="text-xl font-bold tracking-tight text-white leading-none">
+            {APP_NAME}
+          </span>
+        )}
+      </div>
+    </div> */}
+
+    <div className="h-16 flex items-center">
+  <div
+    className={`flex items-center ${
+      sidebarCollapsed ? "justify-center w-full" : "justify-start gap-2"
+    }`}
+  >
+    <div className="ml-2 w-7 h-10 rounded-xl bg-primary flex items-center justify-center shadow-glow-primary flex-shrink-0">
+      <Box className="w-6 h-6 text-white" />
     </div>
+
     {!sidebarCollapsed && (
-      <span className="text-xl font-bold tracking-tight text-white leading-none">
+      <span className="text-xl font-bold tracking-tight text-white">
         {APP_NAME}
       </span>
     )}
   </div>
 </div>
-
+    
       {/* Navigation */}
-      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto overflow-x-hidden">
-        {NAV_ITEMS.map((item) => (
+      <nav className="flex-1 py-4 px-3 space-y-1 border-t border-white/5 overflow-y-auto overflow-x-hidden">
+        {visibleNavItems.map((item) => (
           <NavLink
             key={item.id}
             to={item.path}
@@ -66,7 +100,7 @@ export default function Sidebar() {
       {/* Bottom */}
       <div className="px-3 pb-4 flex-none space-y-1 border-t border-white/5 pt-3">
         <button
-          onClick={() => navigate('/login')}
+          onClick={handleLogout}
           className={`w-full flex items-center px-3 py-2.5 rounded-xl text-sidebar-text hover:bg-sidebar-hover hover:text-white transition-colors duration-150 ${
             sidebarCollapsed ? 'justify-center' : 'gap-2'
           }`}

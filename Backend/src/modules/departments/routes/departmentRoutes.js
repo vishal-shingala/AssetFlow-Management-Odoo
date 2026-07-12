@@ -2,14 +2,18 @@ import express from 'express';
 import * as controller from '../controllers/departmentController.js';
 import * as schemas from '../schemas/departmentSchemas.js';
 import { validate, validateQuery } from '../../../shared/validators.js';
+import { authenticate, authorize } from '../../../middlewares/auth.middleware.js';
 
 const router = express.Router();
+
+// Apply authentication to all department routes
+router.use(authenticate);
 
 // GET /api/departments/search - Search departments
 router.get('/search', controller.searchDepartments);
 
-// POST /api/departments - Create new department
-router.post('/', validate(schemas.createDepartmentSchema), controller.createDepartment);
+// POST /api/departments - Create new department (Admin only)
+router.post('/', authorize(['ADMIN']), validate(schemas.createDepartmentSchema), controller.createDepartment);
 
 // GET /api/departments - Get paginated departments directory
 router.get('/', validateQuery(schemas.departmentFilterSchema), controller.getDepartments);
@@ -23,10 +27,10 @@ router.get('/:id', controller.getDepartmentById);
 // GET /api/departments/:id/children - Get child departments
 router.get('/:id/children', controller.getChildDepartments);
 
-// PUT /api/departments/:id - Update department details
-router.put('/:id', validate(schemas.updateDepartmentSchema), controller.updateDepartment);
+// PUT /api/departments/:id - Update department details (Admin only)
+router.put('/:id', authorize(['ADMIN']), validate(schemas.updateDepartmentSchema), controller.updateDepartment);
 
-// DELETE /api/departments/:id - Delete a department
-router.delete('/:id', controller.deleteDepartment);
+// DELETE /api/departments/:id - Delete a department (Admin only)
+router.delete('/:id', authorize(['ADMIN']), controller.deleteDepartment);
 
 export default router;
