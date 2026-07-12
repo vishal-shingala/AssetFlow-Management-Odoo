@@ -12,7 +12,10 @@ export function usePermission() {
 
   const can = (allowedRoles) => {
     if (!userRole) return false;
-    return allowedRoles.includes(userRole);
+    const rolesArr = Array.isArray(allowedRoles) ? allowedRoles : [allowedRoles];
+    return rolesArr.some(
+      (r) => String(r).toUpperCase() === String(userRole).toUpperCase()
+    );
   };
 
   return { userRole, can };
