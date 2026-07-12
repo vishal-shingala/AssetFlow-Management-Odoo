@@ -1,15 +1,15 @@
-import { HiChevronRight, HiOutlineHome } from 'react-icons/hi2';
+
 import { Link } from 'react-router-dom';
 
 export default function Breadcrumb({ items }) {
   return (
     <nav className="flex items-center gap-1.5 text-sm">
       <Link to="/" className="text-muted hover:text-primary transition-colors">
-        <HiOutlineHome className="w-4 h-4" />
+        <i className="pi pi-home w-4 h-4"></i>
       </Link>
       {items.map((item, idx) => (
         <div key={idx} className="flex items-center gap-1.5">
-          <HiChevronRight className="w-3.5 h-3.5 text-gray-300" />
+          <i className="pi pi-chevron-right w-3.5 h-3.5 text-gray-300"></i>
           {idx === items.length - 1 ? (
             <span className="font-medium text-text">{item.label}</span>
           ) : (

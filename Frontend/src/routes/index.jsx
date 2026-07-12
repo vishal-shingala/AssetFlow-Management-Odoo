@@ -29,6 +29,11 @@ export const router = createBrowserRouter([
     errorElement: <GlobalError />,
   },
   {
+    path: '/signup',
+    element: <Signup />,
+    errorElement: <GlobalError />,
+  },
+  {
     path: '/',
     element: <App />,
     errorElement: <GlobalError />,

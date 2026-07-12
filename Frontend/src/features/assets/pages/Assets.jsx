@@ -78,19 +78,19 @@ export default function Assets() {
             onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
           >
-            <HiOutlineEye className="w-4 h-4" />
+            <i className="pi pi-eye w-4 h-4"></i>
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-warning transition-colors"
           >
-            <HiOutlinePencilSquare className="w-4 h-4" />
+            <i className="pi pi-pencil w-4 h-4"></i>
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-danger transition-colors"
           >
-            <HiOutlineTrash className="w-4 h-4" />
+            <i className="pi pi-trash w-4 h-4"></i>
           </button>
         </div>
       ),

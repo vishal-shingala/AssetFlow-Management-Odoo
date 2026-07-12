@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { HiOutlineCube } from 'react-icons/hi2';
+
 
 export function NotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center">
       <div className="text-center max-w-md">
         <div className="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <HiOutlineCube className="w-10 h-10 text-primary" />
+          <i className="pi pi-box w-10 h-10 text-primary"></i>
         </div>
         <h1 className="text-6xl font-bold text-primary mb-2">404</h1>
         <h2 className="text-xl font-semibold text-text mb-2">Page Not Found</h2>

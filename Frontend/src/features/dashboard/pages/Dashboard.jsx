@@ -1,9 +1,5 @@
 import { motion } from 'framer-motion';
-import {
-  HiOutlineCube, HiOutlineUserGroup, HiOutlineWrenchScrewdriver,
-  HiOutlineCalendarDays, HiOutlineArrowUturnLeft,
-  HiArrowTrendingUp, HiArrowTrendingDown,
-} from 'react-icons/hi2';
+
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend, AreaChart, Area,
@@ -18,20 +14,12 @@ import ChartCard from '../../../components/ui/ChartCard';
 import NotificationCard from '../../../components/ui/NotificationCard';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
 
-const iconComponents = {
-  HiOutlineCube,
-  HiOutlineUserGroup,
-  HiOutlineWrenchScrewdriver,
-  HiOutlineCalendarDays,
-  HiOutlineArrowUturnLeft,
-};
-
 const colorMap = {
   primary: 'bg-primary/10 text-primary',
   secondary: 'bg-secondary/10 text-secondary',
-  success: 'bg-emerald-50 text-success',
-  warning: 'bg-amber-50 text-warning',
-  danger: 'bg-red-50 text-danger',
+  success: 'bg-success/10 text-success',
+  warning: 'bg-warning/10 text-warning',
+  danger: 'bg-danger/10 text-danger',
 };
 
 const activityIcons = {
@@ -61,7 +49,6 @@ export default function Dashboard() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {kpiCards.map((kpi, index) => {
-          const Icon = iconComponents[kpi.icon];
           return (
             <motion.div
               key={kpi.id}
@@ -76,9 +63,9 @@ export default function Dashboard() {
                     <p className="text-2xl font-bold text-text mt-1">{kpi.value.toLocaleString()}</p>
                     <div className="flex items-center gap-1 mt-2">
                       {kpi.changeType === 'positive' ? (
-                        <HiArrowTrendingUp className="w-3.5 h-3.5 text-success" />
+                        <i className="pi pi-arrow-up-right w-3.5 h-3.5 text-success"></i>
                       ) : (
-                        <HiArrowTrendingDown className="w-3.5 h-3.5 text-danger" />
+                        <i className="pi pi-arrow-down-right w-3.5 h-3.5 text-danger"></i>
                       )}
                       <span className={`text-xs font-medium ${kpi.changeType === 'positive' ? 'text-success' : 'text-danger'}`}>
                         {kpi.change}
@@ -87,7 +74,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className={`p-2.5 rounded-xl ${colorMap[kpi.color]}`}>
-                    {Icon && <Icon className="w-5 h-5" />}
+                    <i className={`pi ${kpi.icon} w-5 h-5`}></i>
                   </div>
                 </div>
               </Card>

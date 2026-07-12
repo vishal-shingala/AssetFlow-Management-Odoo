@@ -1,8 +1,5 @@
 import { motion } from 'framer-motion';
-import {
-  HiOutlineArrowDownTray, HiOutlineDocumentText,
-  HiOutlineTableCells, HiOutlineDocumentChartBar,
-} from 'react-icons/hi2';
+
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, Legend, RadarChart, PolarGrid,
@@ -58,7 +55,7 @@ export default function Reports() {
           onClick={(e) => { e.stopPropagation(); toast.success('Download started'); }}
           className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
         >
-          <HiOutlineArrowDownTray className="w-4 h-4" />
+          <i className="pi pi-download w-4 h-4"></i>
         </button>
       ),
     },

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { HiChevronDown } from 'react-icons/hi2';
+
 
 export default function Dropdown({ options, value, onChange, placeholder = 'Select...', label }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +35,7 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
           <span className={displayValue ? 'text-text' : 'text-muted'}>
             {displayValue || placeholder}
           </span>
-          <HiChevronDown className={`w-4 h-4 text-muted transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <i className={`pi pi-chevron-down ${`w-4 h-4 text-muted transition-transform ${isOpen ? 'rotate-180' : ''}`}`}></i>
         </button>
         {isOpen && (
           <div className="absolute z-20 w-full mt-1.5 bg-white rounded-lg border border-gray-200 shadow-lg py-1 max-h-60 overflow-y-auto">

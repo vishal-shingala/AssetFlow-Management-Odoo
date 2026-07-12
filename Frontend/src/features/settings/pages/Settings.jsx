@@ -96,7 +96,7 @@ function ProfileSettings() {
           <Input label="Role" defaultValue={CURRENT_USER.role} disabled />
         </div>
         <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-          <HiOutlineShieldCheck className="w-5 h-5 text-muted" />
+          <i className="pi pi-shield w-5 h-5 text-muted"></i>
           <div>
             <p className="text-sm font-medium text-text">Password</p>
             <p className="text-xs text-muted">Last changed 30 days ago</p>
