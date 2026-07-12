@@ -14,6 +14,9 @@ router.post('/', validate(schemas.createAssetSchema), controller.createAsset);
 // GET /api/assets - Get paginated asset directory
 router.get('/', validateQuery(schemas.assetFilterSchema), controller.getAssets);
 
+// GET /api/assets/allocations - Get all asset allocations
+router.get('/allocations', controller.getAllocations);
+
 // GET /api/assets/:id - Get asset details
 router.get('/:id', controller.getAssetById);
 

@@ -342,6 +342,37 @@ export const returnAssetRepo = async (assetId, returnData) => {
   });
 };
 
+// Get all asset allocations with joined details
+export const getAllAllocationsRepo = async () => {
+  const sql = `
+    SELECT 
+      aa.id,
+      aa.asset_id,
+      aa.employee_id,
+      aa.department_id,
+      aa.allocated_date AS "allocatedDate",
+      aa.actual_return_date AS "returnDate",
+      aa.expected_return_date,
+      CASE 
+        WHEN aa.status = 'ACTIVE' THEN 'Active'
+        WHEN aa.status = 'RETURNED' THEN 'Returned'
+        ELSE aa.status 
+      END AS status,
+      aa.remarks,
+      a.asset_name AS asset,
+      a.asset_tag AS "assetTag",
+      COALESCE(u.name, 'Unassigned') AS employee,
+      COALESCE(d.name, 'Unassigned') AS department
+    FROM asset_allocations aa
+    LEFT JOIN assets a ON aa.asset_id = a.id
+    LEFT JOIN users u ON aa.employee_id = u.user_id
+    LEFT JOIN departments d ON aa.department_id = d.department_id
+    ORDER BY aa.allocated_date DESC, aa.id DESC;
+  `;
+  const result = await query(sql);
+  return result.rows;
+};
+
 // Get complete history for an asset
 export const getAssetHistoryRepo = async (assetId) => {
   const allocationsSql = `
