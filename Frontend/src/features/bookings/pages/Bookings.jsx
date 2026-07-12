@@ -7,27 +7,6 @@ import {
   HiOutlineUser, HiOutlineTag, HiChevronDown, HiOutlineTrash,
   HiOutlineExclamationTriangle, HiXMark
 } from 'react-icons/hi2';
-import { bookingService, resourceService, employeeService } from '../../services';
-import { STATUS_COLORS } from '../../constants';
-import Breadcrumb from '../../components/ui/Breadcrumb';
-import Card from '../../components/ui/Card';
-import Table from '../../components/ui/Table';
-import Button from '../../components/ui/Button';
-import SearchBar from '../../components/ui/SearchBar';
-import Dropdown from '../../components/ui/Dropdown';
-import StatusBadge from '../../components/ui/StatusBadge';
-import Modal from '../../components/ui/Modal';
-import Input from '../../components/ui/Input';
-import LoadingSpinner from '../../components/ui/LoadingSpinner';
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  HiOutlineBuildingOffice2, HiOutlineBuildingLibrary,
-  HiOutlineTv, HiOutlineTruck, HiOutlinePlus,
-  HiOutlineCalendar, HiOutlineMapPin, HiOutlineClock,
-  HiOutlineUser, HiOutlineTag, HiChevronDown, HiOutlineTrash,
-  HiOutlineExclamationTriangle, HiXMark
-} from 'react-icons/hi2';
 import { bookingService, resourceService, employeeService } from '../../../services';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -435,20 +414,6 @@ export default function Bookings() {
     {
       key: 'resource_name',
       label: 'Resource',
-      render: (val, row) => (
-        <div 
-          className="cursor-pointer group flex flex-col"
-          onClick={() => setActiveResourceDetail(resourcesList.find(r => r.id === row.asset_id))}
-        >
-          <span className="font-semibold text-text group-hover:text-primary transition-colors flex items-center gap-1.5">
-            {val}
-            <span className="text-[10px] bg-gray-100 text-muted px-1.5 py-0.5 rounded border border-gray-200">View</span>
-          </span>
-          <span className="text-xs text-muted font-normal flex items-center gap-1 mt-0.5">
-            <HiOutlineMapPin className="w-3.5 h-3.5 text-muted" /> {row.location || 'N/A'}
-          </span>
-        </div>
-      ),
       render: (val, row) => {
         const Icon = resourceIcons[row.resource_type] || HiOutlineBuildingOffice2;
         const color = iconColors[row.resource_type] || '#6366f1';
@@ -731,18 +696,34 @@ export default function Bookings() {
                 </div>
               </div>
 
-      {/* Booking List */}
-      <Card hover={false}>
-        <div className="flex flex-col sm:flex-row gap-3 mb-6">
-          <div className="flex-1">
-            <SearchBar value={search} onChange={setSearch} placeholder="Search bookings..." />
-          </div>
-          <div className="flex-1 md:flex-none md:w-1/4">
-            <Dropdown options={['', ...bookingStatuses]} value={statusFilter} onChange={setStatusFilter} placeholder="Status" />
-          </div>
-        </div>
-        <Table columns={columns} data={filtered} />
-      </Card>
+              <div className="border-t border-gray-100 pt-4 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-muted block text-xs">Category</span>
+                  <span className="font-semibold text-text mt-0.5 block">{activeResourceDetail.category_name}</span>
+                </div>
+                <div>
+                  <span className="text-muted block text-xs">Location</span>
+                  <span className="font-semibold text-text mt-0.5 block flex items-center gap-1">
+                    <HiOutlineMapPin className="w-4 h-4 text-muted" /> {activeResourceDetail.location || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-muted block text-xs">Condition</span>
+                  <span className="font-semibold text-text mt-0.5 block">{activeResourceDetail.condition || 'N/A'}</span>
+                </div>
+                <div>
+                  <span className="text-muted block text-xs">Capacity</span>
+                  <span className="font-semibold text-text mt-0.5 block">
+                    {getResourceDetails(activeResourceDetail)?.capacity || 'N/A'}
+                  </span>
+                </div>
+                <div className="col-span-2">
+                  <span className="text-muted block text-xs">Included Equipment</span>
+                  <span className="font-semibold text-text mt-0.5 block">
+                    {getResourceDetails(activeResourceDetail)?.equipment || 'None'}
+                  </span>
+                </div>
+              </div>
 
               <div className="border-t border-gray-100 pt-4">
                 <h4 className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Upcoming Schedule</h4>
