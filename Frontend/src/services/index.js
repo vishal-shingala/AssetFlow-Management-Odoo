@@ -25,8 +25,32 @@ export const departmentService = {
 };
 
 export const employeeService = {
-  getAll: async () => employees,
-  getById: async (id) => employees.find((e) => e.id === id),
+  getAll: async () => {
+    try {
+      const res = await apiClient.get('/users');
+      const users = Array.isArray(res?.data) ? res.data : Array.isArray(res) ? res : [];
+      return users.map((u) => ({
+        id: u.user_id || u.id,
+        name: u.name || u.email,
+        email: u.email,
+        department: u.department || u.department_name || 'N/A',
+        role: u.role,
+        status: u.status || 'Active',
+      }));
+    } catch (error) {
+      console.error('Failed to fetch users from backend, falling back to mock data:', error);
+      return employees;
+    }
+  },
+  getById: async (id) => {
+    try {
+      const res = await apiClient.get(`/users/${id}`);
+      const u = res?.data || res;
+      return u ? { id: u.user_id || u.id, name: u.name, email: u.email, department: u.department_name || 'N/A', role: u.role } : null;
+    } catch {
+      return employees.find((e) => e.id === id);
+    }
+  },
   create: async (data) => ({ ...data, id: Date.now() }),
   update: async (id, data) => ({ ...data, id }),
   delete: async (id) => ({ success: true, id }),
