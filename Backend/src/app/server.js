@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'dotenv/config';
 import express from 'express';
 import helmet from 'helmet';
@@ -10,18 +9,6 @@ import departmentRoutes from '../modules/departments/routes/departmentRoutes.js'
 import logger from '../config/logger.js';
 import { initializeDatabase, closeDatabase } from '../config/database.js';
 import { initializeRedis, closeRedis } from '../config/redis.js';
-=======
-import "dotenv/config";
-import express from "express";
-import helmet from "helmet";
-import cors from "cors";
-import compression from "compression";
-import rateLimit from "express-rate-limit";
-import routes from "./routes.js";
-import logger from "../config/logger.js";
-import { initializeDatabase, closeDatabase } from "../config/database.js";
-import { initializeRedis, closeRedis } from "../config/redis.js";
->>>>>>> resource
 
 let server;
 
