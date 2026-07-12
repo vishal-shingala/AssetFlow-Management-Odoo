@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Users, Monitor, Truck, Box, Plus } from 'lucide-react';
 
 import { bookings, resourceTypes, calendarEvents, bookingStatuses } from '../data/bookings';
 import { STATUS_COLORS } from '../../../constants';
@@ -14,10 +15,10 @@ import Input from '../../../components/ui/Input';
 import toast from 'react-hot-toast';
 
 const resourceIcons = {
-  Conference: 'pi-users',
-  Desk: 'pi-desktop',
-  Vehicle: 'pi-truck',
-  Equipment: 'pi-box',
+  Conference: Users,
+  Desk: Monitor,
+  Vehicle: Truck,
+  Equipment: Box,
 };
 
 export default function Bookings() {
@@ -52,8 +53,11 @@ export default function Bookings() {
       render: (_, row) => {
         return (
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg text-primary">
-              <i className={`pi ${resourceIcons[row.type]} w-4 h-4`}></i>
+            <div className="p-2 bg-primary/10 rounded-lg text-primary flex items-center justify-center">
+              {(() => {
+                const Icon = resourceIcons[row.type] || Box;
+                return <Icon className="w-4 h-4" />;
+              })()}
             </div>
             <div>
               <p className="font-medium text-text">{row.resource}</p>
@@ -86,7 +90,7 @@ export default function Bookings() {
           <Breadcrumb items={[{ label: 'Resource Booking' }]} />
         </div>
         <div>
-          <Button icon="pi-plus" onClick={() => setShowModal(true)}>
+          <Button icon={Plus} onClick={() => setShowModal(true)}>
             New Booking
           </Button>
         </div>
@@ -95,7 +99,7 @@ export default function Bookings() {
       {/* Resource Type Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {resourceTypes.map((resource, i) => {
-          const iconClass = resourceIcons[resource.name] || 'pi-box';
+          const IconComp = resourceIcons[resource.name] || Box;
           return (
             <div
               key={resource.id}
@@ -107,7 +111,7 @@ export default function Bookings() {
                   className="w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center"
                   style={{ backgroundColor: `${resource.color}15` }}
                 >
-                  <i className={`pi ${iconClass} text-xl`} style={{ color: resource.color }}></i>
+                  <IconComp className="w-6 h-6" style={{ color: resource.color }} />
                 </div>
                 <h3 className="text-sm font-semibold text-text">{resource.name}</h3>
                 <p className="text-xs text-muted mt-1">

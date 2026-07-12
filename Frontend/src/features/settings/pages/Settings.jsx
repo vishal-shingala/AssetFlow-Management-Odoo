@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { User, Palette, Bell, Settings as SettingsIcon, Shield } from 'lucide-react';
 
 import { CURRENT_USER } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -9,10 +10,10 @@ import Avatar from '../../../components/ui/Avatar';
 import toast from 'react-hot-toast';
 
 const tabs = [
-  { id: 'profile', label: 'Profile', icon: 'pi-user' },
-  { id: 'theme', label: 'Theme', icon: 'pi-palette' },
-  { id: 'notifications', label: 'Notifications', icon: 'pi-bell' },
-  { id: 'preferences', label: 'Preferences', icon: 'pi-cog' },
+  { id: 'profile', label: 'Profile', icon: User },
+  { id: 'theme', label: 'Theme', icon: Palette },
+  { id: 'notifications', label: 'Notifications', icon: Bell },
+  { id: 'preferences', label: 'Preferences', icon: SettingsIcon },
 ];
 
 export default function Settings() {
@@ -42,7 +43,7 @@ export default function Settings() {
                         : 'text-muted hover:text-text hover:bg-gray-50'
                       }`}
                   >
-                    <i className={`pi ${tab.icon} w-4 h-4`}></i>
+                    <Icon className="w-4 h-4" />
                     {tab.label}
                   </button>
                 );
@@ -90,7 +91,7 @@ function ProfileSettings() {
           <Input label="Role" defaultValue={CURRENT_USER.role} disabled />
         </div>
         <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-          <i className="pi pi-shield w-5 h-5 text-muted"></i>
+          <Shield className="w-5 h-5 text-muted" />
           <div>
             <p className="text-sm font-medium text-text">Password</p>
             <p className="text-xs text-muted">Last changed 30 days ago</p>

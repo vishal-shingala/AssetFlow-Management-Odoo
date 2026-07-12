@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Eye, Edit2, Trash2, Plus } from 'lucide-react';
 import { employees } from '../data/employees';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -71,19 +72,19 @@ export default function Employees() {
             onClick={(e) => { e.stopPropagation(); setSelectedEmployee(row); setShowProfile(true); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
           >
-            <i className="pi pi-eye w-4 h-4"></i>
+            <Eye className="w-4 h-4" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Edit employee'); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-warning transition-colors"
           >
-            <i className="pi pi-pencil w-4 h-4"></i>
+            <Edit2 className="w-4 h-4" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Employee removed'); }}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-danger transition-colors"
           >
-            <i className="pi pi-trash w-4 h-4"></i>
+            <Trash2 className="w-4 h-4" />
           </button>
         </div>
       ),
@@ -97,7 +98,7 @@ export default function Employees() {
           <h1 className="text-2xl font-bold text-text">Employees</h1>
           <Breadcrumb items={[{ label: 'Employees' }]} />
         </div>
-        <Button icon="pi-plus" onClick={() => setShowModal(true)}>
+        <Button icon={Plus} onClick={() => setShowModal(true)}>
           Add Employee
         </Button>
       </div>

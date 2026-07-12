@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Box, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { NAV_ITEMS, APP_NAME } from '../../constants';
 
@@ -20,7 +21,7 @@ export default function Sidebar() {
       <div className="flex items-center h-16 px-5">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-9 h-9 min-w-[36px] rounded-xl bg-gradient-to-br from-primary to-indigo-500 flex items-center justify-center flex-none shadow-lg shadow-primary/20">
-            <i className="pi pi-box text-white text-lg"></i>
+            <Box className="w-5 h-5 text-white" />
           </div>
           <span
             className={`font-bold text-lg text-white tracking-tight whitespace-nowrap transition-all duration-300 ${
@@ -43,19 +44,19 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${
                   isActive
-                    ? 'bg-primary text-white font-semibold'
-                    : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                    ? 'bg-gradient-to-r from-primary to-indigo-600 text-white font-semibold'
+                    : 'text-slate-400 hover:bg-white/5 hover:text-white'
                 }`
               }
               title={sidebarCollapsed ? item.label : undefined}
             >
               {({ isActive }) => (
                 <>
-                  <i
-                    className={`pi ${item.icon} text-lg flex-none transition-transform duration-200 ${
+                  <item.icon
+                    className={`w-5 h-5 flex-none transition-transform duration-200 ${
                       isActive ? 'text-white' : 'group-hover:scale-110'
                     }`}
-                  ></i>
+                  />
                   <span
                     className={`text-sm whitespace-nowrap transition-all duration-300 ${
                       sidebarCollapsed ? 'opacity-0 translate-x-4 w-0 hidden' : 'opacity-100 translate-x-0 w-auto'
@@ -74,10 +75,10 @@ export default function Sidebar() {
       <div className="p-4">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 group"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 group"
           title={sidebarCollapsed ? 'Logout' : undefined}
         >
-          <i className="pi pi-sign-out text-lg flex-none group-hover:-translate-x-1 transition-transform"></i>
+          <LogOut className="w-5 h-5 flex-none group-hover:-translate-x-1 transition-transform" />
           <span
             className={`text-sm font-medium whitespace-nowrap transition-all duration-300 ${
               sidebarCollapsed ? 'opacity-0 w-0 hidden' : 'opacity-100 w-auto'
@@ -89,13 +90,13 @@ export default function Sidebar() {
 
         <button
           onClick={toggleSidebar}
-          className="w-full flex items-center justify-center mt-2 p-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200"
+          className="w-full flex items-center justify-center mt-2 p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200"
         >
-          <i
-            className={`pi ${
-              sidebarCollapsed ? 'pi-angle-double-right' : 'pi-angle-double-left'
-            } text-lg transition-transform duration-300 hover:scale-110`}
-          ></i>
+          {sidebarCollapsed ? (
+            <ChevronRight className="w-5 h-5 transition-transform duration-300 hover:scale-110" />
+          ) : (
+            <ChevronLeft className="w-5 h-5 transition-transform duration-300 hover:scale-110" />
+          )}
         </button>
       </div>
     </aside>

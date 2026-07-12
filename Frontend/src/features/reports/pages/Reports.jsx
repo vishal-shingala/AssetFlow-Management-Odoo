@@ -5,6 +5,7 @@ import {
   Tooltip, ResponsiveContainer, Legend, RadarChart, PolarGrid,
   PolarAngleAxis, PolarRadiusAxis, Radar,
 } from 'recharts';
+import { FileText, FileSpreadsheet, File, Download } from 'lucide-react';
 import {
   assetCategoryReport, assetStatusReport,
   departmentAllocationReport, maintenanceFrequencyReport,
@@ -18,9 +19,9 @@ import Table from '../../../components/ui/Table';
 import toast from 'react-hot-toast';
 
 const formatIcons = {
-  PDF: 'pi-file-pdf',
-  Excel: 'pi-file-excel',
-  CSV: 'pi-file',
+  PDF: FileText,
+  Excel: FileSpreadsheet,
+  CSV: File,
 };
 
 export default function Reports() {
@@ -38,10 +39,10 @@ export default function Reports() {
       key: 'format',
       label: 'Format',
       render: (val) => {
-        const Icon = formatIcons[val] || 'pi-file';
+        const Icon = formatIcons[val] || File;
         return (
           <div className="flex items-center gap-1.5">
-            <i className={`pi ${Icon} w-4 h-4 text-muted`}></i>
+            <Icon className="w-4 h-4 text-muted" />
             <span>{val}</span>
           </div>
         );
@@ -55,7 +56,7 @@ export default function Reports() {
           onClick={(e) => { e.stopPropagation(); toast.success('Download started'); }}
           className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
         >
-          <i className="pi pi-download w-4 h-4"></i>
+          <Download className="w-4 h-4" />
         </button>
       ),
     },
@@ -76,10 +77,10 @@ export default function Reports() {
           <Breadcrumb items={[{ label: 'Reports' }]} />
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" icon="pi-download" onClick={() => toast.success('Export initiated')}>
+          <Button variant="outline" icon={Download} onClick={() => toast.success('Export initiated')}>
             Export PDF
           </Button>
-          <Button icon="pi-file-excel" onClick={() => toast.success('Export initiated')}>
+          <Button icon={FileSpreadsheet} onClick={() => toast.success('Export initiated')}>
             Export Excel
           </Button>
         </div>

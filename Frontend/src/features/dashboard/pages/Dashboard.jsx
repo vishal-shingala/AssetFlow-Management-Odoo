@@ -4,6 +4,7 @@ import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend, AreaChart, Area,
 } from 'recharts';
+import { ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import {
   kpiCards, assetsByCategory, assetsByStatus,
   maintenanceOverview, departmentAssets,
@@ -62,9 +63,9 @@ export default function Dashboard() {
                     <p className="text-2xl font-bold text-text mt-1">{kpi.value.toLocaleString()}</p>
                     <div className="flex items-center gap-1 mt-2">
                       {kpi.changeType === 'positive' ? (
-                        <i className="pi pi-arrow-up-right w-3.5 h-3.5 text-success"></i>
+                        <ArrowUpRight className="w-4 h-4 text-success" />
                       ) : (
-                        <i className="pi pi-arrow-down-right w-3.5 h-3.5 text-danger"></i>
+                        <ArrowDownRight className="w-4 h-4 text-danger" />
                       )}
                       <span className={`text-xs font-medium ${kpi.changeType === 'positive' ? 'text-success' : 'text-danger'}`}>
                         {kpi.change}
@@ -73,7 +74,7 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className={`p-2.5 rounded-xl ${colorMap[kpi.color]}`}>
-                    <i className={`pi ${kpi.icon} w-5 h-5`}></i>
+                    <kpi.icon className="w-5 h-5" />
                   </div>
                 </div>
               </Card>

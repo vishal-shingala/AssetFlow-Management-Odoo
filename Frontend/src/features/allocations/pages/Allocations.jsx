@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Undo2, RefreshCw, ArrowRightLeft, Plus } from 'lucide-react';
 
 import { allocations, recentAllocations } from '../data/allocations';
 import { STATUS_COLORS } from '../../../constants';
@@ -70,14 +71,14 @@ export default function Allocations() {
                 className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-success transition-colors"
                 title="Return"
               >
-                <i className="pi pi-undo w-4 h-4"></i>
+                <Undo2 className="w-4 h-4" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); toast.success('Transfer initiated'); }}
                 className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
                 title="Transfer"
               >
-                <i className="pi pi-sync w-4 h-4"></i>
+                <RefreshCw className="w-4 h-4" />
               </button>
             </>
           )}
@@ -94,10 +95,10 @@ export default function Allocations() {
           <Breadcrumb items={[{ label: 'Asset Allocation' }]} />
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" icon="pi-arrows-h" onClick={() => toast.success('Transfer mode')}>
+          <Button variant="outline" icon={ArrowRightLeft} onClick={() => toast.success('Transfer mode')}>
             Transfer
           </Button>
-          <Button icon="pi-plus" onClick={() => setShowAllocateModal(true)}>
+          <Button icon={Plus} onClick={() => setShowAllocateModal(true)}>
             Allocate Asset
           </Button>
         </div>

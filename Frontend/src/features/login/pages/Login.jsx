@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Box } from 'lucide-react';
 import { APP_NAME, APP_TAGLINE } from '../../../constants';
 import LoginForm from '../components/LoginForm';
 
@@ -17,7 +18,7 @@ export default function Login() {
         <div className="relative z-10 text-center max-w-md">
           <div className="fadeinup animation-duration-500">
             <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/30">
-              <i className="pi pi-box w-10 h-10 text-white text-4xl leading-[40px]"></i>
+              <Box className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-4xl font-bold text-white mb-4">{APP_NAME}</h1>
             <p className="text-lg text-gray-400 mb-8">{APP_TAGLINE}</p>
@@ -49,7 +50,7 @@ export default function Login() {
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <i className="pi pi-box w-6 h-6 text-white text-2xl leading-[24px]"></i>
+              <Box className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold text-text">{APP_NAME}</span>
           </div>

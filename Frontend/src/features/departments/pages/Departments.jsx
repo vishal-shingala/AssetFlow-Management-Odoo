@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Eye, Edit2, Trash2, Plus } from 'lucide-react';
 
 import { departments } from '../data/departments';
 import { STATUS_COLORS } from '../../../constants';
@@ -57,19 +58,19 @@ export default function Departments() {
             onClick={(e) => { e.stopPropagation(); setSelectedDept(row); setShowViewModal(true); }}
             className="p-1 text-muted hover:text-primary transition-colors" title="View details"
           >
-            <i className="pi pi-eye w-4 h-4"></i>
+            <Eye className="w-4 h-4" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Edit department'); }}
             className="p-1 text-muted hover:text-primary transition-colors" title="Edit department"
           >
-            <i className="pi pi-pencil w-4 h-4"></i>
+            <Edit2 className="w-4 h-4" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); toast.success('Department deleted'); }}
             className="p-1 text-muted hover:text-danger transition-colors" title="Delete department"
           >
-            <i className="pi pi-trash w-4 h-4"></i>
+            <Trash2 className="w-4 h-4" />
           </button>
         </div>
       ),
@@ -84,7 +85,7 @@ export default function Departments() {
           <Breadcrumb items={[{ label: 'Departments' }]} />
         </div>
         <div>
-          <Button icon="pi-plus" onClick={() => setShowModal(true)}>
+          <Button icon={Plus} onClick={() => setShowModal(true)}>
             Add Department
           </Button>
         </div>

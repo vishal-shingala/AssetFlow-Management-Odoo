@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Eye, Edit2, Trash2, Plus } from 'lucide-react';
 import { assets, assetCategories, assetStatuses } from '../data/assets';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -74,13 +75,13 @@ export default function Assets() {
       render: (_, row) => (
         <div className="flex items-center gap-1">
           <button className="p-1 text-muted hover:text-primary transition-colors" title="View details" onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}>
-            <i className="pi pi-eye w-4 h-4"></i>
+            <Eye className="w-4 h-4" />
           </button>
           <button className="p-1 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}>
-            <i className="pi pi-pencil w-4 h-4"></i>
+            <Edit2 className="w-4 h-4" />
           </button>
           <button className="p-1 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}>
-            <i className="pi pi-trash w-4 h-4"></i>
+            <Trash2 className="w-4 h-4" />
           </button>
         </div>
       ),
@@ -95,7 +96,7 @@ export default function Assets() {
           <Breadcrumb items={[{ label: 'Assets' }]} />
         </div>
         <div className="flex gap-3">
-          <Button icon="pi-plus" onClick={() => setShowModal(true)}>
+          <Button icon={Plus} onClick={() => setShowModal(true)}>
             Add Asset
           </Button>
         </div>
