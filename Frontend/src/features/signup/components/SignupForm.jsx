@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { signupSchema } from '../schemas/signupSchema';
+import { signup } from '../api/signupApi';
 
 export default function SignupForm() {
   const navigate = useNavigate();
@@ -25,11 +26,19 @@ export default function SignupForm() {
   });
 
   const onSubmit = async (data) => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log('Signup data:', data);
-    toast.success('Account created successfully!');
-    navigate('/login');
+    try {
+      await signup({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
+      toast.success('Account created successfully!');
+      navigate('/login');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Failed to create account. Please try again.';
+      toast.error(errorMessage);
+      console.error('Signup error:', error);
+    }
   };
 
   return (

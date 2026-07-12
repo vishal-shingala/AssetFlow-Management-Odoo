@@ -3,6 +3,7 @@ import { healthCheck as dbHealthCheck } from '../config/database.js';
 import { healthCheck as redisHealthCheck } from '../config/redis.js';
 import logger from '../config/logger.js';
 import assetRoutes from '../modules/assets/routes/assetRoutes.js';
+import authRoutes from '../modules/auth/routes/authRoutes.js';
 import resourceRoutes from '../routes/resource.routes.js';
 import bookingRoutes from '../routes/booking.routes.js';
 
@@ -10,6 +11,7 @@ const router = express.Router();
 
 router.use("/api/resources", resourceRoutes);
 router.use("/api/bookings", bookingRoutes);
+router.use('/api/auth', authRoutes);
 
 // Health check endpoint
 router.get("/health", async (req, res) => {

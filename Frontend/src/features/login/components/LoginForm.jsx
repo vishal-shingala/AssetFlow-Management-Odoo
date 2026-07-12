@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { loginSchema } from '../schemas/loginSchema';
+import { login } from '../api/loginApi';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
@@ -22,10 +23,21 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log('Login data:', data);
-    toast.success('Login successful! Welcome back.');
-    navigate('/');
+    try {
+      const response = await login({
+        email: data.email,
+        password: data.password,
+      });
+      const { token, user } = response.data;
+      sessionStorage.setItem('auth_token', token);
+      sessionStorage.setItem('user', JSON.stringify(user));
+      toast.success('Login successful! Welcome back.');
+      navigate('/');
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Login failed. Please check your credentials.';
+      toast.error(errorMessage);
+      console.error('Login error:', error);
+    }
   };
 
   return (
