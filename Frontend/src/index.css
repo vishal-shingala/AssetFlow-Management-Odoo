@@ -14,10 +14,10 @@
     --color-warning: #f59e0b;
     --color-danger: #ef4444;
     --color-info: #3b82f6;
-    --color-background: #f8fafc;
+    --color-background: #f0f2f5;
     --color-surface: #ffffff;
-    --color-sidebar: #0f172a;
-    --color-text: #334155;
+    --color-sidebar: #1e2139;
+    --color-text: #1e293b;
     --color-text-light: #64748b;
     --color-text-dark: #0f172a;
     --color-muted: #94a3b8;
@@ -37,27 +37,27 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
+  /* Thin, subtle scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+  *:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 }
 
 @layer components {
+  /* Borderless card — warm white surface with soft shadow, no borders */
+  .card {
+    @apply bg-white rounded-2xl shadow-card;
+  }
+  .card-hover {
+    @apply transition-shadow duration-200 hover:shadow-card-hover;
+  }
+
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;

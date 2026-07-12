@@ -1,4 +1,9 @@
-export default function Avatar({ name, src, size = 'md', className = '' }) {
+export default function Avatar({
+  name = '',
+  src,
+  size = 'md',
+  className = '',
+}) {
   const sizeClasses = {
     sm: 'w-8 h-8 text-xs',
     md: 'w-10 h-10 text-sm',
@@ -7,34 +12,41 @@ export default function Avatar({ name, src, size = 'md', className = '' }) {
   };
 
   const initials = name
-    ? name
-        .split(' ')
-        .map((n) => n[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2)
-    : '?';
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase() || '?';
 
-  // Generate a consistent color from the name using only our robust theme palette
   const colors = [
-    'bg-primary', 'bg-secondary', 'bg-success', 'bg-warning',
-    'bg-danger', 'bg-info', 'bg-primary-light', 'bg-secondary-light',
+    'bg-primary',
+    'bg-secondary',
+    'bg-success',
+    'bg-warning',
+    'bg-danger',
+    'bg-info',
+    'bg-primary-light',
+    'bg-secondary-light',
   ];
-  const colorIndex = name ? name.charCodeAt(0) % colors.length : 0;
+
+  const colorIndex =
+    [...name].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % colors.length;
 
   if (src) {
     return (
       <img
         src={src}
         alt={name}
-        className={`${sizeClasses[size]} rounded-full object-cover ring-2 ring-white ${className}`}
+        className={`${sizeClasses[size]} rounded-full object-cover ${className}`}
       />
     );
   }
 
   return (
     <div
-      className={`${sizeClasses[size]} ${colors[colorIndex]} rounded-full flex items-center justify-center text-white font-semibold ring-2 ring-white ${className}`}
+      className={`${sizeClasses[size]} ${colors[colorIndex]} rounded-full flex items-center justify-center font-semibold text-white ${className}`}
     >
       {initials}
     </div>

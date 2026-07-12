@@ -9,19 +9,18 @@ export default function DashboardLayout() {
   const { sidebarCollapsed } = useApp();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex">
       <Sidebar />
+      {/* Main area — margin exactly matches sidebar width, no extra gap */}
       <div
-        className={`flex flex-col min-h-screen transition-all duration-300 ease-in-out ${
-          sidebarCollapsed ? 'ml-20' : 'ml-64'
+        className={`flex flex-col flex-1 min-h-screen min-w-0 transition-all duration-300 ease-in-out ${
+          sidebarCollapsed ? 'ml-[72px]' : 'ml-[240px]'
         }`}
       >
         <Navbar />
-        <main className="flex-1 p-8">
+        <main className="flex-1 p-6">
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="fadeinup animation-duration-300 animation-iteration-1">
-              <Outlet />
-            </div>
+            <Outlet />
           </Suspense>
         </main>
       </div>

@@ -1,5 +1,3 @@
-
-
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend, AreaChart, Area,
@@ -32,10 +30,19 @@ const activityIcons = {
   resolved: '✅',
 };
 
+const tooltipStyle = {
+  borderRadius: '10px',
+  border: 'none',
+  boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
+  fontSize: '13px',
+  padding: '10px 14px',
+};
+
 export default function Dashboard() {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-5">
+      {/* Header */}
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-text">Dashboard</h1>
           <Breadcrumb items={[{ label: 'Dashboard' }]} />
@@ -47,162 +54,130 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-        {kpiCards.map((kpi, index) => {
-          return (
-            <div
-              key={kpi.id}
-              className="fadeinup animation-duration-500"
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
-              <Card className="relative overflow-hidden">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-xs font-medium text-muted uppercase tracking-wide">{kpi.title}</p>
-                    <p className="text-2xl font-bold text-text mt-1">{kpi.value.toLocaleString()}</p>
-                    <div className="flex items-center gap-1 mt-2">
-                      {kpi.changeType === 'positive' ? (
-                        <ArrowUpRight className="w-4 h-4 text-success" />
-                      ) : (
-                        <ArrowDownRight className="w-4 h-4 text-danger" />
-                      )}
-                      <span className={`text-xs font-medium ${kpi.changeType === 'positive' ? 'text-success' : 'text-danger'}`}>
-                        {kpi.change}
-                      </span>
-                      <span className="text-xs text-muted">vs last month</span>
-                    </div>
-                  </div>
-                  <div className={`p-2.5 rounded-xl ${colorMap[kpi.color]}`}>
-                    <kpi.icon className="w-5 h-5" />
-                  </div>
+      {/* KPI Cards — rectangular style, responsive 2→3→5 cols */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        {kpiCards.map((kpi) => (
+          <Card key={kpi.id} rounded="lg" padding="p-4" className="relative overflow-hidden">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] font-bold text-muted uppercase tracking-widest leading-none">
+                  {kpi.title}
+                </p>
+                <p className="text-[22px] font-bold text-text mt-2 leading-none">
+                  {kpi.value.toLocaleString()}
+                </p>
+                <div className="flex items-center gap-1 mt-2 flex-wrap">
+                  {kpi.changeType === 'positive' ? (
+                    <ArrowUpRight className="w-3 h-3 text-success flex-none" />
+                  ) : (
+                    <ArrowDownRight className="w-3 h-3 text-danger flex-none" />
+                  )}
+                  <span className={`text-[11px] font-semibold ${kpi.changeType === 'positive' ? 'text-success' : 'text-danger'}`}>
+                    {kpi.change}
+                  </span>
+                  <span className="text-[11px] text-muted">vs last month</span>
                 </div>
-              </Card>
+              </div>
+              <div className={`p-2 rounded-lg flex-none ${colorMap[kpi.color]}`}>
+                <kpi.icon className="w-4 h-4" />
+              </div>
             </div>
-          );
-        })}
+          </Card>
+        ))}
       </div>
 
-      {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ChartCard title="Assets by Category" subtitle="Distribution across categories">
-          <ResponsiveContainer width="100%" height={280}>
+      {/* Charts Row 1 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card rounded="xl" padding="p-5" hover={false}>
+          <div className="mb-3">
+            <h3 className="text-sm font-semibold text-text">Assets by Category</h3>
+            <p className="text-xs text-muted mt-0.5">Distribution across categories</p>
+          </div>
+          <ResponsiveContainer width="100%" height={260}>
             <PieChart>
-              <Pie
-                data={assetsByCategory}
-                cx="50%"
-                cy="50%"
-                innerRadius={70}
-                outerRadius={110}
-                paddingAngle={3}
-                dataKey="value"
-              >
+              <Pie data={assetsByCategory} cx="50%" cy="50%" innerRadius={65} outerRadius={105} paddingAngle={3} dataKey="value">
                 {assetsByCategory.map((entry, index) => (
                   <Cell key={index} fill={entry.fill} />
                 ))}
               </Pie>
-              <Tooltip
-                contentStyle={{
-                  borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                  fontSize: '13px',
-                }}
-              />
-              <Legend
-                iconType="circle"
-                iconSize={8}
-                wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }}
-              />
+              <Tooltip contentStyle={tooltipStyle} />
+              <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }} />
             </PieChart>
           </ResponsiveContainer>
-        </ChartCard>
+        </Card>
 
-        <ChartCard title="Assets by Status" subtitle="Current asset status overview">
-          <ResponsiveContainer width="100%" height={280}>
+        <Card rounded="xl" padding="p-5" hover={false}>
+          <div className="mb-3">
+            <h3 className="text-sm font-semibold text-text">Assets by Status</h3>
+            <p className="text-xs text-muted mt-0.5">Current asset status overview</p>
+          </div>
+          <ResponsiveContainer width="100%" height={260}>
             <PieChart>
-              <Pie
-                data={assetsByStatus}
-                cx="50%"
-                cy="50%"
-                innerRadius={70}
-                outerRadius={110}
-                paddingAngle={3}
-                dataKey="value"
-              >
+              <Pie data={assetsByStatus} cx="50%" cy="50%" innerRadius={65} outerRadius={105} paddingAngle={3} dataKey="value">
                 {assetsByStatus.map((entry, index) => (
                   <Cell key={index} fill={entry.fill} />
                 ))}
               </Pie>
-              <Tooltip
-                contentStyle={{
-                  borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                  fontSize: '13px',
-                }}
-              />
-              <Legend
-                iconType="circle"
-                iconSize={8}
-                wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }}
-              />
+              <Tooltip contentStyle={tooltipStyle} />
+              <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }} />
             </PieChart>
           </ResponsiveContainer>
-        </ChartCard>
+        </Card>
       </div>
 
-      {/* Second Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ChartCard title="Maintenance Overview" subtitle="Monthly maintenance trends">
-          <ResponsiveContainer width="100%" height={280}>
+      {/* Charts Row 2 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card rounded="xl" padding="p-5" hover={false}>
+          <div className="mb-3">
+            <h3 className="text-sm font-semibold text-text">Maintenance Overview</h3>
+            <p className="text-xs text-muted mt-0.5">Monthly maintenance trends</p>
+          </div>
+          <ResponsiveContainer width="100%" height={260}>
             <AreaChart data={maintenanceOverview}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="month" fontSize={12} stroke="#6B7280" />
-              <YAxis fontSize={12} stroke="#6B7280" />
-              <Tooltip
-                contentStyle={{
-                  borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                  fontSize: '13px',
-                }}
-              />
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+              <XAxis dataKey="month" fontSize={11} tickLine={false} axisLine={false} stroke="#94a3b8" />
+              <YAxis fontSize={11} tickLine={false} axisLine={false} stroke="#94a3b8" />
+              <Tooltip contentStyle={tooltipStyle} />
               <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px' }} />
-              <Area type="monotone" dataKey="resolved" stackId="1" stroke="#10B981" fill="#10B98120" />
-              <Area type="monotone" dataKey="inProgress" stackId="1" stroke="#F59E0B" fill="#F59E0B20" />
-              <Area type="monotone" dataKey="pending" stackId="1" stroke="#DC2626" fill="#DC262620" />
+              <Area type="monotone" dataKey="resolved" stackId="1" stroke="#10B981" fill="#10B98115" strokeWidth={2} />
+              <Area type="monotone" dataKey="inProgress" stackId="1" stroke="#F59E0B" fill="#F59E0B15" strokeWidth={2} />
+              <Area type="monotone" dataKey="pending" stackId="1" stroke="#EF4444" fill="#EF444415" strokeWidth={2} />
             </AreaChart>
           </ResponsiveContainer>
-        </ChartCard>
+        </Card>
 
-        <ChartCard title="Department Asset Distribution" subtitle="Assets per department">
-          <ResponsiveContainer width="100%" height={280}>
+        <Card rounded="xl" padding="p-5" hover={false}>
+          <div className="mb-3">
+            <h3 className="text-sm font-semibold text-text">Department Asset Distribution</h3>
+            <p className="text-xs text-muted mt-0.5">Assets per department</p>
+          </div>
+          <ResponsiveContainer width="100%" height={260}>
             <BarChart data={departmentAssets} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" horizontal={false} />
-              <XAxis type="number" fontSize={12} stroke="#6B7280" />
-              <YAxis dataKey="department" type="category" fontSize={11} stroke="#6B7280" width={80} />
-              <Tooltip
-                contentStyle={{
-                  borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                  fontSize: '13px',
-                }}
-              />
-              <Bar dataKey="assets" fill="#4F46E5" radius={[0, 6, 6, 0]} barSize={18} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
+              <XAxis type="number" fontSize={11} tickLine={false} axisLine={false} stroke="#94a3b8" />
+              <YAxis dataKey="department" type="category" fontSize={11} tickLine={false} axisLine={false} stroke="#94a3b8" width={80} />
+              <Tooltip contentStyle={tooltipStyle} />
+              <Bar dataKey="assets" fill="#6366f1" radius={[0, 5, 5, 0]} barSize={14} />
             </BarChart>
           </ResponsiveContainer>
-        </ChartCard>
+        </Card>
       </div>
 
       {/* Recent Activities & Notifications */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card hover={false}>
-          <h3 className="text-sm font-semibold text-text mb-4">Recent Activities</h3>
-          <div className="space-y-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card rounded="xl" padding="p-5" hover={false}>
+          <h3 className="text-sm font-semibold text-text mb-3">Recent Activities</h3>
+          <div className="space-y-0.5">
             {recentActivities.map((activity) => (
-              <div key={activity.id} className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors">
-                <span className="text-lg mt-0.5">{activityIcons[activity.type]}</span>
+              <div key={activity.id} className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-background transition-colors">
+                <span className="text-base mt-0.5">{activityIcons[activity.type]}</span>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-text">{activity.action}</p>
-                  <p className="text-xs text-muted mt-0.5">{activity.description}</p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[10px] text-muted">{activity.user}</span>
-                    <span className="text-[10px] text-gray-300">•</span>
-                    <span className="text-[10px] text-muted">{activity.time}</span>
+                  <p className="text-xs text-muted mt-0.5 truncate">{activity.description}</p>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <span className="text-[11px] text-muted">{activity.user}</span>
+                    <span className="text-[11px] text-gray-300">•</span>
+                    <span className="text-[11px] text-muted">{activity.time}</span>
                   </div>
                 </div>
               </div>
@@ -210,9 +185,9 @@ export default function Dashboard() {
           </div>
         </Card>
 
-        <Card hover={false}>
-          <h3 className="text-sm font-semibold text-text mb-4">Recent Notifications</h3>
-          <div className="space-y-2">
+        <Card rounded="xl" padding="p-5" hover={false}>
+          <h3 className="text-sm font-semibold text-text mb-3">Recent Notifications</h3>
+          <div className="space-y-0.5">
             {recentNotifications.slice(0, 5).map((notif) => (
               <NotificationCard key={notif.id} {...notif} />
             ))}

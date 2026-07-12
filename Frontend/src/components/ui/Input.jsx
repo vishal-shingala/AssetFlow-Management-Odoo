@@ -21,21 +21,21 @@ const Input = forwardRef(function Input(
           ref={ref}
           type={type}
           className={`
-            w-full rounded-lg border border-gray-300 bg-white
-            px-3.5 py-2.5 text-sm text-text
+            w-full rounded-xl border-0 bg-background
+            px-4 py-2.5 text-sm text-text shadow-soft
             placeholder:text-muted
-            focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
+            focus:outline-none focus:ring-2 focus:ring-primary/25 focus:bg-white
             transition-all duration-200
-            disabled:bg-gray-50 disabled:cursor-not-allowed
+            disabled:opacity-50 disabled:cursor-not-allowed
             ${Icon ? 'pl-10' : ''}
-            ${error ? 'border-danger focus:ring-danger/20 focus:border-danger' : ''}
+            ${error ? 'ring-2 ring-danger/30 bg-red-50/50' : ''}
             ${className}
           `}
           {...props}
         />
       </div>
       {error && (
-        <p className="mt-1 text-xs text-danger">{error}</p>
+        <p className="mt-1.5 text-xs text-danger font-medium">{error}</p>
       )}
     </div>
   );

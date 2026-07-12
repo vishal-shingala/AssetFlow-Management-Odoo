@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { loginSchema } from '../schemas/loginSchema';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import Input from '../../../components/ui/Input';
+import Button from '../../../components/ui/Button';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -16,15 +18,10 @@ export default function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      remember: false,
-    }
+    defaultValues: { email: '', password: '', remember: false },
   });
 
   const onSubmit = async (data) => {
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 800));
     console.log('Login data:', data);
     toast.success('Login successful! Welcome back.');
@@ -32,55 +29,34 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-5">
-      {/* Email */}
-      <div>
-        <label className="block text-sm font-medium text-text mb-1.5">Email Address</label>
-        <div className="relative">
-          <i className="pi pi-envelope absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
-          <input
-            type="email"
-            placeholder="you@company.com"
-            {...register('email')}
-            className={`w-full pl-10 pr-4 py-3 text-sm rounded-xl border bg-white
-              placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
-              transition-all duration-200
-              ${errors.email ? 'border-danger' : 'border-gray-300'}`}
-          />
-        </div>
-        {errors.email && <p className="text-xs text-danger mt-1">{errors.email.message}</p>}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <Input
+        label="Email Address"
+        type="email"
+        placeholder="you@company.com"
+        icon={Mail}
+        error={errors.email?.message}
+        {...register('email')}
+      />
+
+      <div className="relative">
+        <Input
+          label="Password"
+          type={showPassword ? 'text' : 'password'}
+          placeholder="Enter your password"
+          icon={Lock}
+          error={errors.password?.message}
+          {...register('password')}
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className={`absolute right-3.5 ${errors.password ? 'top-8' : 'top-9'} text-muted hover:text-text transition-colors`}
+        >
+          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+        </button>
       </div>
 
-      {/* Password */}
-      <div>
-        <label className="block text-sm font-medium text-text mb-1.5">Password</label>
-        <div className="relative">
-          <i className="pi pi-lock absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Enter your password"
-            {...register('password')}
-            className={`w-full pl-10 pr-12 py-3 text-sm rounded-xl border bg-white
-              placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
-              transition-all duration-200
-              ${errors.password ? 'border-danger' : 'border-gray-300'}`}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-text transition-colors"
-          >
-            {showPassword ? (
-              <i className="pi pi-eye-slash w-4 h-4"></i>
-            ) : (
-              <i className="pi pi-eye w-4 h-4"></i>
-            )}
-          </button>
-        </div>
-        {errors.password && <p className="text-xs text-danger mt-1">{errors.password.message}</p>}
-      </div>
-
-      {/* Remember & Forgot */}
       <div className="flex items-center justify-between">
         <label className="flex items-center gap-2 cursor-pointer">
           <input
@@ -90,28 +66,27 @@ export default function LoginForm() {
           />
           <span className="text-sm text-muted">Remember me</span>
         </label>
-        <button type="button" className="text-sm font-medium text-primary hover:text-indigo-700 transition-colors">
+        <button type="button" className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors">
           Forgot password?
         </button>
       </div>
 
-      {/* Submit */}
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-3 bg-primary hover:bg-indigo-700 active:scale-95 text-white font-semibold rounded-xl
-          transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed
-          shadow-lg shadow-primary/25"
+        fullWidth
+        size="lg"
+        className="mt-2"
       >
         {isSubmitting ? (
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center gap-2">
             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             Signing in...
           </div>
         ) : (
           'Sign In'
         )}
-      </button>
+      </Button>
     </form>
   );
 }

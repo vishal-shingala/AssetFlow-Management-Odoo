@@ -8,26 +8,38 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#6366f1", // Indigo 500
-          light: "#818cf8", // Indigo 400
-          dark: "#4f46e5", // Indigo 600
+          DEFAULT: "#6366f1", // Indigo 500 — purple from image
+          light: "#818cf8",   // Indigo 400
+          dark: "#4f46e5",    // Indigo 600
         },
         secondary: {
-          DEFAULT: "#64748b", // Slate 500
-          light: "#94a3b8", // Slate 400
-          dark: "#475569", // Slate 600
+          DEFAULT: "#64748b",
+          light: "#94a3b8",
+          dark: "#475569",
         },
-        success: "#10b981",
-        warning: "#f59e0b",
-        danger: "#ef4444",
-        info: "#3b82f6",
-        background: "#f8fafc", // Slate 50
+        success: {
+          DEFAULT: "#10b981",
+          dark: "#059669",
+        },
+        warning: {
+          DEFAULT: "#f59e0b",
+          dark: "#d97706",
+        },
+        danger: {
+          DEFAULT: "#ef4444",
+          dark: "#dc2626",
+        },
+        info: {
+          DEFAULT: "#3b82f6",
+          dark: "#2563eb",
+        },
+        background: "#f0f2f5",  // Warm light gray — matches image bg
         surface: "#ffffff",
-        sidebar: "#0f172a", // Dark navy for sidebar
+        sidebar: "#1e2139",     // Dark navy — matches image sidebar
         text: {
-          DEFAULT: "#334155", // Slate 700
-          light: "#64748b", // Slate 500
-          dark: "#0f172a", // Slate 900
+          DEFAULT: "#1e293b",   // Slate 800
+          light: "#64748b",
+          dark: "#0f172a",
         },
         muted: "#94a3b8",
       },
@@ -35,8 +47,13 @@ export default {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 4px 20px 0 rgba(0, 0, 0, 0.05)',
-        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+        'card': '0 2px 12px 0 rgba(0, 0, 0, 0.07)',
+        'card-hover': '0 4px 24px 0 rgba(0, 0, 0, 0.11)',
+        'soft': '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
+        'dropdown': '0 8px 30px 0 rgba(0, 0, 0, 0.13)',
+        'glow-primary': '0 4px 14px 0 rgba(99, 102, 241, 0.3)',
+        'glow-success': '0 4px 14px 0 rgba(16, 185, 129, 0.3)',
+        'glow-danger': '0 4px 14px 0 rgba(239, 68, 68, 0.3)',
       }
     },
   },

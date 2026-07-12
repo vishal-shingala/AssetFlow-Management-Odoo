@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-
+import { ChevronDown } from 'lucide-react';
 
 export default function Dropdown({ options, value, onChange, placeholder = 'Select...', label }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,18 +27,18 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex items-center justify-between px-3.5 py-2.5 text-sm rounded-lg
-            border border-gray-300 bg-white text-left
-            hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary
+          className="w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-xl
+            border-0 bg-background text-left shadow-soft
+            focus:outline-none focus:ring-2 focus:ring-primary/25 focus:bg-white
             transition-all duration-200"
         >
           <span className={displayValue ? 'text-text' : 'text-muted'}>
             {displayValue || placeholder}
           </span>
-          <i className={`pi pi-chevron-down ${`w-4 h-4 text-muted transition-transform ${isOpen ? 'rotate-180' : ''}`}`}></i>
+          <ChevronDown className={`w-4 h-4 text-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
         {isOpen && (
-          <div className="absolute z-20 w-full mt-1.5 bg-white rounded-lg border border-gray-200 shadow-lg py-1 max-h-60 overflow-y-auto">
+          <div className="absolute z-20 w-full mt-1 bg-white rounded-2xl shadow-dropdown py-1.5 max-h-60 overflow-y-auto">
             {options.map((option, i) => {
               const optValue = typeof option === 'string' ? option : option.value;
               const optLabel = typeof option === 'string' ? option : option.label;
@@ -47,8 +47,8 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
                   key={i}
                   type="button"
                   onClick={() => { onChange(optValue); setIsOpen(false); }}
-                  className={`w-full px-3.5 py-2 text-sm text-left hover:bg-gray-50 transition-colors
-                    ${optValue === value ? 'text-primary font-medium bg-primary/5' : 'text-text'}`}
+                  className={`w-full px-4 py-2 text-sm text-left hover:bg-primary/5 transition-colors
+                    ${optValue === value ? 'text-primary font-semibold bg-primary/5' : 'text-text'}`}
                 >
                   {optLabel}
                 </button>
