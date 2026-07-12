@@ -27,7 +27,7 @@ export default function Settings() {
 
       <div className="flex flex-col lg:flex-row gap-5">
         {/* Sidebar Tabs */}
-        <div className="lg:w-56 flex-shrink-0">
+        <div className="w-full lg:w-1/4 lg:max-w-[14rem] flex-shrink-0">
           <Card hover={false} padding="p-2">
             <nav className="space-y-0.5">
               {tabs.map((tab) => {
@@ -42,7 +42,7 @@ export default function Settings() {
                         : 'text-muted hover:text-text hover:bg-background'
                       }`}
                   >
-                    <Icon className="w-4 h-4 flex-none" />
+                    <Icon className="w-5 h-5 flex-none" />
                     {tab.label}
                   </button>
                 );
@@ -72,7 +72,7 @@ function ProfileSettings() {
       <div className="flex items-center gap-5 mb-6 pb-6 border-b border-gray-100">
         <Avatar name={CURRENT_USER.name} size="xl" />
         <div>
-          <h4 className="font-semibold text-text">{CURRENT_USER.name}</h4>
+          <h4 className="font-semibold text-name-text">{CURRENT_USER.name}</h4>
           <p className="text-sm text-muted">{CURRENT_USER.role}</p>
           <button className="text-sm text-primary font-medium mt-2 hover:text-primary-dark transition-colors">
             Change avatar
@@ -87,7 +87,7 @@ function ProfileSettings() {
           <Input label="Role" defaultValue={CURRENT_USER.role} disabled />
         </div>
         <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-          <Shield className="w-5 h-5 text-muted flex-none" />
+          <Shield className="w-6 h-6 text-muted flex-none" />
           <div>
             <p className="text-sm font-medium text-text">Password</p>
             <p className="text-xs text-muted">Last changed 30 days ago</p>

@@ -53,14 +53,14 @@ export default function Bookings() {
       render: (_, row) => {
         return (
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg text-primary flex items-center justify-center">
+            <div className="p-2 bg-tag-bg rounded-lg text-tag-text flex items-center justify-center">
               {(() => {
                 const Icon = resourceIcons[row.type] || Box;
-                return <Icon className="w-4 h-4" />;
+                return <Icon className="w-5 h-5" />;
               })()}
             </div>
             <div>
-              <p className="font-medium text-text">{row.resource}</p>
+              <p className="font-medium text-name-text">{row.resource}</p>
             </div>
           </div>
         );
@@ -111,7 +111,7 @@ export default function Bookings() {
                   className="w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center"
                   style={{ backgroundColor: `${resource.color}15` }}
                 >
-                  <IconComp className="w-6 h-6" style={{ color: resource.color }} />
+                  <IconComp className="w-7 h-7" style={{ color: resource.color }} />
                 </div>
                 <h3 className="text-sm font-semibold text-text">{resource.name}</h3>
                 <p className="text-xs text-muted mt-1">
@@ -168,7 +168,7 @@ export default function Bookings() {
           <div className="flex-1">
             <SearchBar value={search} onChange={setSearch} placeholder="Search bookings..." />
           </div>
-          <div className="w-44">
+          <div className="flex-1 md:flex-none md:w-1/4">
             <Dropdown options={['', ...bookingStatuses]} value={statusFilter} onChange={setStatusFilter} placeholder="Status" />
           </div>
         </div>

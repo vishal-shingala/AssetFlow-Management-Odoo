@@ -14,7 +14,7 @@ export default function DashboardLayout() {
       {/* Main area — margin exactly matches sidebar width, no extra gap */}
       <div
         className={`flex flex-col flex-1 min-h-screen min-w-0 transition-all duration-300 ease-in-out ${
-          sidebarCollapsed ? 'ml-[72px]' : 'ml-[240px]'
+          sidebarCollapsed ? 'ml-20' : 'ml-64'
         }`}
       >
         <Navbar />

@@ -7,12 +7,12 @@ export default function Signup() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex">
       {/* Left panel - Illustration */}
-      <div className="hidden lg:flex lg:w-1/2 bg-sidebar relative overflow-hidden items-center justify-center p-12">
+      <div className="hidden lg:flex lg:w-1/2 bg-sidebar-bg relative overflow-hidden items-center justify-center p-12">
         {/* Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl" />
+          <div className="absolute top-20 left-20 w-3/4 max-w-xs aspect-square bg-primary/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-full max-w-md aspect-square bg-secondary/20 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 max-w-sm aspect-square bg-indigo-600/10 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 text-center max-w-md">
@@ -50,7 +50,7 @@ export default function Signup() {
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <Box className="w-6 h-6 text-white" />
+              <Box className="w-7 h-7 text-white" />
             </div>
             <span className="text-xl font-bold text-text">{APP_NAME}</span>
           </div>

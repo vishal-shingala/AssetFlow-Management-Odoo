@@ -22,7 +22,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
         disabled={currentPage === 1}
         className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        <i className="pi pi-chevron-left w-4 h-4"></i>
+        <i className="pi pi-chevron-left w-5 h-5"></i>
       </button>
       {start > 1 && (
         <>
@@ -64,7 +64,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
         disabled={currentPage === totalPages}
         className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        <i className="pi pi-chevron-right w-4 h-4"></i>
+        <i className="pi pi-chevron-right w-5 h-5"></i>
       </button>
     </div>
   );

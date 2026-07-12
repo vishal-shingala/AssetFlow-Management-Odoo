@@ -53,7 +53,7 @@ export default function LoginForm() {
           onClick={() => setShowPassword(!showPassword)}
           className={`absolute right-3.5 ${errors.password ? 'top-8' : 'top-9'} text-muted hover:text-text transition-colors`}
         >
-          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
         </button>
       </div>
 
@@ -62,7 +62,7 @@ export default function LoginForm() {
           <input
             type="checkbox"
             {...register('remember')}
-            className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary/20"
+            className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary/20"
           />
           <span className="text-sm text-muted">Remember me</span>
         </label>
@@ -80,7 +80,7 @@ export default function LoginForm() {
       >
         {isSubmitting ? (
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             Signing in...
           </div>
         ) : (

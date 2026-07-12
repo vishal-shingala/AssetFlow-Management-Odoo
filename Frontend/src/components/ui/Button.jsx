@@ -40,7 +40,7 @@ export default function Button({
         ${className}
       `}
     >
-      {Icon && <Icon className="w-4 h-4 flex-none" />}
+      {Icon && <Icon className="w-5 h-5 flex-none" />}
       {children}
     </button>
   );
