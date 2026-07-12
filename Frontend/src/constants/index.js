@@ -1,14 +1,16 @@
+import { LayoutDashboard, Building2, Users, Box, ArrowRightLeft, Calendar, Wrench, BarChart3, Settings } from 'lucide-react';
+
 // Navigation items for the sidebar
 export const NAV_ITEMS = [
-  { id: 'dashboard', label: 'Dashboard', path: '/', icon: 'pi-th-large' },
-  { id: 'departments', label: 'Departments', path: '/departments', icon: 'pi-building' },
-  { id: 'employees', label: 'Employees', path: '/employees', icon: 'pi-users' },
-  { id: 'assets', label: 'Assets', path: '/assets', icon: 'pi-box' },
-  { id: 'allocations', label: 'Asset Allocation', path: '/allocations', icon: 'pi-arrows-h' },
-  { id: 'bookings', label: 'Resource Booking', path: '/bookings', icon: 'pi-calendar' },
-  { id: 'maintenance', label: 'Maintenance', path: '/maintenance', icon: 'pi-wrench' },
-  { id: 'reports', label: 'Reports', path: '/reports', icon: 'pi-chart-bar' },
-  { id: 'settings', label: 'Settings', path: '/settings', icon: 'pi-cog' },
+  { id: 'dashboard', label: 'Dashboard', path: '/', icon: LayoutDashboard },
+  { id: 'departments', label: 'Departments', path: '/departments', icon: Building2 },
+  { id: 'employees', label: 'Employees', path: '/employees', icon: Users },
+  { id: 'assets', label: 'Assets', path: '/assets', icon: Box },
+  { id: 'allocations', label: 'Asset Allocation', path: '/allocations', icon: ArrowRightLeft },
+  { id: 'bookings', label: 'Resource Booking', path: '/bookings', icon: Calendar },
+  { id: 'maintenance', label: 'Maintenance', path: '/maintenance', icon: Wrench },
+  { id: 'reports', label: 'Reports', path: '/reports', icon: BarChart3 },
+  { id: 'settings', label: 'Settings', path: '/settings', icon: Settings },
 ];
 
 // Status color mappings

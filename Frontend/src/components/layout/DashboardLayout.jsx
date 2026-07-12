@@ -17,7 +17,7 @@ export default function DashboardLayout() {
         }`}
       >
         <Navbar />
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-8">
           <Suspense fallback={<LoadingSpinner />}>
             <div className="fadeinup animation-duration-300 animation-iteration-1">
               <Outlet />

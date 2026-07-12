@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+import { Search, Sun, Moon, Bell } from 'lucide-react';
 
 import { useApp } from '../../context/AppContext';
 import { CURRENT_USER } from '../../constants';
-import { notifications as notificationData } from '../../data/notifications';
+import { notifications as notificationData } from '../../features/notifications/data/notifications';
 import Avatar from '../ui/Avatar';
 import NotificationCard from '../ui/NotificationCard';
 
@@ -27,7 +28,7 @@ export default function Navbar() {
       {/* Search */}
       <div className="flex items-center gap-3 flex-1 max-w-md">
         <div className="relative w-full">
-          <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
           <input
             type="text"
             value={searchQuery}
@@ -49,9 +50,9 @@ export default function Navbar() {
           title={darkMode ? 'Light Mode' : 'Dark Mode'}
         >
           {darkMode ? (
-            <i className="pi pi-sun w-5 h-5"></i>
+            <Sun className="w-5 h-5" />
           ) : (
-            <i className="pi pi-moon w-5 h-5"></i>
+            <Moon className="w-5 h-5" />
           )}
         </button>
 
@@ -61,9 +62,9 @@ export default function Navbar() {
             onClick={() => setShowNotifications(!showNotifications)}
             className="relative p-2 rounded-lg hover:bg-gray-100 text-muted hover:text-text transition-colors"
           >
-            <i className="pi pi-bell w-5 h-5"></i>
+            <Bell className="w-5 h-5" />
             {unreadCount > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-danger text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+              <span className="absolute top-1.5 right-1.5 translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-danger text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white box-content">
                 {unreadCount}
               </span>
             )}

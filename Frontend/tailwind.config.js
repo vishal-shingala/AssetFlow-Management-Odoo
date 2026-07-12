@@ -23,7 +23,7 @@ export default {
         info: "#3b82f6",
         background: "#f8fafc", // Slate 50
         surface: "#ffffff",
-        sidebar: "#0f172a", // Slate 900
+        sidebar: "#0f172a", // Dark navy for sidebar
         text: {
           DEFAULT: "#334155", // Slate 700
           light: "#64748b", // Slate 500
