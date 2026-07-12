@@ -5,6 +5,7 @@ import cors from 'cors';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import routes from './routes.js';
+import departmentRoutes from '../modules/departments/routes/departmentRoutes.js';
 import logger from '../config/logger.js';
 import { initializeDatabase, closeDatabase } from '../config/database.js';
 import { initializeRedis, closeRedis } from '../config/redis.js';
@@ -111,6 +112,9 @@ const createApp = () => {
 
   // Health check routes
   app.use('/', routes);
+
+  // API routes
+  app.use('/api/departments', departmentRoutes);
 
   // 404 handler
   app.use((req, res) => {
