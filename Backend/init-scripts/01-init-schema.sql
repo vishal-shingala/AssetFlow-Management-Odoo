@@ -3,7 +3,29 @@
 -- This script runs automatically on first PostgreSQL container start
 
 -- ============================================
--- 1. Users Table (includes employee data)
+-- 1. Organization Tables (create first - no dependencies)
+-- ============================================
+
+-- Departments
+CREATE TABLE IF NOT EXISTS departments (
+    department_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    parent_department_id INTEGER NULL,
+    department_head_id INTEGER NULL,
+    status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
+    FOREIGN KEY (parent_department_id) REFERENCES departments(department_id)
+);
+
+-- Asset Categories
+CREATE TABLE IF NOT EXISTS asset_categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE'))
+);
+
+-- ============================================
+-- 2. Users Table (depends on departments)
 -- ============================================
 CREATE TABLE IF NOT EXISTS users (
     user_id SERIAL PRIMARY KEY,
@@ -18,28 +40,8 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
 
--- ============================================
--- 2. Organization Tables
--- ============================================
-
--- Departments
-CREATE TABLE IF NOT EXISTS departments (
-    department_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    parent_department_id INTEGER NULL,
-    department_head_id INTEGER NULL,
-    status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
-    FOREIGN KEY (parent_department_id) REFERENCES departments(department_id),
-    FOREIGN KEY (department_head_id) REFERENCES users(user_id)
-);
-
--- Asset Categories
-CREATE TABLE IF NOT EXISTS asset_categories (
-    category_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT NULL,
-    status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE'))
-);
+-- Add department_head_id foreign key after users table is created
+ALTER TABLE departments ADD CONSTRAINT fk_department_head FOREIGN KEY (department_head_id) REFERENCES users(user_id);
 
 -- ============================================
 -- 3. Assets Table
