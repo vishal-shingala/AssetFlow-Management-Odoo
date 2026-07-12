@@ -5,7 +5,6 @@ import { LayoutDashboard, Building2, Users, Box, ArrowRightLeft, Calendar, Wrenc
 export const NAV_ITEMS = [
   { id: 'dashboard', label: 'Dashboard', path: '/', icon: LayoutDashboard, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD', 'EMPLOYEE'] },
   { id: 'organizationsetup', label: 'Organization Setup', path: '/organizationsetup', icon: Building2, roles: ['ADMIN'] },
-  { id: 'employees', label: 'Employees', path: '/employees', icon: Users, roles: ['ADMIN'] },
   { id: 'assets', label: 'Assets', path: '/assets', icon: Box, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD'] },
   { id: 'allocations', label: 'Asset Allocation', path: '/allocations', icon: ArrowRightLeft, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD'] },
   { id: 'bookings', label: 'Resource Booking', path: '/bookings', icon: Calendar, roles: ['ADMIN', 'ASSET_MANAGER', 'DEPARTMENT_HEAD', 'EMPLOYEE'] },

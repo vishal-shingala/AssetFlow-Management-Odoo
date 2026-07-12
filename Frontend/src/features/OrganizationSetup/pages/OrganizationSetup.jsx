@@ -190,7 +190,9 @@ export default function OrganizationSetup() {
 
   const handleEditDepartment = async (data) => {
     try {
-      await updateDepartment(editItem.id, data);
+      const deptId = editItem.department_id || editItem.id;
+      console.log('Updating department with ID:', deptId, 'from editItem:', editItem);
+      await updateDepartment(deptId, data);
       setShowModal(false);
       setEditItem(null);
       fetchDepartments();
@@ -203,16 +205,29 @@ export default function OrganizationSetup() {
 
   const handleDeleteDepartment = async () => {
     try {
-      await deleteDepartment(deleteItem.id);
+      const deptId = deleteItem.department_id || deleteItem.id;
+      console.log('Deleting department with ID:', deptId, 'from deleteItem:', deleteItem);
+      await deleteDepartment(deptId);
       setShowDeleteModal(false);
       setDeleteItem(null);
       fetchDepartments();
     } catch (error) {
       console.error('Error deleting department:', error);
       const errorMessage = error.response?.data?.message || error.message || error.toString();
+      
+      // Show user-friendly error messages
+      if (errorMessage.includes('employees assigned')) {
+        throw new Error('Cannot delete department: It has employees assigned. Please reassign employees to another department first.');
+      }
+      if (errorMessage.includes('child departments')) {
+        throw new Error('Cannot delete department: It has child departments. Please reassign or delete child departments first.');
+      }
+      if (errorMessage.includes('asset_allocations')) {
+        throw new Error('Cannot delete department: It has asset allocations. Please reassign or delete asset allocations first.');
+      }
       if (errorMessage.includes('foreign key constraint') || 
           errorMessage.includes('violates foreign key constraint')) {
-        throw new Error('Cannot delete department: It is referenced by other departments or employees.');
+        throw new Error('Cannot delete department: It is referenced by other records. Please remove dependencies first.');
       }
       throw new Error('Failed to delete department: ' + errorMessage);
     }
@@ -473,12 +488,14 @@ export default function OrganizationSetup() {
           <h1 className="text-2xl font-bold text-text">Organization Setup</h1>
           {/* <Breadcrumb items={[{ label: 'Organization Setup' }]} /> */}
         </div>
-        <Button variant="success" icon={Plus} onClick={() => {
-          setEditItem(null);
-          setShowModal(true);
-        }}>
-          Add
-        </Button>
+        {activeTab !== 'Employee' && (
+          <Button variant="success" icon={Plus} onClick={() => {
+            setEditItem(null);
+            setShowModal(true);
+          }}>
+            Add
+          </Button>
+        )}
       </div>
 
       <OrganizationTabs 

@@ -7,6 +7,7 @@ export default function DeleteConfirmModal({ isOpen, onClose, onConfirm, itemNam
   const handleConfirm = async () => {
     try {
       await onConfirm();
+      toast.success(`${itemType} deleted successfully`);
       onClose();
     } catch (error) {
       toast.error(error.message || 'Failed to delete item');

@@ -233,14 +233,21 @@ export const deleteDepartment = async (id) => {
     throw new ServiceError('Cannot delete department: It has child departments. Please reassign or delete child departments first.', 400);
   }
   
-  // Edge case: Check if department has employees assigned
+  // Edge case: Check if department has employees assigned (excluding the department head)
   const employees = await query(
-    'SELECT employee_id FROM employees WHERE department_id = $1 LIMIT 1',
+    'SELECT user_id FROM users WHERE department_id = $1 AND user_id != (SELECT department_head_id FROM departments WHERE department_id = $1) LIMIT 1',
     [id]
   );
   if (employees.rows.length > 0) {
     throw new ServiceError('Cannot delete department: It has employees assigned. Please reassign employees first.', 400);
   }
+  
+  // Edge case: Delete asset allocations if they exist
+  await query(
+    'DELETE FROM asset_allocations WHERE department_id = $1',
+    [id]
+  );
+  logger.info('Deleted asset allocations for department', { departmentId: id });
   
   // Get the department head before deletion
   const dept = await getDepartmentById(id);
@@ -249,6 +256,15 @@ export const deleteDepartment = async (id) => {
   const deleted = await repo.deleteDepartmentRepo(id);
   if (!deleted) {
     throw new ServiceError(`Failed to delete department ${id}`, 500);
+  }
+  
+  // Free department_id for the department head in users table
+  if (headId) {
+    await query(
+      'UPDATE users SET department_id = NULL WHERE user_id = $1',
+      [headId]
+    );
+    logger.info('Freed department_id for department head', { userId: headId, departmentId: id });
   }
   
   // Remove head link from other departments that had this department as their head

@@ -26,7 +26,7 @@ SET row_security = off;
 
 INSERT INTO public.users VALUES (1, 'sarah.johnson@example.com', 'hashed_pw', 'Sarah Johnson', 1, 'EMPLOYEE', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
 INSERT INTO public.users VALUES (2, 'alex.rivera@example.com', 'hashed_pw', 'Alex Rivera', 2, 'EMPLOYEE', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
-INSERT INTO public.users VALUES (3, 'john@gmail.com', 'hashed_pw', 'John Doe', NULL, 'ADMIN', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
+INSERT INTO public.users VALUES (3, 'admin@assetflow.com', '$2b$10$x2Ve4A/eVLBsEO8TF1alyumWWNZ8b/cgM1nwO/udrVyKLgDSM4Fg2', 'Admin User', NULL, 'ADMIN', 'ACTIVE', true, '2026-07-12 07:12:59.7282');
 
 
 --
@@ -166,7 +166,7 @@ SELECT pg_catalog.setval('public.audit_findings_finding_id_seq', 1, false);
 -- Name: departments_department_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.departments_department_id_seq', 1, false);
+SELECT pg_catalog.setval('public.departments_department_id_seq', 2, true);
 
 
 --
