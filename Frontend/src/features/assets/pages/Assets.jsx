@@ -73,15 +73,15 @@ export default function Assets() {
       key: 'actions',
       label: 'Actions',
       render: (_, row) => (
-        <div className="flex items-center gap-1">
-          <button className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="View details" onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}>
-            <Eye className="w-6 h-6 flex-shrink-0" />
+        <div className="flex items-center gap-1.5">
+          <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="View details" onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}>
+            <Eye className="w-10 h-10 flex-shrink-0" />
           </button>
-          <button className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}>
-            <Edit2 className="w-6 h-6 flex-shrink-0" />
+          <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}>
+            <Edit2 className="w-10 h-10 flex-shrink-0" />
           </button>
-          <button className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}>
-            <Trash2 className="w-6 h-6 flex-shrink-0" />
+          <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}>
+            <Trash2 className="w-10 h-10 flex-shrink-0" />
           </button>
         </div>
       ),

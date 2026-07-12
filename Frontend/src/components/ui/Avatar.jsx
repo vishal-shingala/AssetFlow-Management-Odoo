@@ -3,11 +3,11 @@ import React from 'react';
 const Avatar = ({ src, alt = 'User Avatar', name = '', size = 'md', className = '' }) => {
   const getAvatarDimensions = () => {
     switch (size) {
-      case 'sm': return 'w-7 h-7 text-[10px]';
-      case 'lg': return 'w-11 h-11 text-sm';
-      case 'xl': return 'w-14 h-14 text-base';
+      case 'sm': return 'w-7 h-7 min-w-[28px] min-h-[28px] max-w-[28px] max-h-[28px] text-[10px]';
+      case 'lg': return 'w-11 h-11 min-w-[44px] min-h-[44px] max-w-[44px] max-h-[44px] text-sm';
+      case 'xl': return 'w-14 h-14 min-w-[56px] min-h-[56px] max-w-[56px] max-h-[56px] text-base';
       case 'md':
-      default: return 'w-9 h-9 text-xs';
+      default: return 'w-9 h-9 min-w-[36px] min-h-[36px] max-w-[36px] max-h-[36px] text-xs';
     }
   };
 
