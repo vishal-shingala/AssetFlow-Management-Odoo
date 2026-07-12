@@ -104,6 +104,10 @@ export const returnAsset = async (assetId, returnData) => {
   return returned;
 };
 
+export const getAllocations = async () => {
+  return repo.getAllAllocationsRepo();
+};
+
 export const getAssetHistory = async (assetId) => {
   await getAssetById(assetId);
   return repo.getAssetHistoryRepo(assetId);

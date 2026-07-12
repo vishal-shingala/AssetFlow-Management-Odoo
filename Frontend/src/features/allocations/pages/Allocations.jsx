@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Undo2, RefreshCw, ArrowRightLeft, Plus } from 'lucide-react';
 
-import { allocations, recentAllocations } from '../data/allocations';
+import { allocations as mockAllocations, recentAllocations } from '../data/allocations';
+import { allocationService } from '../api/allocationService';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
 import Card from '../../../components/ui/Card';
@@ -21,17 +22,66 @@ const actionColors = {
 };
 
 export default function Allocations() {
+  const [allocationsList, setAllocationsList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [showAllocateModal, setShowAllocateModal] = useState(false);
 
-  const filtered = allocations.filter((a) => {
+  const fetchAllocations = async () => {
+    try {
+      setLoading(true);
+      const data = await allocationService.getAll();
+      setAllocationsList(Array.isArray(data) ? data : mockAllocations);
+    } catch (err) {
+      toast.error('Failed to load allocations from server');
+      setAllocationsList(mockAllocations);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllocations();
+  }, []);
+
+  const handleReturnAsset = async (row) => {
+    try {
+      if (row.asset_id) {
+        await allocationService.returnAsset(row.asset_id, {
+          actual_return_date: new Date().toISOString(),
+          status: 'AVAILABLE',
+        });
+      }
+      toast.success('Asset returned successfully');
+      fetchAllocations();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Failed to return asset');
+    }
+  };
+
+  const filtered = allocationsList.filter((a) => {
+    const assetName = a.asset || '';
+    const employeeName = a.employee || '';
     const matchesSearch =
-      a.asset.toLowerCase().includes(search.toLowerCase()) ||
-      a.employee.toLowerCase().includes(search.toLowerCase());
+      assetName.toLowerCase().includes(search.toLowerCase()) ||
+      employeeName.toLowerCase().includes(search.toLowerCase());
     const matchesStatus = !statusFilter || a.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  const formatDate = (val) => {
+    if (!val) return null;
+    try {
+      return new Date(val).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    } catch (e) {
+      return val;
+    }
+  };
 
   const columns = [
     {
@@ -48,11 +98,15 @@ export default function Allocations() {
     },
     { key: 'employee', label: 'Employee' },
     { key: 'department', label: 'Department' },
-    { key: 'allocatedDate', label: 'Allocated Date' },
+    {
+      key: 'allocatedDate',
+      label: 'Allocated Date',
+      render: (val) => formatDate(val),
+    },
     {
       key: 'returnDate',
       label: 'Return Date',
-      render: (val) => val || <span className="text-muted">—</span>,
+      render: (val) => formatDate(val) || <span className="text-muted">—</span>,
     },
     {
       key: 'status',
@@ -67,7 +121,10 @@ export default function Allocations() {
           {row.status === 'Active' && (
             <>
               <button
-                onClick={(e) => { e.stopPropagation(); toast.success('Asset returned'); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleReturnAsset(row);
+                }}
                 className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-success transition-colors"
                 title="Return"
               >
@@ -86,6 +143,29 @@ export default function Allocations() {
       ),
     },
   ];
+
+  const recentTimelineItems =
+    allocationsList.length > 0
+      ? allocationsList.slice(0, 5).map((item, idx) => {
+          let action = 'Allocated';
+          if (item.status === 'Returned' || item.returnDate) action = 'Returned';
+          const dateStr = formatDate(item.allocatedDate) || 'Recently';
+          const timeStr = item.allocatedDate
+            ? new Date(item.allocatedDate).toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit',
+              })
+            : '';
+          return {
+            id: item.id || idx,
+            action,
+            date: dateStr,
+            time: timeStr,
+            asset: item.asset || item.assetTag || 'Asset',
+            employee: item.employee || 'Unassigned',
+          };
+        })
+      : recentAllocations;
 
   return (
     <div className="space-y-6">
@@ -118,7 +198,7 @@ export default function Allocations() {
             />
           </div>
         </div>
-        <Table columns={columns} data={filtered} />
+        <Table columns={columns} data={filtered} loading={loading} />
       </Card>
 
       {/* Recent Allocations Timeline */}
@@ -127,7 +207,7 @@ export default function Allocations() {
         <div className="relative">
           <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200" />
           <div className="space-y-4">
-            {recentAllocations.map((item, i) => (
+            {recentTimelineItems.map((item, i) => (
               <div
                 key={item.id}
                 className="relative pl-10 fadeinleft animation-duration-500"
@@ -139,7 +219,11 @@ export default function Allocations() {
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${actionColors[item.action] || 'bg-gray-100 text-muted'}`}>
                       {item.action}
                     </span>
-                    <span className="text-xs text-muted">{item.date} at {item.time}</span>
+                    {item.time ? (
+                      <span className="text-xs text-muted">{item.date} at {item.time}</span>
+                    ) : (
+                      <span className="text-xs text-muted">{item.date}</span>
+                    )}
                   </div>
                   <p className="text-sm font-medium text-text">{item.asset}</p>
                   <p className="text-xs text-muted">{item.employee}</p>

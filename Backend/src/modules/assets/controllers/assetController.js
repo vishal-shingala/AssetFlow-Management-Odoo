@@ -146,6 +146,19 @@ export const returnAsset = async (req, res, next) => {
   }
 };
 
+export const getAllocations = async (req, res, next) => {
+  try {
+    const allocations = await assetService.getAllocations();
+    res.status(200).json({
+      success: true,
+      message: 'Allocations retrieved successfully',
+      data: allocations,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAssetHistory = async (req, res, next) => {
   try {
     const history = await assetService.getAssetHistory(req.params.id);
