@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { HiOutlinePlus, HiOutlinePencilSquare, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi2';
 import { assets, assetCategories, assetStatuses } from '../data/assets';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -74,22 +73,13 @@ export default function Assets() {
       label: 'Actions',
       render: (_, row) => (
         <div className="flex items-center gap-1">
-          <button
-            onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
-          >
+          <button className="p-1 text-muted hover:text-primary transition-colors" title="View details" onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}>
             <i className="pi pi-eye w-4 h-4"></i>
           </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-warning transition-colors"
-          >
+          <button className="p-1 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}>
             <i className="pi pi-pencil w-4 h-4"></i>
           </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-danger transition-colors"
-          >
+          <button className="p-1 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}>
             <i className="pi pi-trash w-4 h-4"></i>
           </button>
         </div>
@@ -104,9 +94,11 @@ export default function Assets() {
           <h1 className="text-2xl font-bold text-text">Assets</h1>
           <Breadcrumb items={[{ label: 'Assets' }]} />
         </div>
-        <Button icon={HiOutlinePlus} onClick={() => setShowModal(true)}>
-          Add Asset
-        </Button>
+        <div className="flex gap-3">
+          <Button icon="pi-plus" onClick={() => setShowModal(true)}>
+            Add Asset
+          </Button>
+        </div>
       </div>
 
       <Card hover={false}>

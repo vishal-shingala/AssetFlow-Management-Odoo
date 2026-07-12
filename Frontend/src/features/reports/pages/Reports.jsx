@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+
 
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -18,9 +18,9 @@ import Table from '../../../components/ui/Table';
 import toast from 'react-hot-toast';
 
 const formatIcons = {
-  PDF: HiOutlineDocumentText,
-  Excel: HiOutlineTableCells,
-  CSV: HiOutlineDocumentChartBar,
+  PDF: 'pi-file-pdf',
+  Excel: 'pi-file-excel',
+  CSV: 'pi-file',
 };
 
 export default function Reports() {
@@ -38,10 +38,10 @@ export default function Reports() {
       key: 'format',
       label: 'Format',
       render: (val) => {
-        const Icon = formatIcons[val] || HiOutlineDocumentText;
+        const Icon = formatIcons[val] || 'pi-file';
         return (
           <div className="flex items-center gap-1.5">
-            <Icon className="w-4 h-4 text-muted" />
+            <i className={`pi ${Icon} w-4 h-4 text-muted`}></i>
             <span>{val}</span>
           </div>
         );
@@ -76,10 +76,10 @@ export default function Reports() {
           <Breadcrumb items={[{ label: 'Reports' }]} />
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" icon={HiOutlineArrowDownTray} onClick={() => toast.success('Export initiated')}>
+          <Button variant="outline" icon="pi-download" onClick={() => toast.success('Export initiated')}>
             Export PDF
           </Button>
-          <Button icon={HiOutlineTableCells} onClick={() => toast.success('Export initiated')}>
+          <Button icon="pi-file-excel" onClick={() => toast.success('Export initiated')}>
             Export Excel
           </Button>
         </div>
@@ -195,11 +195,9 @@ export default function Reports() {
                     <span className="text-sm font-bold text-text">{resource.utilization}%</span>
                   </div>
                   <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${resource.utilization}%` }}
-                      transition={{ duration: 1, delay: 0.2 }}
-                      className="h-full bg-primary rounded-full"
+                    <div
+                      className="h-full bg-primary rounded-full transition-all duration-1000 ease-out"
+                      style={{ width: `${resource.utilization}%` }}
                     />
                   </div>
                 </div>

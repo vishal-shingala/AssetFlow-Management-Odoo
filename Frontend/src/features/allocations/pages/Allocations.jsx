@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  HiOutlineArrowsRightLeft, HiOutlineArrowUturnLeft,
-  HiOutlinePlus, HiOutlineArrowPath,
-} from 'react-icons/hi2';
+
 import { allocations, recentAllocations } from '../data/allocations';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -98,10 +94,10 @@ export default function Allocations() {
           <Breadcrumb items={[{ label: 'Asset Allocation' }]} />
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" icon={HiOutlineArrowsRightLeft} onClick={() => toast.success('Transfer mode')}>
+          <Button variant="outline" icon="pi-arrows-h" onClick={() => toast.success('Transfer mode')}>
             Transfer
           </Button>
-          <Button icon={HiOutlinePlus} onClick={() => setShowAllocateModal(true)}>
+          <Button icon="pi-plus" onClick={() => setShowAllocateModal(true)}>
             Allocate Asset
           </Button>
         </div>
@@ -131,12 +127,10 @@ export default function Allocations() {
           <div className="absolute left-4 top-0 bottom-0 w-px bg-gray-200" />
           <div className="space-y-4">
             {recentAllocations.map((item, i) => (
-              <motion.div
+              <div
                 key={item.id}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="relative pl-10"
+                className="relative pl-10 fadeinleft animation-duration-500"
+                style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-white border-2 border-primary" />
                 <div className="bg-gray-50 rounded-xl p-4">
@@ -149,7 +143,7 @@ export default function Allocations() {
                   <p className="text-sm font-medium text-text">{item.asset}</p>
                   <p className="text-xs text-muted">{item.employee}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

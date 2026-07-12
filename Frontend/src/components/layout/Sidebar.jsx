@@ -12,12 +12,12 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-screen bg-slate-900 border-r border-slate-800 flex flex-col z-40 shadow-2xl transition-all duration-300 ease-in-out ${
+      className={`fixed left-0 top-0 h-screen bg-sidebar flex flex-col z-40 transition-all duration-300 ease-in-out ${
         sidebarCollapsed ? 'w-20' : 'w-64'
       }`}
     >
       {/* Logo Area */}
-      <div className="flex items-center h-16 px-5 border-b border-slate-800 bg-slate-900/50">
+      <div className="flex items-center h-16 px-5">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="w-9 h-9 min-w-[36px] rounded-xl bg-gradient-to-br from-primary to-indigo-500 flex items-center justify-center flex-none shadow-lg shadow-primary/20">
             <i className="pi pi-box text-white text-lg"></i>
@@ -43,20 +43,17 @@ export default function Sidebar() {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${
                   isActive
-                    ? 'bg-primary/20 text-primary-light font-semibold'
-                    : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                    ? 'bg-primary text-white font-semibold'
+                    : 'text-gray-400 hover:bg-white/5 hover:text-white'
                 }`
               }
               title={sidebarCollapsed ? item.label : undefined}
             >
               {({ isActive }) => (
                 <>
-                  {isActive && (
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-r-full" />
-                  )}
                   <i
                     className={`pi ${item.icon} text-lg flex-none transition-transform duration-200 ${
-                      isActive ? 'scale-110 text-primary-light' : 'group-hover:scale-110'
+                      isActive ? 'text-white' : 'group-hover:scale-110'
                     }`}
                   ></i>
                   <span
@@ -74,10 +71,10 @@ export default function Sidebar() {
       </nav>
 
       {/* Bottom section */}
-      <div className="p-4 border-t border-slate-800 bg-slate-900/50">
+      <div className="p-4">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 group"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200 group"
           title={sidebarCollapsed ? 'Logout' : undefined}
         >
           <i className="pi pi-sign-out text-lg flex-none group-hover:-translate-x-1 transition-transform"></i>
@@ -92,7 +89,7 @@ export default function Sidebar() {
 
         <button
           onClick={toggleSidebar}
-          className="w-full flex items-center justify-center mt-2 p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-200"
+          className="w-full flex items-center justify-center mt-2 p-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-200"
         >
           <i
             className={`pi ${

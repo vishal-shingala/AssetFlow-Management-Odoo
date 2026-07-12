@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  HiOutlineUser, HiOutlinePaintBrush, HiOutlineBell,
-  HiOutlineCog6Tooth, HiOutlineShieldCheck,
-} from 'react-icons/hi2';
+
 import { CURRENT_USER } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
 import Card from '../../../components/ui/Card';
@@ -13,10 +9,10 @@ import Avatar from '../../../components/ui/Avatar';
 import toast from 'react-hot-toast';
 
 const tabs = [
-  { id: 'profile', label: 'Profile', icon: HiOutlineUser },
-  { id: 'theme', label: 'Theme', icon: HiOutlinePaintBrush },
-  { id: 'notifications', label: 'Notifications', icon: HiOutlineBell },
-  { id: 'preferences', label: 'Preferences', icon: HiOutlineCog6Tooth },
+  { id: 'profile', label: 'Profile', icon: 'pi-user' },
+  { id: 'theme', label: 'Theme', icon: 'pi-palette' },
+  { id: 'notifications', label: 'Notifications', icon: 'pi-bell' },
+  { id: 'preferences', label: 'Preferences', icon: 'pi-cog' },
 ];
 
 export default function Settings() {
@@ -46,7 +42,7 @@ export default function Settings() {
                         : 'text-muted hover:text-text hover:bg-gray-50'
                       }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <i className={`pi ${tab.icon} w-4 h-4`}></i>
                     {tab.label}
                   </button>
                 );
@@ -57,17 +53,15 @@ export default function Settings() {
 
         {/* Content */}
         <div className="flex-1">
-          <motion.div
+          <div
             key={activeTab}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.2 }}
+            className="fadein animation-duration-200"
           >
             {activeTab === 'profile' && <ProfileSettings />}
             {activeTab === 'theme' && <ThemeSettings />}
             {activeTab === 'notifications' && <NotificationSettings />}
             {activeTab === 'preferences' && <PreferenceSettings />}
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-import { HiOutlineCube } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import { APP_NAME, APP_TAGLINE } from '../../../constants';
 import LoginForm from '../components/LoginForm';
@@ -17,13 +15,9 @@ export default function Login() {
         </div>
 
         <div className="relative z-10 text-center max-w-md">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div className="fadeinup animation-duration-500">
             <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/30">
-              <HiOutlineCube className="w-10 h-10 text-white" />
+              <i className="pi pi-box w-10 h-10 text-white text-4xl leading-[40px]"></i>
             </div>
             <h1 className="text-4xl font-bold text-white mb-4">{APP_NAME}</h1>
             <p className="text-lg text-gray-400 mb-8">{APP_TAGLINE}</p>
@@ -35,34 +29,27 @@ export default function Login() {
                 { value: '99.9%', label: 'Uptime' },
                 { value: '24/7', label: 'Support' },
               ].map((stat, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + i * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4"
+                  className="fadeinup animation-duration-500 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4"
+                  style={{ animationDelay: `${300 + i * 100}ms` }}
                 >
                   <p className="text-2xl font-bold text-white">{stat.value}</p>
                   <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Right panel - Login Form */}
       <div className="flex-1 flex items-center justify-center p-8">
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full max-w-md"
-        >
+        <div className="w-full max-w-md fadeinright animation-duration-500">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <HiOutlineCube className="w-6 h-6 text-white" />
+              <i className="pi pi-box w-6 h-6 text-white text-2xl leading-[24px]"></i>
             </div>
             <span className="text-xl font-bold text-text">{APP_NAME}</span>
           </div>
@@ -80,7 +67,7 @@ export default function Login() {
           <p className="text-center text-xs text-muted mt-4">
             © 2026 {APP_NAME}. All rights reserved.
           </p>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

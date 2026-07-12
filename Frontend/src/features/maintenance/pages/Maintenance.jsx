@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  HiOutlineClock, HiOutlineCheckCircle, HiOutlineExclamationTriangle,
-  HiOutlineWrenchScrewdriver, HiOutlinePlus,
-} from 'react-icons/hi2';
+
 import { maintenanceRequests, maintenanceStats } from '../data/maintenance';
 import { STATUS_COLORS, PRIORITY_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -21,7 +17,7 @@ const statusCards = [
   {
     key: 'pending',
     label: 'Pending',
-    icon: HiOutlineClock,
+    icon: 'pi-clock',
     color: 'text-warning',
     bg: 'bg-amber-50',
     border: 'border-amber-200',
@@ -29,7 +25,7 @@ const statusCards = [
   {
     key: 'approved',
     label: 'Approved',
-    icon: HiOutlineCheckCircle,
+    icon: 'pi-check-circle',
     color: 'text-secondary',
     bg: 'bg-indigo-50',
     border: 'border-indigo-200',
@@ -37,7 +33,7 @@ const statusCards = [
   {
     key: 'inProgress',
     label: 'In Progress',
-    icon: HiOutlineWrenchScrewdriver,
+    icon: 'pi-wrench',
     color: 'text-primary',
     bg: 'bg-blue-50',
     border: 'border-blue-200',
@@ -45,7 +41,7 @@ const statusCards = [
   {
     key: 'resolved',
     label: 'Resolved',
-    icon: HiOutlineCheckCircle,
+    icon: 'pi-check-circle',
     color: 'text-success',
     bg: 'bg-emerald-50',
     border: 'border-emerald-200',
@@ -123,7 +119,7 @@ export default function Maintenance() {
           <h1 className="text-2xl font-bold text-text">Maintenance</h1>
           <Breadcrumb items={[{ label: 'Maintenance' }]} />
         </div>
-        <Button icon={HiOutlinePlus} onClick={() => setShowModal(true)}>
+        <Button icon="pi-plus" onClick={() => setShowModal(true)}>
           New Request
         </Button>
       </div>
@@ -133,11 +129,10 @@ export default function Maintenance() {
         {statusCards.map((card, i) => {
           const Icon = card.icon;
           return (
-            <motion.div
+            <div
               key={card.key}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
+              className="fadeinup animation-duration-500"
+              style={{ animationDelay: `${i * 50}ms` }}
             >
               <Card className={`border-l-4 ${card.border}`}>
                 <div className="flex items-center justify-between">
@@ -146,11 +141,11 @@ export default function Maintenance() {
                     <p className="text-3xl font-bold text-text mt-1">{maintenanceStats[card.key]}</p>
                   </div>
                   <div className={`p-3 rounded-xl ${card.bg}`}>
-                    <Icon className={`w-6 h-6 ${card.color}`} />
+                    <i className={`pi ${Icon} w-6 h-6 text-2xl ${card.color}`}></i>
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           );
         })}
       </div>

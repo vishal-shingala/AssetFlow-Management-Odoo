@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+
 
 import {
   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -50,11 +50,10 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {kpiCards.map((kpi, index) => {
           return (
-            <motion.div
+            <div
               key={kpi.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
+              className="fadeinup animation-duration-500"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               <Card className="relative overflow-hidden">
                 <div className="flex items-start justify-between">
@@ -78,7 +77,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           );
         })}
       </div>

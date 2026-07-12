@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  HiOutlineBuildingOffice2, HiOutlineBuildingLibrary,
-  HiOutlineTv, HiOutlineTruck, HiOutlinePlus,
-} from 'react-icons/hi2';
+
 import { bookings, resourceTypes, calendarEvents, bookingStatuses } from '../data/bookings';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -18,10 +14,10 @@ import Input from '../../../components/ui/Input';
 import toast from 'react-hot-toast';
 
 const resourceIcons = {
-  HiOutlineBuildingOffice2,
-  HiOutlineBuildingLibrary,
-  HiOutlineTv,
-  HiOutlineTruck,
+  Conference: 'pi-users',
+  Desk: 'pi-desktop',
+  Vehicle: 'pi-truck',
+  Equipment: 'pi-box',
 };
 
 export default function Bookings() {
@@ -53,7 +49,18 @@ export default function Bookings() {
     {
       key: 'resource',
       label: 'Resource',
-      render: (val) => <span className="font-medium text-text">{val}</span>,
+      render: (_, row) => {
+        return (
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg text-primary">
+              <i className={`pi ${resourceIcons[row.type]} w-4 h-4`}></i>
+            </div>
+            <div>
+              <p className="font-medium text-text">{row.resource}</p>
+            </div>
+          </div>
+        );
+      },
     },
     { key: 'resourceType', label: 'Type' },
     { key: 'bookedBy', label: 'Booked By' },
@@ -78,35 +85,36 @@ export default function Bookings() {
           <h1 className="text-2xl font-bold text-text">Resource Booking</h1>
           <Breadcrumb items={[{ label: 'Resource Booking' }]} />
         </div>
-        <Button icon={HiOutlinePlus} onClick={() => setShowModal(true)}>
-          New Booking
-        </Button>
+        <div>
+          <Button icon="pi-plus" onClick={() => setShowModal(true)}>
+            New Booking
+          </Button>
+        </div>
       </div>
 
       {/* Resource Type Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {resourceTypes.map((resource, i) => {
-          const Icon = resourceIcons[resource.icon];
+          const iconClass = resourceIcons[resource.name] || 'pi-box';
           return (
-            <motion.div
+            <div
               key={resource.id}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 }}
+              className="fadeinup animation-duration-500"
+              style={{ animationDelay: `${i * 50}ms` }}
             >
               <Card className="text-center">
                 <div
                   className="w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center"
                   style={{ backgroundColor: `${resource.color}15` }}
                 >
-                  {Icon && <Icon className="w-6 h-6" style={{ color: resource.color }} />}
+                  <i className={`pi ${iconClass} text-xl`} style={{ color: resource.color }}></i>
                 </div>
                 <h3 className="text-sm font-semibold text-text">{resource.name}</h3>
                 <p className="text-xs text-muted mt-1">
                   <span className="text-success font-medium">{resource.available}</span> / {resource.total} available
                 </p>
               </Card>
-            </motion.div>
+            </div>
           );
         })}
       </div>

@@ -3,15 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { motion } from 'framer-motion';
-import { HiOutlineEnvelope, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeSlash } from 'react-icons/hi2';
 import toast from 'react-hot-toast';
-
-const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  remember: z.boolean().optional(),
-});
+import { loginSchema } from '../schemas/loginSchema';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -44,7 +37,7 @@ export default function LoginForm() {
       <div>
         <label className="block text-sm font-medium text-text mb-1.5">Email Address</label>
         <div className="relative">
-          <HiOutlineEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+          <i className="pi pi-envelope absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
           <input
             type="email"
             placeholder="you@company.com"
@@ -62,7 +55,7 @@ export default function LoginForm() {
       <div>
         <label className="block text-sm font-medium text-text mb-1.5">Password</label>
         <div className="relative">
-          <HiOutlineLockClosed className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+          <i className="pi pi-lock absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Enter your password"
@@ -78,9 +71,9 @@ export default function LoginForm() {
             className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-text transition-colors"
           >
             {showPassword ? (
-              <HiOutlineEyeSlash className="w-4 h-4" />
+              <i className="pi pi-eye-slash w-4 h-4"></i>
             ) : (
-              <HiOutlineEye className="w-4 h-4" />
+              <i className="pi pi-eye w-4 h-4"></i>
             )}
           </button>
         </div>
@@ -103,13 +96,11 @@ export default function LoginForm() {
       </div>
 
       {/* Submit */}
-      <motion.button
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
+      <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-3 bg-primary hover:bg-indigo-700 text-white font-semibold rounded-xl
-          transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed
+        className="w-full py-3 bg-primary hover:bg-indigo-700 active:scale-95 text-white font-semibold rounded-xl
+          transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed
           shadow-lg shadow-primary/25"
       >
         {isSubmitting ? (
@@ -120,7 +111,7 @@ export default function LoginForm() {
         ) : (
           'Sign In'
         )}
-      </motion.button>
+      </button>
     </form>
   );
 }

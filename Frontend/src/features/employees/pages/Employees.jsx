@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { HiOutlinePlus, HiOutlinePencilSquare, HiOutlineTrash, HiOutlineEye } from 'react-icons/hi2';
 import { employees } from '../data/employees';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
@@ -98,7 +97,7 @@ export default function Employees() {
           <h1 className="text-2xl font-bold text-text">Employees</h1>
           <Breadcrumb items={[{ label: 'Employees' }]} />
         </div>
-        <Button icon={HiOutlinePlus} onClick={() => setShowModal(true)}>
+        <Button icon="pi-plus" onClick={() => setShowModal(true)}>
           Add Employee
         </Button>
       </div>
