@@ -34,6 +34,7 @@ export const getDepartmentsRepo = async (filters) => {
     page = 1,
     limit = 10,
     status,
+    search,
     sortBy = 'department_id',
     sortOrder = 'asc',
   } = filters;
@@ -48,6 +49,11 @@ export const getDepartmentsRepo = async (filters) => {
     params.push(status);
   }
 
+  if (search) {
+    whereClauses.push(`(d.name ILIKE $${paramIndex++} OR u.name ILIKE $${paramIndex++})`);
+    params.push(`%${search}%`, `%${search}%`);
+  }
+
   const whereSql = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '';
 
   // Validate sortable column to prevent SQL injection
@@ -55,7 +61,7 @@ export const getDepartmentsRepo = async (filters) => {
   const sortCol = allowedSortColumns.includes(sortBy) ? `d.${sortBy}` : 'd.department_id';
   const orderDirection = sortOrder.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
 
-  const countSql = `SELECT COUNT(*) AS total FROM departments d ${whereSql}`;
+  const countSql = `SELECT COUNT(*) AS total FROM departments d LEFT JOIN users u ON d.department_head_id = u.user_id ${whereSql}`;
   const countResult = await query(countSql, params);
   const total = parseInt(countResult.rows[0].total, 10);
 
@@ -82,6 +88,8 @@ export const getDepartmentsRepo = async (filters) => {
     name: dept.name,
     head: dept.department_head_name || '',
     parentDept: dept.parent_department_name || '--',
+    department_head_id: dept.department_head_id,
+    parent_department_id: dept.parent_department_id,
     status: dept.status === 'ACTIVE' ? 'Active' : 'Inactive',
   }));
 

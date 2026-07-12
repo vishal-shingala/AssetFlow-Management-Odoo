@@ -6,6 +6,8 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import routes from './routes.js';
 import departmentRoutes from '../modules/departments/routes/departmentRoutes.js';
+import categoryRoutes from '../modules/categories/routes/categoryRoutes.js';
+import userRoutes from '../modules/users/routes/userRoutes.js';
 import logger from '../config/logger.js';
 import { initializeDatabase, closeDatabase } from '../config/database.js';
 import { initializeRedis, closeRedis } from '../config/redis.js';
@@ -123,6 +125,8 @@ const createApp = () => {
 
   // API routes
   app.use('/api/departments', departmentRoutes);
+  app.use('/api/categories', categoryRoutes);
+  app.use('/api/users', userRoutes);
 
   // 404 handler
   app.use((req, res) => {

@@ -83,12 +83,15 @@ export const paginationSchema = z.object({
 export const validate = (schema) => {
   return (req, res, next) => {
     try {
+      console.log('Validation middleware - Request body:', req.body);
       // Validate request body
       if (req.body) {
         req.body = schema.parse(req.body);
       }
+      console.log('Validation middleware - Validated body:', req.body);
       next();
     } catch (error) {
+      console.error('Validation error:', error);
       if (error instanceof z.ZodError) {
         const errors = error.errors.map((err) => ({
           field: err.path.join("."),
