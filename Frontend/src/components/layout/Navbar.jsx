@@ -7,7 +7,7 @@ import {
 } from 'react-icons/hi2';
 import { useApp } from '../../context/AppContext';
 import { CURRENT_USER } from '../../constants';
-import { notifications as notificationData } from '../../data/notifications';
+import { notifications as notificationData } from '../../features/notifications/data/notifications';
 import Avatar from '../ui/Avatar';
 import NotificationCard from '../ui/NotificationCard';
 
