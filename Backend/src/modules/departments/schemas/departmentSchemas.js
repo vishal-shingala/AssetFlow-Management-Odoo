@@ -27,5 +27,6 @@ export const departmentFilterSchema = z.object({
   status: z.enum(['ACTIVE', 'INACTIVE']).optional(),
   sortBy: z.enum(['department_id', 'name', 'status', 'created_at']).optional(),
   sortOrder: z.enum(['asc', 'desc']).default('asc').optional(),
+  search: z.string().optional(),
   q: z.string().optional(),
 });
