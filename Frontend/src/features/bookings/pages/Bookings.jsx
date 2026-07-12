@@ -1,13 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  HiOutlineBuildingOffice2, HiOutlineBuildingLibrary,
-  HiOutlineTv, HiOutlineTruck, HiOutlinePlus,
-  HiOutlineCalendar, HiOutlineMapPin, HiOutlineClock,
-  HiOutlineUser, HiOutlineTag, HiChevronDown, HiOutlineTrash,
-  HiOutlineExclamationTriangle, HiXMark
-} from 'react-icons/hi2';
-import { bookingService, resourceService, employeeService } from '../../../services';
+<<<<<<< HEAD:Frontend/src/features/bookings/pages/Bookings.jsx
+import { useState } from 'react';
+import { Users, Monitor, Truck, Box, Plus } from 'lucide-react';
+
+import { bookings, resourceTypes, calendarEvents, bookingStatuses } from '../data/bookings';
 import { STATUS_COLORS } from '../../../constants';
 import Breadcrumb from '../../../components/ui/Breadcrumb';
 import Card from '../../../components/ui/Card';
@@ -18,7 +13,35 @@ import Dropdown from '../../../components/ui/Dropdown';
 import StatusBadge from '../../../components/ui/StatusBadge';
 import Modal from '../../../components/ui/Modal';
 import Input from '../../../components/ui/Input';
-import LoadingSpinner from '../../../components/ui/LoadingSpinner';
+import toast from 'react-hot-toast';
+
+const resourceIcons = {
+  Conference: Users,
+  Desk: Monitor,
+  Vehicle: Truck,
+  Equipment: Box,
+=======
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  HiOutlineBuildingOffice2, HiOutlineBuildingLibrary,
+  HiOutlineTv, HiOutlineTruck, HiOutlinePlus,
+  HiOutlineCalendar, HiOutlineMapPin, HiOutlineClock,
+  HiOutlineUser, HiOutlineTag, HiChevronDown, HiOutlineTrash,
+  HiOutlineExclamationTriangle, HiXMark
+} from 'react-icons/hi2';
+import { bookingService, resourceService, employeeService } from '../../services';
+import { STATUS_COLORS } from '../../constants';
+import Breadcrumb from '../../components/ui/Breadcrumb';
+import Card from '../../components/ui/Card';
+import Table from '../../components/ui/Table';
+import Button from '../../components/ui/Button';
+import SearchBar from '../../components/ui/SearchBar';
+import Dropdown from '../../components/ui/Dropdown';
+import StatusBadge from '../../components/ui/StatusBadge';
+import Modal from '../../components/ui/Modal';
+import Input from '../../components/ui/Input';
+import LoadingSpinner from '../../components/ui/LoadingSpinner';
 import toast from 'react-hot-toast';
 
 const resourceIcons = {
@@ -26,6 +49,7 @@ const resourceIcons = {
   'Conference Hall': HiOutlineBuildingLibrary,
   'Projector': HiOutlineTv,
   'Company Car': HiOutlineTruck,
+>>>>>>> resource:Frontend/src/pages/Bookings/Bookings.jsx
 };
 
 const iconColors = {
@@ -414,6 +438,23 @@ export default function Bookings() {
     {
       key: 'resource_name',
       label: 'Resource',
+<<<<<<< HEAD:Frontend/src/features/bookings/pages/Bookings.jsx
+      render: (_, row) => {
+        return (
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-tag-bg rounded-lg text-tag-text flex items-center justify-center">
+              {(() => {
+                const Icon = resourceIcons[row.type] || Box;
+                return <Icon className="w-6 h-6" />;
+              })()}
+            </div>
+            <div>
+              <p className="font-medium text-name-text">{row.resource}</p>
+            </div>
+          </div>
+        );
+      },
+=======
       render: (val, row) => (
         <div 
           className="cursor-pointer group flex flex-col"
@@ -428,6 +469,7 @@ export default function Bookings() {
           </span>
         </div>
       ),
+>>>>>>> resource:Frontend/src/pages/Bookings/Bookings.jsx
     },
     { key: 'resource_type', label: 'Type' },
     { key: 'employee_name', label: 'Booked By' },
@@ -493,6 +535,65 @@ export default function Bookings() {
           <h1 className="text-2xl font-bold text-text">Resource Booking</h1>
           <Breadcrumb items={[{ label: 'Resource Booking' }]} />
         </div>
+<<<<<<< HEAD:Frontend/src/features/bookings/pages/Bookings.jsx
+        <div>
+          <Button icon={Plus} onClick={() => setShowModal(true)}>
+            New Booking
+          </Button>
+        </div>
+      </div>
+
+      {/* Resource Type Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {resourceTypes.map((resource, i) => {
+          const IconComp = resourceIcons[resource.name] || Box;
+          return (
+            <div
+              key={resource.id}
+              className="fadeinup animation-duration-500"
+              style={{ animationDelay: `${i * 50}ms` }}
+            >
+              <Card className="text-center">
+                <div
+                  className="w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center"
+                  style={{ backgroundColor: `${resource.color}15` }}
+                >
+                  <IconComp className="w-7 h-7" style={{ color: resource.color }} />
+                </div>
+                <h3 className="text-sm font-semibold text-text">{resource.name}</h3>
+                <p className="text-xs text-muted mt-1">
+                  <span className="text-success font-medium">{resource.available}</span> / {resource.total} available
+                </p>
+              </Card>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Calendar */}
+      <Card hover={false}>
+        <h3 className="text-sm font-semibold text-text mb-4">Booking Calendar</h3>
+        <div className="grid grid-cols-7 gap-2">
+          {weekDates.map((date, i) => {
+            const dateStr = date.toISOString().split('T')[0];
+            const dayEvents = calendarEvents.filter((e) => e.date === dateStr);
+            const isToday = date.toDateString() === today.toDateString();
+            return (
+              <div
+                key={i}
+                className={`min-h-[120px] rounded-xl border p-2.5 transition-colors ${
+                  isToday ? 'border-primary bg-primary/5' : 'border-gray-100 hover:border-gray-200'
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-medium text-muted">{weekDays[i]}</span>
+                  <span className={`text-xs font-bold ${isToday ? 'text-primary' : 'text-text'}`}>
+                    {date.getDate()}
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  {dayEvents.map((event) => (
+=======
         <Button icon={HiOutlinePlus} onClick={handleOpenNewModal}>
           New Booking
         </Button>
@@ -525,6 +626,7 @@ export default function Bookings() {
                         : 'border-transparent'
                     }`}
                   >
+>>>>>>> resource:Frontend/src/pages/Bookings/Bookings.jsx
                     <div
                       className="w-12 h-12 rounded-xl mx-auto mb-3 flex items-center justify-center transition-transform hover:scale-105"
                       style={{ backgroundColor: `${iconColors[cat.name] || '#6366F1'}15` }}

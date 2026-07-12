@@ -1,20 +1,20 @@
-import { departments } from '../features/departments/data/departments';
-import { employees } from '../features/employees/data/employees';
-import { bookings } from '../features/bookings/data/bookings';
-import { maintenanceRequests } from '../features/maintenance/data/maintenance';
-import { allocations } from '../features/allocations/data/allocations';
+import { departments } from '../data/departments';
+import { employees } from '../data/employees';
+import { bookings } from '../data/bookings';
+import { maintenanceRequests } from '../data/maintenance';
+import { allocations } from '../data/allocations';
 import {
   kpiCards, assetsByCategory, assetsByStatus,
   maintenanceOverview, departmentAssets,
   recentActivities, recentNotifications,
-} from '../features/dashboard/data/dashboard';
+} from '../data/dashboard';
 import {
   assetCategoryReport, assetStatusReport,
   departmentAllocationReport, maintenanceFrequencyReport,
   resourceUtilizationReport, recentReports,
-} from '../features/reports/data/reports';
+} from '../data/reports';
 
-import apiClient from '../lib/api.js';
+import apiClient from './api.js';
 
 export const departmentService = {
   getAll: async () => departments,
