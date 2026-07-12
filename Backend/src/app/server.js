@@ -139,14 +139,18 @@ const createApp = () => {
 
   // Error handling middleware
   app.use((err, req, res, next) => {
+    const statusCode = err.status || err.statusCode || 500;
+    
     logger.error("Unhandled error", {
       error: err.message,
       stack: err.stack,
       method: req.method,
       url: req.url,
+      status: statusCode,
+      errorName: err.name,
     });
 
-    res.status(err.status || 500).json({
+    res.status(statusCode).json({
       error: err.name || "Internal Server Error",
       message:
         process.env.NODE_ENV === "development"
