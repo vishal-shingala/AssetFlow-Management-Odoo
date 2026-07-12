@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(50) DEFAULT 'EMPLOYEE' CHECK (role IN ('EMPLOYEE', 'DEPARTMENT_HEAD', 'ASSET_MANAGER', 'ADMIN')),
     status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
     is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ============================================
@@ -32,6 +31,10 @@ CREATE TABLE IF NOT EXISTS departments (
     FOREIGN KEY (parent_department_id) REFERENCES departments(department_id),
     FOREIGN KEY (department_head_id) REFERENCES users(user_id)
 );
+
+-- Add foreign key constraint from users to departments now that departments table exists
+ALTER TABLE users ADD CONSTRAINT fk_users_department FOREIGN KEY (department_id) REFERENCES departments(department_id);
+
 
 -- Asset Categories
 CREATE TABLE IF NOT EXISTS asset_categories (
