@@ -25,21 +25,35 @@ function mapBackendAsset(asset) {
 
   return {
     id: asset.id,
-    assetTag: asset.asset_tag || '',
-    name: asset.asset_name || '',
-    category: asset.category_name || 'Laptop',
-    categoryId: asset.category_id || 1,
-    serialNumber: asset.serial_number || 'N/A',
-    purchaseDate: asset.purchase_date ? asset.purchase_date.split('T')[0] : '',
-    warrantyExpiry: asset.warranty_expiry ? asset.warranty_expiry.split('T')[0] : '',
-    value: parseFloat(asset.purchase_cost || 0),
+    assetTag: asset.asset_tag || asset.assetTag || '',
+    name: asset.asset_name || asset.name || '',
+    category: asset.category_name || asset.category || 'Laptop',
+    categoryId: asset.category_id || asset.categoryId || 1,
+    serialNumber: asset.serial_number || asset.serialNumber || '',
+    purchaseDate: (asset.purchase_date || asset.purchaseDate || '').split('T')[0],
+    warrantyExpiry: (asset.warranty_expiry || asset.warrantyExpiry || '').split('T')[0],
+    value: parseFloat(asset.purchase_cost || asset.value || 0),
     condition: formatCondition(asset.condition),
     location: asset.location || 'Main Office',
     status: formatStatus(asset.status),
-    assignedTo: asset.assigned_to_name || '',
-    isShared: asset.is_shared || false,
+    assignedTo: asset.assigned_to_name || asset.assignedTo || '',
+    isShared: asset.is_shared || asset.isShared || false,
   };
 }
+
+const resolveCategoryId = (category) => {
+  const map = {
+    laptop: 1,
+    monitor: 2,
+    tablet: 3,
+    peripheral: 4,
+    networking: 5,
+    server: 3,
+    printer: 4,
+    'mobile device': 3,
+  };
+  return map[String(category || '').trim().toLowerCase()] || 1;
+};
 
 export const assetService = {
   getAll: async (params = {}) => {
@@ -54,25 +68,49 @@ export const assetService = {
   },
 
   create: async (data) => {
+    const catId = resolveCategoryId(data.category);
     const payload = {
-      asset_tag: data.assetTag || `AST-${Math.floor(100 + Math.random() * 900)}`,
+      asset_tag: data.assetTag,
       asset_name: data.name,
-      category_id: parseInt(data.categoryId || 1, 10),
-      serial_number: data.serialNumber || `SN-${Date.now()}`,
-      purchase_date: data.purchaseDate || new Date().toISOString().split('T')[0],
-      purchase_cost: parseFloat(data.value || 0),
+      category_id: parseInt(catId, 10),
+      serial_number: data.serialNumber,
+      purchase_date: data.purchaseDate,
+      warranty_expiry: data.warrantyExpiry,
+      purchase_cost: parseFloat(data.value),
       condition: (data.condition || 'EXCELLENT').toUpperCase(),
-      location: data.location || 'Main Office',
+      location: data.location,
       is_shared: false,
       status: 'AVAILABLE',
     };
     const res = await apiClient.post('/assets', payload);
-    return mapBackendAsset(res?.data);
+    const createdObj = res?.data || {};
+    return mapBackendAsset({
+      ...createdObj,
+      category_id: catId,
+      category_name: data.category || 'Laptop',
+    });
   },
 
   update: async (id, data) => {
-    const res = await apiClient.put(`/assets/${id}`, data);
-    return mapBackendAsset(res?.data);
+    const catId = resolveCategoryId(data.category);
+    const payload = {
+      asset_name: data.name,
+      asset_tag: data.assetTag,
+      category_id: parseInt(catId, 10),
+      serial_number: data.serialNumber,
+      purchase_date: data.purchaseDate,
+      warranty_expiry: data.warrantyExpiry,
+      location: data.location,
+      condition: (data.condition || 'EXCELLENT').toUpperCase(),
+      purchase_cost: parseFloat(data.value || 0),
+    };
+    const res = await apiClient.put(`/assets/${id}`, payload);
+    const updatedObj = res?.data || {};
+    return mapBackendAsset({
+      ...updatedObj,
+      category_id: catId,
+      category_name: data.category || 'Laptop',
+    });
   },
 
   delete: async (id) => {

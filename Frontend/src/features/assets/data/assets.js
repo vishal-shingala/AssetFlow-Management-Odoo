@@ -170,8 +170,7 @@ export const assets = [
 ];
 
 export const assetCategories = [
-  'Laptop', 'Monitor', 'Furniture', 'Printer', 'Networking',
-  'Vehicle', 'Software', 'Peripheral', 'Tablet', 'Projector',
+  'Laptop', 'Monitor', 'Tablet', 'Peripheral', 'Networking',
 ];
 
 export const assetStatuses = [
@@ -180,5 +179,5 @@ export const assetStatuses = [
 ];
 
 export const assetConditions = [
-  'Excellent', 'Good', 'Fair', 'Poor', 'N/A',
+  'Excellent', 'Good', 'Fair', 'Poor',
 ];

@@ -6,7 +6,7 @@ import Dropdown from '../../../components/ui/Dropdown';
 import toast from 'react-hot-toast';
 import { getEmployees, getDepartments } from '../api/organizationApi';
 
-export default function AddDepartmentModal({ isOpen, onClose, onSubmit }) {
+export default function EditDepartmentModal({ isOpen, onClose, onSubmit, department }) {
   const [formData, setFormData] = useState({
     name: '',
     head: '',
@@ -18,11 +18,16 @@ export default function AddDepartmentModal({ isOpen, onClose, onSubmit }) {
   const [loadingDepartments, setLoadingDepartments] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && department) {
+      setFormData({
+        name: department.name || '',
+        head: department.department_head_id?.toString() || '',
+        parentDept: department.parent_department_id?.toString() || '',
+      });
       fetchEmployees();
       fetchDepartments();
     }
-  }, [isOpen]);
+  }, [isOpen, department]);
 
   const fetchEmployees = async () => {
     try {
@@ -60,12 +65,15 @@ export default function AddDepartmentModal({ isOpen, onClose, onSubmit }) {
       status: 'ACTIVE',
     };
 
+    console.log('Submitting department update:', data);
+    console.log('Form data:', formData);
+
     try {
       await onSubmit(data);
-      toast.success('Department added successfully');
-      setFormData({ name: '', head: '', parentDept: '' });
+      toast.success('Department updated successfully');
     } catch (error) {
-      toast.error('Failed to add department');
+      console.error('Update error:', error);
+      toast.error('Failed to update department');
     }
   };
 
@@ -86,14 +94,16 @@ export default function AddDepartmentModal({ isOpen, onClose, onSubmit }) {
 
   const departmentOptions = [
     { value: '', label: 'Select Parent Department (Optional)' },
-    ...departments.map(dept => ({
+    ...departments
+      .filter(dept => (dept.id || dept.department_id) !== (department?.id || department?.department_id))
+      .map(dept => ({
       value: dept.id?.toString() || dept.department_id?.toString(),
       label: dept.name
     }))
   ];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Add New Department">
+    <Modal isOpen={isOpen} onClose={onClose} title="Edit Department">
       <form className="space-y-4" onSubmit={handleSubmit}>
         <Input 
           label="Department Name" 
@@ -123,7 +133,7 @@ export default function AddDepartmentModal({ isOpen, onClose, onSubmit }) {
         />
         <div className="flex justify-end gap-3 pt-4">
           <Button variant="outline" onClick={onClose}>Cancel</Button>
-          <Button variant="success" type="submit">Save Department</Button>
+          <Button variant="success" type="submit">Update Department</Button>
         </div>
       </form>
     </Modal>
