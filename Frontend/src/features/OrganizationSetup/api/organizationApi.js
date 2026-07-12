@@ -57,10 +57,14 @@ export const createDepartment = async (data) => {
 
 export const updateDepartment = async (id, data) => {
   try {
+    console.log('API updateDepartment - Calling with:', { id, data });
     const response = await api.put(`/departments/${id}`, data);
+    console.log('API updateDepartment - Response:', response.data);
     return response.data;
   } catch (error) {
     console.error('API Error - updateDepartment:', error);
+    console.error('Error response:', error.response);
+    console.error('Error request:', error.request);
     throw error;
   }
 };
@@ -91,6 +95,16 @@ export const getDepartmentById = async (id) => {
     return response.data;
   } catch (error) {
     console.error('API Error - getDepartmentById:', error);
+    throw error;
+  }
+};
+
+export const getEmployees = async () => {
+  try {
+    const response = await api.get('/users/role/EMPLOYEE');
+    return response.data;
+  } catch (error) {
+    console.error('API Error - getEmployees:', error);
     throw error;
   }
 };

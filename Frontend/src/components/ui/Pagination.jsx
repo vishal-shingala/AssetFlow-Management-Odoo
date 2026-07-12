@@ -1,71 +1,36 @@
-
+import { ChevronLeft, ChevronLeftIcon, ChevronRight, ChevronRightIcon } from 'lucide-react';
 
 export default function Pagination({ currentPage, totalPages, onPageChange }) {
-  const pages = [];
-  const maxVisible = 5;
-  let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-  let end = Math.min(totalPages, start + maxVisible - 1);
-  if (end - start + 1 < maxVisible) {
-    start = Math.max(1, end - maxVisible + 1);
-  }
+  if (totalPages <= 1) return null;
 
-  for (let i = start; i <= end; i++) {
+  const pages = [];
+  for (let i = 1; i <= totalPages; i++) {
     pages.push(i);
   }
 
-  if (totalPages <= 1) return null;
-
   return (
-    <div className="flex items-center gap-1">
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-      >
-        <i className="pi pi-chevron-left w-6 h-6 text-lg"></i>
-      </button>
-      {start > 1 && (
-        <>
-          <button
-            onClick={() => onPageChange(1)}
-            className="w-9 h-9 rounded-lg text-sm hover:bg-gray-100 transition-colors"
-          >
-            1
-          </button>
-          {start > 2 && <span className="px-1 text-muted">...</span>}
-        </>
-      )}
-      {pages.map((page) => (
+    <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center gap-2">
         <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors
-            ${page === currentPage
-              ? 'bg-primary text-white'
-              : 'hover:bg-gray-100 text-text'
-            }`}
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-text border border-gray-200 flex items-center justify-center"
+          aria-label="Previous page"
         >
-          {page}
+        <ChevronLeftIcon size={20} />
         </button>
-      ))}
-      {end < totalPages && (
-        <>
-          {end < totalPages - 1 && <span className="px-1 text-muted">...</span>}
-          <button
-            onClick={() => onPageChange(totalPages)}
-            className="w-9 h-9 rounded-lg text-sm hover:bg-gray-100 transition-colors"
-          >
-            {totalPages}
-          </button>
-        </>
-      )}
-      <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-      >
-        <i className="pi pi-chevron-right w-6 h-6 text-lg"></i>
-      </button>
+        <div className="text-sm text-text/70 whitespace-nowrap">
+          Page {currentPage} of {totalPages}
+        </div>
+        <button
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-text border border-gray-200 flex items-center justify-center"
+          aria-label="Next page"
+        >
+        <ChevronRightIcon size={20} />
+        </button>
+      </div>
     </div>
   );
 }

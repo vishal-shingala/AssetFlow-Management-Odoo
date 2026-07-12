@@ -1,19 +1,39 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronDown } from 'lucide-react';
 
-export default function Dropdown({ options, value, onChange, placeholder = 'Select...', label }) {
+export default function Dropdown({ options, value, onChange, placeholder = 'Select...', label, disabled = false }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const dropdownRef = useRef(null);
+  const buttonRef = useRef(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (buttonRef.current && !buttonRef.current.contains(e.target) && 
+          menuRef.current && !menuRef.current.contains(e.target)) {
         setIsOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const dropdownHeight = Math.min(options.length * 40, 240);
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const shouldDropUp = spaceBelow < dropdownHeight + 10 && rect.top > spaceBelow;
+      
+      setDropdownPosition({
+        top: shouldDropUp ? rect.top - dropdownHeight - 4 : rect.bottom + 4,
+        left: rect.left,
+        width: rect.width
+      });
+    }
+  }, [isOpen, options.length]);
 
   const selected = options.find((o) => (typeof o === 'string' ? o === value : o.value === value));
   const displayValue = typeof selected === 'string' ? selected : selected?.label;
@@ -26,19 +46,29 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
       <div className="relative">
         <button
           type="button"
-          onClick={() => setIsOpen(!isOpen)}
+          ref={buttonRef}
+          onClick={() => !disabled && setIsOpen(!isOpen)}
+          disabled={disabled}
           className="w-full flex items-center justify-between px-4 py-2.5 text-sm rounded-xl
             border-0 bg-background text-left shadow-soft
             focus:outline-none focus:ring-2 focus:ring-primary/25 focus:bg-white
-            transition-all duration-200"
+            transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <span className={displayValue ? 'text-text' : 'text-muted'}>
             {displayValue || placeholder}
           </span>
           <ChevronDown className={`w-6 h-6 text-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
-        {isOpen && (
-          <div className="absolute z-20 w-full mt-1 bg-white rounded-2xl shadow-dropdown py-1.5 max-h-60 overflow-y-auto">
+        {isOpen && createPortal(
+          <div 
+            ref={menuRef}
+            className="fixed z-[9999] bg-white rounded-2xl shadow-dropdown py-1.5 max-h-60 overflow-y-auto"
+            style={{
+              top: `${dropdownPosition.top}px`,
+              left: `${dropdownPosition.left}px`,
+              width: `${dropdownPosition.width}px`
+            }}
+          >
             {options.map((option, i) => {
               const optValue = typeof option === 'string' ? option : option.value;
               const rawLabel = typeof option === 'string' ? option : option.label;
@@ -59,7 +89,8 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
                 </button>
               );
             })}
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </div>
