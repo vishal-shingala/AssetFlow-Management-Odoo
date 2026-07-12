@@ -7,9 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#9333ea",
-        "primary-light": "#a855f7",
-        "primary-dark": "#7e22ce",
+        primary: "#0f172a", // Slate 900
+        "primary-light": "#334155", // Slate 700
+        "primary-dark": "#020617", // Slate 950
         secondary: "#64748b",
         "secondary-light": "#94a3b8",
         "secondary-dark": "#475569",
@@ -57,7 +57,7 @@ export default {
         'card-hover': '0 4px 24px 0 rgba(0, 0, 0, 0.11)',
         'soft': '0 1px 4px 0 rgba(0, 0, 0, 0.05)',
         'dropdown': '0 8px 30px 0 rgba(0, 0, 0, 0.13)',
-        'glow-primary': '0 4px 14px 0 rgba(147, 51, 234, 0.3)',
+        'glow-primary': '0 4px 14px 0 rgba(15, 23, 42, 0.25)',
         'glow-success': '0 4px 14px 0 rgba(16, 185, 129, 0.3)',
         'glow-danger': '0 4px 14px 0 rgba(239, 68, 68, 0.3)',
       }

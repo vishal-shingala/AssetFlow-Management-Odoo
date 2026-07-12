@@ -35,13 +35,18 @@ export default function Dropdown({ options, value, onChange, placeholder = 'Sele
           <span className={displayValue ? 'text-text' : 'text-muted'}>
             {displayValue || placeholder}
           </span>
-          <ChevronDown className={`w-5 h-5 text-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-6 h-6 text-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
         </button>
         {isOpen && (
           <div className="absolute z-20 w-full mt-1 bg-white rounded-2xl shadow-dropdown py-1.5 max-h-60 overflow-y-auto">
             {options.map((option, i) => {
               const optValue = typeof option === 'string' ? option : option.value;
-              const optLabel = typeof option === 'string' ? option : option.label;
+              const rawLabel = typeof option === 'string' ? option : option.label;
+              const optLabel = rawLabel || (
+                placeholder && placeholder !== 'Select...'
+                  ? (placeholder.toLowerCase() === 'status' ? 'All Statuses' : (placeholder.toLowerCase() === 'category' ? 'All Categories' : `All ${placeholder}s`))
+                  : 'All'
+              );
               return (
                 <button
                   key={i}

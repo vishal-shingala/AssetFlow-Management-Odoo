@@ -79,7 +79,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className={`p-2 rounded-lg flex-none ${colorMap[kpi.color]}`}>
-                <kpi.icon className="w-5 h-5" />
+                <kpi.icon className="w-6 h-6" />
               </div>
             </div>
           </Card>

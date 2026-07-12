@@ -68,17 +68,17 @@ export default function Allocations() {
             <>
               <button
                 onClick={(e) => { e.stopPropagation(); toast.success('Asset returned'); }}
-                className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-success transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-success transition-colors"
                 title="Return"
               >
-                <Undo2 className="w-5 h-5" />
+                <Undo2 className="w-6 h-6 flex-shrink-0" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); toast.success('Transfer initiated'); }}
-                className="p-1.5 rounded-lg hover:bg-gray-100 text-muted hover:text-primary transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors"
                 title="Transfer"
               >
-                <RefreshCw className="w-5 h-5" />
+                <RefreshCw className="w-6 h-6 flex-shrink-0" />
               </button>
             </>
           )}
@@ -95,7 +95,7 @@ export default function Allocations() {
           <Breadcrumb items={[{ label: 'Asset Allocation' }]} />
         </div>
         <div className="flex gap-3">
-          <Button variant="outline" icon={ArrowRightLeft} onClick={() => toast.success('Transfer mode')}>
+          <Button variant="outline" icon={ArrowRightLeft} iconClassName="w-7 h-7" onClick={() => toast.success('Transfer mode')}>
             Transfer
           </Button>
           <Button icon={Plus} onClick={() => setShowAllocateModal(true)}>
