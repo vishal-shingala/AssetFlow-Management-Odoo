@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  HiOutlineBuildingOffice2, HiOutlineBuildingLibrary,
-  HiOutlineTv, HiOutlineTruck, HiOutlinePlus,
-} from 'react-icons/hi2';
+
 import { bookings, resourceTypes, calendarEvents, bookingStatuses } from '../../data/bookings';
 import { STATUS_COLORS } from '../../constants';
 import Breadcrumb from '../../components/ui/Breadcrumb';

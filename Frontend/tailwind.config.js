@@ -7,20 +7,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#4F46E5",
-        secondary: "#818CF8",
-        success: "#10B981",
-        warning: "#F59E0B",
-        danger: "#DC2626",
-        background: "#F9FAFB",
-        surface: "#FFFFFF",
-        sidebar: "#111827",
-        text: "#111827",
-        muted: "#6B7280",
+        primary: {
+          DEFAULT: "#6366f1", // Indigo 500
+          light: "#818cf8", // Indigo 400
+          dark: "#4f46e5", // Indigo 600
+        },
+        secondary: {
+          DEFAULT: "#64748b", // Slate 500
+          light: "#94a3b8", // Slate 400
+          dark: "#475569", // Slate 600
+        },
+        success: "#10b981",
+        warning: "#f59e0b",
+        danger: "#ef4444",
+        info: "#3b82f6",
+        background: "#f8fafc", // Slate 50
+        surface: "#ffffff",
+        sidebar: "#0f172a", // Slate 900
+        text: {
+          DEFAULT: "#334155", // Slate 700
+          light: "#64748b", // Slate 500
+          dark: "#0f172a", // Slate 900
+        },
+        muted: "#94a3b8",
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
+      boxShadow: {
+        'soft': '0 4px 20px 0 rgba(0, 0, 0, 0.05)',
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+      }
     },
   },
   plugins: [],

@@ -3,22 +3,7 @@
 -- This script runs automatically on first PostgreSQL container start
 
 -- ============================================
--- 1. Users Table (includes employee data)
--- ============================================
-CREATE TABLE IF NOT EXISTS users (
-    user_id SERIAL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    department_id INTEGER NULL,
-    role VARCHAR(50) DEFAULT 'EMPLOYEE' CHECK (role IN ('EMPLOYEE', 'DEPARTMENT_HEAD', 'ASSET_MANAGER', 'ADMIN')),
-    status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- ============================================
--- 2. Organization Tables
+-- 1. Organization Tables (create first - no dependencies)
 -- ============================================
 
 -- Departments
@@ -28,8 +13,7 @@ CREATE TABLE IF NOT EXISTS departments (
     parent_department_id INTEGER NULL,
     department_head_id INTEGER NULL,
     status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
-    FOREIGN KEY (parent_department_id) REFERENCES departments(department_id),
-    FOREIGN KEY (department_head_id) REFERENCES users(user_id)
+    FOREIGN KEY (parent_department_id) REFERENCES departments(department_id)
 );
 
 -- Add foreign key constraint from users to departments now that departments table exists
@@ -43,6 +27,25 @@ CREATE TABLE IF NOT EXISTS asset_categories (
     description TEXT NULL,
     status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE'))
 );
+
+-- ============================================
+-- 2. Users Table (depends on departments)
+-- ============================================
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    department_id INTEGER NULL,
+    role VARCHAR(50) DEFAULT 'EMPLOYEE' CHECK (role IN ('EMPLOYEE', 'DEPARTMENT_HEAD', 'ASSET_MANAGER', 'ADMIN')),
+    status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+);
+
+-- Add department_head_id foreign key after users table is created
+ALTER TABLE departments ADD CONSTRAINT fk_department_head FOREIGN KEY (department_head_id) REFERENCES users(user_id);
 
 -- ============================================
 -- 3. Assets Table
