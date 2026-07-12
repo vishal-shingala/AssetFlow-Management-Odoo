@@ -46,26 +46,20 @@ export default function LoginForm() {
           placeholder="Enter your password"
           icon={Lock}
           error={errors.password?.message}
+          className="pr-14"
           {...register('password')}
         />
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className={`absolute right-3.5 ${errors.password ? 'top-8' : 'top-9'} text-muted hover:text-text transition-colors`}
+          className={`absolute right-3.5 text-muted hover:text-primary transition-colors flex items-center justify-center`}
+          style={{ top: '36px', height: '24px' }}
         >
-          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+          {showPassword ? <EyeOff className="w-7 h-7" /> : <Eye className="w-7 h-7" />}
         </button>
       </div>
 
       <div className="flex items-center justify-between">
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input
-            type="checkbox"
-            {...register('remember')}
-            className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary/20"
-          />
-          <span className="text-sm text-muted">Remember me</span>
-        </label>
         <button type="button" className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors">
           Forgot password?
         </button>
