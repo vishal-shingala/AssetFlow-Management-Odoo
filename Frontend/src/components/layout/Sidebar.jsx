@@ -7,6 +7,16 @@ export default function Sidebar() {
   const { sidebarCollapsed, toggleSidebar } = useApp();
   const navigate = useNavigate();
 
+  // Get logged-in user and their role
+  const userStr = sessionStorage.getItem('user');
+  const currentUser = userStr ? JSON.parse(userStr) : null;
+  const userRole = currentUser?.role || 'EMPLOYEE';
+
+  // Filter nav items based on user role
+  const visibleNavItems = NAV_ITEMS.filter(
+    (item) => !item.roles || item.roles.includes(userRole)
+  );
+
   const handleLogout = () => {
     sessionStorage.removeItem('auth_token');
     sessionStorage.removeItem('user');
@@ -53,7 +63,7 @@ export default function Sidebar() {
     
       {/* Navigation */}
       <nav className="flex-1 py-4 px-3 space-y-1 border-t border-white/5 overflow-y-auto overflow-x-hidden">
-        {NAV_ITEMS.map((item) => (
+        {visibleNavItems.map((item) => (
           <NavLink
             key={item.id}
             to={item.path}

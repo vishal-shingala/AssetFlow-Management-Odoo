@@ -14,8 +14,10 @@ import StatusBadge from '../../../components/ui/StatusBadge';
 import Input from '../../../components/ui/Input';
 import { LoadingSpinner } from '../../../components/ui/LoadingSpinner';
 import toast from 'react-hot-toast';
+import { usePermission } from '../../../hooks/usePermission';
 
 export default function Assets() {
+  const { can } = usePermission();
   const [assets, setAssets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -151,12 +153,16 @@ export default function Assets() {
           <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="View details" onClick={(e) => { e.stopPropagation(); setSelectedAsset(row); setShowViewModal(true); }}>
             <Eye className="w-10 h-10 flex-shrink-0" />
           </button>
-          <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}>
-            <Edit2 className="w-10 h-10 flex-shrink-0" />
-          </button>
-          <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => { e.stopPropagation(); toast.success('Asset deleted'); }}>
-            <Trash2 className="w-10 h-10 flex-shrink-0" />
-          </button>
+          {can(['ASSET_MANAGER', 'ADMIN']) && (
+            <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-primary transition-colors" title="Edit asset" onClick={(e) => { e.stopPropagation(); toast.success('Edit asset'); }}>
+              <Edit2 className="w-10 h-10 flex-shrink-0" />
+            </button>
+          )}
+          {can(['ASSET_MANAGER', 'ADMIN']) && (
+            <button className="w-15 h-15 flex items-center justify-center rounded-xl hover:bg-gray-100 text-muted hover:text-danger transition-colors" title="Delete asset" onClick={(e) => { e.stopPropagation(); handleDelete(e, row.id); }}>
+              <Trash2 className="w-10 h-10 flex-shrink-0" />
+            </button>
+          )}
         </div>
       ),
     },
@@ -170,9 +176,11 @@ export default function Assets() {
           {/* <Breadcrumb items={[{ label: 'Assets' }]} /> */}
         </div>
         <div className="flex gap-3">
-          <Button icon={Plus} onClick={() => setShowModal(true)}>
-            Add Asset
-          </Button>
+          {can(['ASSET_MANAGER', 'ADMIN']) && (
+            <Button icon={Plus} onClick={() => setShowModal(true)}>
+              Add Asset
+            </Button>
+          )}
         </div>
       </div>
 

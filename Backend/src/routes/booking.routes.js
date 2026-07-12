@@ -9,9 +9,14 @@ import {
   updateBookingSchema,
   bookingIdParamSchema,
 } from "../validators/booking.validator.js";
+import { authenticate, authorize } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
+// All booking routes require authentication
+router.use(authenticate);
+
+// All authenticated roles can view and create bookings (EMPLOYEE, DEPARTMENT_HEAD, ASSET_MANAGER, ADMIN)
 router.get("/", bookingController.getBookings);
 router.get(
   "/:id",
@@ -34,8 +39,10 @@ router.patch(
   validateParams(bookingIdParamSchema),
   bookingController.cancelBooking,
 );
+// Only Asset Manager and Admin can hard-delete bookings
 router.delete(
   "/:id",
+  authorize(["ASSET_MANAGER", "ADMIN"]),
   validateParams(bookingIdParamSchema),
   bookingController.deleteBooking,
 );
