@@ -4,12 +4,15 @@ import {
   validateQuery,
   validateParams,
 } from "../middlewares/validate.middleware.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 import {
   getResourcesQuerySchema,
   resourceIdParamSchema,
 } from "../validators/resource.validator.js";
 
 const router = express.Router();
+
+router.use(authenticate);
 
 router.get(
   "/",

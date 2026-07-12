@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import App from '../App.jsx';
 import { GlobalError } from '../components/error/GlobalError.jsx';
 import { NotFound } from '../components/error/NotFound.jsx';
+import { ProtectedRoute, PublicRoute } from '../components/auth/RouteGuards.jsx';
 
 // Lazy load pages
 const Login = lazy(() => import('../features/login/pages/Login.jsx'));
@@ -19,35 +20,39 @@ const Settings = lazy(() => import('../features/settings/pages/Settings.jsx'));
 
 export const router = createBrowserRouter([
   {
-    path: '/login',
-    element: <Login />,
-    errorElement: <GlobalError />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-    errorElement: <GlobalError />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-    errorElement: <GlobalError />,
-  },
-  {
-    path: '/',
-    element: <App />,
+    element: <PublicRoute />,
     errorElement: <GlobalError />,
     children: [
-      { index: true, element: <Dashboard /> },
-      { path: 'organizationsetup', element: <OrganizationSetup /> },
-      { path: 'employees', element: <Employees /> },
-      { path: 'assets', element: <Assets /> },
-      { path: 'allocations', element: <Allocations /> },
-      { path: 'bookings', element: <Bookings /> },
-      { path: 'maintenance', element: <Maintenance /> },
-      { path: 'reports', element: <Reports /> },
-      { path: 'settings', element: <Settings /> },
-      { path: '*', element: <NotFound /> },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/signup',
+        element: <Signup />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute />,
+    errorElement: <GlobalError />,
+    children: [
+      {
+        path: '/',
+        element: <App />,
+        children: [
+          { index: true, element: <Dashboard /> },
+          { path: 'organizationsetup', element: <OrganizationSetup /> },
+          { path: 'employees', element: <Employees /> },
+          { path: 'assets', element: <Assets /> },
+          { path: 'allocations', element: <Allocations /> },
+          { path: 'bookings', element: <Bookings /> },
+          { path: 'maintenance', element: <Maintenance /> },
+          { path: 'reports', element: <Reports /> },
+          { path: 'settings', element: <Settings /> },
+          { path: '*', element: <NotFound /> },
+        ],
+      },
     ],
   },
 ]);

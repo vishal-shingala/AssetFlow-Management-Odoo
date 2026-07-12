@@ -12,6 +12,7 @@ export function usePermission() {
 
   const can = (allowedRoles) => {
     if (!userRole) return false;
+    if (String(userRole).toUpperCase() === 'ADMIN') return true;
     const rolesArr = Array.isArray(allowedRoles) ? allowedRoles : [allowedRoles];
     return rolesArr.some(
       (r) => String(r).toUpperCase() === String(userRole).toUpperCase()

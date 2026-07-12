@@ -32,7 +32,7 @@ export default function LoginForm() {
       sessionStorage.setItem('auth_token', token);
       sessionStorage.setItem('user', JSON.stringify(user));
       toast.success('Login successful! Welcome back.');
-      navigate('/');
+      navigate('/', { replace: true });
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Login failed. Please check your credentials.';
       toast.error(errorMessage);
