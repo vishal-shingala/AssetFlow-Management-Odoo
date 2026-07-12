@@ -1,9 +1,10 @@
-import express from "express";
-import { healthCheck as dbHealthCheck } from "../config/database.js";
-import { healthCheck as redisHealthCheck } from "../config/redis.js";
-import logger from "../config/logger.js";
-import resourceRoutes from "../routes/resource.routes.js";
-import bookingRoutes from "../routes/booking.routes.js";
+import express from 'express';
+import { healthCheck as dbHealthCheck } from '../config/database.js';
+import { healthCheck as redisHealthCheck } from '../config/redis.js';
+import logger from '../config/logger.js';
+import assetRoutes from '../modules/assets/routes/assetRoutes.js';
+import resourceRoutes from '../routes/resource.routes.js';
+import bookingRoutes from '../routes/booking.routes.js';
 
 const router = express.Router();
 
@@ -136,5 +137,8 @@ router.get("/live", (req, res) => {
     uptime: process.uptime(),
   });
 });
+
+// Asset Management Module Routes
+router.use('/api/assets', assetRoutes);
 
 export default router;
