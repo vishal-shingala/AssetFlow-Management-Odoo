@@ -65,7 +65,9 @@ export default function AddDepartmentModal({ isOpen, onClose, onSubmit }) {
       toast.success('Department added successfully');
       setFormData({ name: '', head: '', parentDept: '' });
     } catch (error) {
-      toast.error('Failed to add department');
+      console.error('Add error:', error);
+      const errorMessage = error.response?.data?.error || error.message || 'Failed to add department';
+      toast.error(errorMessage);
     }
   };
 
