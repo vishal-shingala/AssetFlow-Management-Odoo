@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  HiOutlineClock, HiOutlineCheckCircle, HiOutlineExclamationTriangle,
-  HiOutlineWrenchScrewdriver, HiOutlinePlus,
-} from 'react-icons/hi2';
+
 import { maintenanceRequests, maintenanceStats } from '../../data/maintenance';
 import { STATUS_COLORS, PRIORITY_COLORS } from '../../constants';
 import Breadcrumb from '../../components/ui/Breadcrumb';

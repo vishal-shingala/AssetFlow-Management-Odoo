@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import { motion } from 'framer-motion';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { LoadingSpinner } from '../ui/LoadingSpinner';
@@ -12,24 +11,20 @@ export default function DashboardLayout() {
   return (
     <div className="min-h-screen bg-background">
       <Sidebar />
-      <motion.div
-        animate={{ marginLeft: sidebarCollapsed ? 72 : 260 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="flex flex-col min-h-screen"
+      <div
+        className={`flex flex-col min-h-screen transition-all duration-300 ease-in-out ${
+          sidebarCollapsed ? 'ml-20' : 'ml-64'
+        }`}
       >
         <Navbar />
         <main className="flex-1 p-6">
           <Suspense fallback={<LoadingSpinner />}>
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
+            <div className="fadeinup animation-duration-300 animation-iteration-1">
               <Outlet />
-            </motion.div>
+            </div>
           </Suspense>
         </main>
-      </motion.div>
+      </div>
     </div>
   );
 }

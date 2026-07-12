@@ -1,9 +1,9 @@
-import { HiOutlineMagnifyingGlass } from 'react-icons/hi2';
+
 
 export default function SearchBar({ value, onChange, placeholder = 'Search...' }) {
   return (
     <div className="relative">
-      <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+      <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"></i>
       <input
         type="text"
         value={value}
