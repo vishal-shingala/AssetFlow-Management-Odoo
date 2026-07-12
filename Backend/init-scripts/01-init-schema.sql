@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     role VARCHAR(50) DEFAULT 'EMPLOYEE' CHECK (role IN ('EMPLOYEE', 'DEPARTMENT_HEAD', 'ASSET_MANAGER', 'ADMIN')),
     status VARCHAR(50) DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'INACTIVE')),
     is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ============================================

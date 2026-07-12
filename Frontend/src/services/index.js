@@ -14,6 +14,8 @@ import {
   resourceUtilizationReport, recentReports,
 } from '../data/reports';
 
+import apiClient from './api.js';
+
 export const departmentService = {
   getAll: async () => departments,
   getById: async (id) => departments.find((d) => d.id === id),
@@ -30,13 +32,44 @@ export const employeeService = {
   delete: async (id) => ({ success: true, id }),
 };
 
-export const bookingService = {
-  getAll: async () => bookings,
-  getById: async (id) => bookings.find((b) => b.id === id),
-  create: async (data) => ({ ...data, id: Date.now() }),
-  update: async (id, data) => ({ ...data, id }),
-  delete: async (id) => ({ success: true, id }),
+export const resourceService = {
+  getAll: async (params) => {
+    const res = await apiClient.get('/resources', { params });
+    return res.data; // Returns { resources: [...], pagination: {...} }
+  },
+  getById: async (id) => {
+    const res = await apiClient.get(`/resources/${id}`);
+    return res.data;
+  }
 };
+
+export const bookingService = {
+  getAll: async (params) => {
+    const res = await apiClient.get('/bookings', { params });
+    return res.data; // Returns bookings array
+  },
+  getById: async (id) => {
+    const res = await apiClient.get(`/bookings/${id}`);
+    return res.data;
+  },
+  create: async (data) => {
+    const res = await apiClient.post('/bookings', data);
+    return res.data;
+  },
+  update: async (id, data) => {
+    const res = await apiClient.put(`/bookings/${id}`, data);
+    return res.data;
+  },
+  cancel: async (id) => {
+    const res = await apiClient.patch(`/bookings/${id}/cancel`);
+    return res.data;
+  },
+  delete: async (id) => {
+    const res = await apiClient.delete(`/bookings/${id}`);
+    return res.data;
+  }
+};
+
 
 export const maintenanceService = {
   getAll: async () => maintenanceRequests,
